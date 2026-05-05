@@ -1,0 +1,3846 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+  TOEIC Study Planner (แผนการเรียน TOEIC)
+================================================================================
+  ผู้พัฒนา: GitHub Copilot + Manual Refinement
+  เวอร์ชัน: 1.0.0
+
+  คำอธิบาย:
+    เว็บแอปพลิเคชันสำหรับวางแผนการเรียน TOEIC แบบ Static Site
+    ทำงานบน GitHub Pages ได้โดยไม่ต้องใช้ Server
+
+  วิธีรันในเครื่อง (Local):
+    1. เปิดไฟล์ index.html ด้วย Browser โดยตรง หรือ
+    2. ใช้ Live Server extension ใน VS Code
+
+  วิธี Deploy บน GitHub Pages:
+    1. สร้าง Repository บน GitHub
+    2. อัปโหลดไฟล์ index.html
+    3. ไปที่ Settings > Pages > Source: Deploy from branch > main / (root)
+    4. เว็บไซต์จะพร้อมใช้งานที่ https://[username].github.io/[repo-name]
+
+  การตั้งค่า Feedback Form:
+    - Formspree: ค้นหา "REPLACE_WITH_YOUR_FORMSPREE_URL" แล้วใส่ URL ของคุณ
+      ตัวอย่าง: https://formspree.io/f/xyzabcde
+    - Web3Forms: ค้นหา "REPLACE_WITH_YOUR_WEB3FORMS_KEY" แล้วใส่ Access Key ของคุณ
+      ตัวอย่าง: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
+  ไฟล์เสียงสำหรับ Listening (ตัวเลือก):
+    - ค้นหา "AUDIO_URL_PLACEHOLDER" แล้วแทนที่ด้วย URL ไฟล์เสียงของคุณ
+      ตัวอย่าง: https://your-cdn.com/audio/part1_q1.mp3
+
+  แหล่งข้อมูลภายนอก:
+    - ค้นหา "EXTERNAL_RESOURCE_URL" เพื่อแก้ไข URL แหล่งข้อมูลต่างๆ
+================================================================================
+-->
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOEIC Study Planner — วางแผนเรียน TOEIC อย่างชาญฉลาด</title>
+  <meta name="description" content="แผนการเรียน TOEIC แบบ Personalized ประเมินจุดแข็งและจุดอ่อน สร้างแผนการเรียนรายสัปดาห์ พร้อมแหล่งข้อมูลฟรี" />
+
+  <!-- Google Fonts: Sarabun (Thai) + Playfair Display (Display) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+       CSS CUSTOM PROPERTIES — ธีมสี + Dark Mode
+    ================================================================ */
+    :root {
+      --c-bg:          #F7F5F0;
+      --c-bg2:         #EDEAE2;
+      --c-surface:     #FFFFFF;
+      --c-surface2:    #F2EFE8;
+      --c-border:      #D8D3C8;
+      --c-text:        #1A1814;
+      --c-text2:       #5C5750;
+      --c-text3:       #8B8680;
+
+      --c-gold:        #C9973A;
+      --c-gold-light:  #F0D898;
+      --c-gold-dark:   #8A6520;
+      --c-navy:        #1B2B4B;
+      --c-navy-mid:    #2D4070;
+      --c-navy-light:  #4A6090;
+      --c-teal:        #2A7B6F;
+      --c-teal-light:  #4AADA0;
+      --c-rose:        #C44A4A;
+      --c-rose-light:  #E8A0A0;
+      --c-green:       #3A7D5A;
+      --c-green-light: #7DC4A0;
+
+      --c-listen:      #2D6A8A;
+      --c-grammar:     #6A4B8A;
+      --c-reading:     #3A7D5A;
+
+      --shadow-sm:  0 1px 4px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
+      --shadow-xl:  0 16px 48px rgba(0,0,0,.12), 0 8px 20px rgba(0,0,0,.07);
+
+      --r-sm: 6px;
+      --r-md: 12px;
+      --r-lg: 20px;
+      --r-xl: 32px;
+
+      --f-display:  'Playfair Display', Georgia, serif;
+      --f-body:     'Sarabun', 'Helvetica Neue', sans-serif;
+      --f-mono:     'JetBrains Mono', monospace;
+
+      --nav-h: 64px;
+      --trans: 200ms ease;
+    }
+
+    [data-theme="dark"] {
+      --c-bg:          #12110E;
+      --c-bg2:         #1A1916;
+      --c-surface:     #22201C;
+      --c-surface2:    #2C2A26;
+      --c-border:      #3A3830;
+      --c-text:        #F0EDE6;
+      --c-text2:       #B8B3A8;
+      --c-text3:       #7A7570;
+      --c-gold:        #D4A84A;
+      --c-gold-light:  #E8C878;
+      --c-gold-dark:   #A8821E;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,.3);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.4);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,.5);
+    }
+
+    /* ================================================================
+       RESET + BASE
+    ================================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--f-body);
+      background: var(--c-bg);
+      color: var(--c-text);
+      line-height: 1.7;
+      transition: background var(--trans), color var(--trans);
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--c-gold-light); color: var(--c-navy); }
+
+    a { color: var(--c-navy-mid); text-decoration: none; }
+    a:hover { color: var(--c-gold); }
+
+    img { max-width: 100%; display: block; }
+
+    h1,h2,h3,h4,h5 {
+      font-family: var(--f-display);
+      line-height: 1.2;
+      color: var(--c-text);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--c-bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--c-text3); }
+
+    /* Focus */
+    :focus-visible {
+      outline: 2px solid var(--c-gold);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ================================================================
+       UTILITY CLASSES
+    ================================================================ */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .tag--listen  { background: rgba(45,106,138,.15); color: var(--c-listen); }
+    .tag--grammar { background: rgba(106,75,138,.15);  color: var(--c-grammar); }
+    .tag--reading { background: rgba(58,125,90,.15);  color: var(--c-reading); }
+    .tag--official{ background: rgba(201,151,58,.18); color: var(--c-gold-dark); }
+    .tag--general { background: rgba(27,43,75,.12);   color: var(--c-navy); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+      border: 1px solid currentColor;
+    }
+    .badge--easy   { color: var(--c-green);  border-color: var(--c-green); }
+    .badge--medium { color: var(--c-gold);   border-color: var(--c-gold); }
+    .badge--hard   { color: var(--c-rose);   border-color: var(--c-rose); }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section__header {
+      margin-bottom: 48px;
+    }
+
+    .section__eyebrow {
+      font-family: var(--f-mono);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .section__title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--c-text);
+    }
+
+    .section__desc {
+      color: var(--c-text2);
+      margin-top: 12px;
+      font-size: 1.05rem;
+      max-width: 600px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--c-border);
+      margin: 0;
+    }
+
+    /* ================================================================
+       BUTTONS
+    ================================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: var(--r-md);
+      font-family: var(--f-body);
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all var(--trans);
+      white-space: nowrap;
+    }
+
+    .btn--primary {
+      background: var(--c-navy);
+      color: #fff;
+    }
+    .btn--primary:hover {
+      background: var(--c-navy-mid);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn--gold {
+      background: var(--c-gold);
+      color: #fff;
+    }
+    .btn--gold:hover {
+      background: var(--c-gold-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(201,151,58,.3);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--c-text);
+      border: 1.5px solid var(--c-border);
+    }
+    .btn--outline:hover {
+      border-color: var(--c-gold);
+      color: var(--c-gold);
+      background: rgba(201,151,58,.05);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--c-text2);
+      padding: 8px 16px;
+    }
+    .btn--ghost:hover {
+      background: var(--c-surface2);
+      color: var(--c-text);
+    }
+
+    .btn--sm { padding: 8px 18px; font-size: .85rem; }
+    .btn--lg { padding: 16px 36px; font-size: 1.05rem; }
+
+    .btn--danger { background: var(--c-rose); color: #fff; }
+    .btn--danger:hover { background: #a33; }
+
+    /* ================================================================
+       NAVIGATION
+    ================================================================ */
+    #nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(247,245,240,.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--c-border);
+      transition: background var(--trans);
+    }
+
+    [data-theme="dark"] #nav {
+      background: rgba(18,17,14,.9);
+    }
+
+    .nav__inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav__logo {
+      font-family: var(--f-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--c-text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav__logo-badge {
+      background: var(--c-gold);
+      color: #fff;
+      font-size: .6rem;
+      font-family: var(--f-mono);
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: .06em;
+      font-weight: 700;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--c-text2);
+      padding: 6px 12px;
+      border-radius: var(--r-sm);
+      transition: all var(--trans);
+    }
+
+    .nav__links a:hover {
+      color: var(--c-text);
+      background: var(--c-surface2);
+    }
+
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-toggle {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--r-sm);
+      background: transparent;
+      border: 1.5px solid var(--c-border);
+      cursor: pointer;
+      color: var(--c-text2);
+      transition: all var(--trans);
+      font-size: 1rem;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--c-gold);
+      color: var(--c-gold);
+    }
+
+    .nav__hamburger {
+      display: none;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--r-sm);
+      background: transparent;
+      border: 1.5px solid var(--c-border);
+      cursor: pointer;
+      color: var(--c-text);
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+    }
+
+    /* Mobile nav drawer */
+    #nav-drawer {
+      display: none;
+      position: fixed;
+      inset: var(--nav-h) 0 0 0;
+      background: var(--c-surface);
+      z-index: 999;
+      padding: 24px;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 1px solid var(--c-border);
+    }
+
+    #nav-drawer.open { display: flex; }
+
+    #nav-drawer a {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--c-text2);
+      padding: 12px 16px;
+      border-radius: var(--r-md);
+      transition: all var(--trans);
+    }
+
+    #nav-drawer a:hover {
+      background: var(--c-surface2);
+      color: var(--c-text);
+    }
+
+    /* ================================================================
+       HERO
+    ================================================================ */
+    #hero {
+      padding: 100px 0 80px;
+      background: var(--c-bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--f-display);
+      font-size: clamp(120px, 18vw, 220px);
+      font-weight: 900;
+      color: var(--c-border);
+      opacity: .35;
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+      letter-spacing: -.02em;
+    }
+
+    [data-theme="dark"] .hero__bg-text {
+      opacity: .12;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .hero__eyebrow {
+      font-family: var(--f-mono);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--c-gold);
+    }
+
+    .hero__title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--c-gold);
+    }
+
+    .hero__desc {
+      font-size: 1.05rem;
+      color: var(--c-text2);
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .hero__stat-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--trans), box-shadow var(--trans);
+    }
+
+    .hero__stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero__stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .hero__stat-card:nth-child(1)::before { background: var(--c-listen); }
+    .hero__stat-card:nth-child(2)::before { background: var(--c-grammar); }
+    .hero__stat-card:nth-child(3)::before { background: var(--c-reading); }
+    .hero__stat-card:nth-child(4)::before { background: var(--c-gold); }
+
+    .hero__stat-num {
+      font-family: var(--f-mono);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--c-text);
+    }
+
+    .hero__stat-label {
+      font-size: .82rem;
+      color: var(--c-text2);
+      margin-top: 6px;
+    }
+
+    /* ================================================================
+       ASSESSMENT SECTION
+    ================================================================ */
+    #assessment {
+      background: var(--c-bg2);
+      border-top: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    .assessment__tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--c-surface2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 6px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 140px;
+      padding: 10px 16px;
+      border-radius: var(--r-md);
+      border: none;
+      background: transparent;
+      font-family: var(--f-body);
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--c-text2);
+      cursor: pointer;
+      transition: all var(--trans);
+    }
+
+    .tab-btn.active {
+      background: var(--c-surface);
+      color: var(--c-text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Quiz */
+    .quiz-header {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-progress-bar {
+      flex: 1;
+      min-width: 200px;
+      height: 6px;
+      background: var(--c-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--c-gold), var(--c-teal));
+      border-radius: 3px;
+      transition: width .4s ease;
+    }
+
+    .quiz-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: .85rem;
+      color: var(--c-text2);
+      font-family: var(--f-mono);
+    }
+
+    #quiz-timer {
+      background: var(--c-surface2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-sm);
+      padding: 4px 10px;
+      font-family: var(--f-mono);
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--c-text);
+    }
+
+    #quiz-timer.warning { color: var(--c-rose); border-color: var(--c-rose); }
+
+    .question-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      margin-bottom: 20px;
+      animation: fadeInUp .3s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-part {
+      font-family: var(--f-mono);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .question-part.part-a { color: var(--c-listen); }
+    .question-part.part-b { color: var(--c-grammar); }
+    .question-part.part-c { color: var(--c-reading); }
+
+    .question-num {
+      font-size: .82rem;
+      color: var(--c-text3);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--c-text);
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .question-context {
+      background: var(--c-bg2);
+      border-left: 3px solid var(--c-border);
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      font-size: .92rem;
+      color: var(--c-text2);
+      line-height: 1.8;
+    }
+
+    .question-audio {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--c-surface2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: .88rem;
+      color: var(--c-text2);
+    }
+
+    .question-audio .audio-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--c-listen);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 1.5px solid var(--c-border);
+      border-radius: var(--r-md);
+      cursor: pointer;
+      transition: all var(--trans);
+      background: transparent;
+      text-align: left;
+      font-family: var(--f-body);
+      font-size: .95rem;
+      color: var(--c-text);
+      width: 100%;
+    }
+
+    .choice:hover {
+      border-color: var(--c-gold);
+      background: rgba(201,151,58,.05);
+    }
+
+    .choice.selected {
+      border-color: var(--c-navy);
+      background: rgba(27,43,75,.08);
+    }
+
+    .choice.correct {
+      border-color: var(--c-green);
+      background: rgba(58,125,90,.1);
+    }
+
+    .choice.wrong {
+      border-color: var(--c-rose);
+      background: rgba(196,74,74,.08);
+    }
+
+    .choice__label {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border: 1.5px solid var(--c-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      font-weight: 700;
+      font-family: var(--f-mono);
+      transition: all var(--trans);
+    }
+
+    .choice.selected .choice__label {
+      background: var(--c-navy);
+      border-color: var(--c-navy);
+      color: #fff;
+    }
+
+    .choice.correct .choice__label {
+      background: var(--c-green);
+      border-color: var(--c-green);
+      color: #fff;
+    }
+
+    .choice.wrong .choice__label {
+      background: var(--c-rose);
+      border-color: var(--c-rose);
+      color: #fff;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .question-dot-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-width: 400px;
+    }
+
+    .q-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--c-border);
+      background: transparent;
+      cursor: pointer;
+      font-size: .72rem;
+      font-family: var(--f-mono);
+      font-weight: 600;
+      color: var(--c-text2);
+      transition: all var(--trans);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .q-dot.answered { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
+    .q-dot.current  { border-color: var(--c-gold); color: var(--c-gold); }
+
+    /* ================================================================
+       RESULTS / DASHBOARD
+    ================================================================ */
+    #results {
+      background: var(--c-bg);
+    }
+
+    .results-hero {
+      background: linear-gradient(135deg, var(--c-navy) 0%, var(--c-navy-mid) 100%);
+      border-radius: var(--r-xl);
+      padding: 48px;
+      margin-bottom: 40px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .results-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+
+    .results-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: 20%;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(201,151,58,.08);
+    }
+
+    .results-score-big {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 900;
+      color: var(--c-gold-light);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .results-score-big span {
+      font-size: 2rem;
+      color: rgba(255,255,255,.5);
+      font-weight: 400;
+    }
+
+    .results-label {
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: rgba(255,255,255,.6);
+      font-family: var(--f-mono);
+      margin-top: 8px;
+    }
+
+    .results-band {
+      display: inline-block;
+      padding: 6px 20px;
+      background: var(--c-gold);
+      color: #fff;
+      border-radius: 40px;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      margin-top: 16px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 640px) {
+      .results-grid { grid-template-columns: 1fr; }
+      .results-hero { padding: 32px 24px; }
+    }
+
+    .score-card {
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--r-lg);
+      padding: 20px;
+    }
+
+    .score-card__num {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .score-card__pct {
+      font-size: .85rem;
+      color: rgba(255,255,255,.6);
+    }
+
+    .score-card__label {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.5);
+      font-family: var(--f-mono);
+      margin-top: 4px;
+    }
+
+    .score-bar {
+      height: 4px;
+      background: rgba(255,255,255,.2);
+      border-radius: 2px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .score-bar__fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    .skill-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .skill-cards { grid-template-columns: 1fr; }
+    }
+
+    .skill-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--trans), box-shadow var(--trans);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .skill-card__stripe {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+
+    .skill-card--listen  .skill-card__stripe { background: var(--c-listen); }
+    .skill-card--grammar .skill-card__stripe { background: var(--c-grammar); }
+    .skill-card--reading .skill-card__stripe { background: var(--c-reading); }
+
+    .skill-card__title {
+      font-size: .78rem;
+      font-family: var(--f-mono);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 8px;
+    }
+
+    .skill-card--listen  .skill-card__title { color: var(--c-listen); }
+    .skill-card--grammar .skill-card__title { color: var(--c-grammar); }
+    .skill-card--reading .skill-card__title { color: var(--c-reading); }
+
+    .skill-card__score {
+      font-family: var(--f-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--c-text);
+    }
+
+    .skill-card__pct { color: var(--c-text3); font-size: 1rem; }
+
+    .skill-card__bar {
+      height: 6px;
+      background: var(--c-bg2);
+      border-radius: 3px;
+      margin: 12px 0;
+      overflow: hidden;
+    }
+
+    .skill-card__bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1.2s ease .2s;
+    }
+
+    .skill-card--listen  .skill-card__bar-fill { background: var(--c-listen); }
+    .skill-card--grammar .skill-card__bar-fill { background: var(--c-grammar); }
+    .skill-card--reading .skill-card__bar-fill { background: var(--c-reading); }
+
+    .skill-card__status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .82rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .skill-card__insight {
+      font-size: .85rem;
+      color: var(--c-text2);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .diagnosis-box {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      margin-bottom: 32px;
+    }
+
+    .diagnosis-box__title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .diagnosis-box__text {
+      font-size: .95rem;
+      color: var(--c-text2);
+      line-height: 1.8;
+    }
+
+    .review-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      margin-top: 16px;
+    }
+
+    .review-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-family: var(--f-mono);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--c-text3);
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    .review-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--c-border);
+      color: var(--c-text2);
+    }
+
+    .review-table tr:last-child td { border-bottom: none; }
+
+    .review-table .correct-mark { color: var(--c-green); }
+    .review-table .wrong-mark   { color: var(--c-rose); }
+
+    /* History table */
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+
+    .history-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-family: var(--f-mono);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--c-text3);
+      border-bottom: 2px solid var(--c-border);
+    }
+
+    .history-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    .history-table tr:hover td { background: var(--c-surface2); }
+
+    /* ================================================================
+       STUDY PLAN SECTION
+    ================================================================ */
+    #study-plan {
+      background: var(--c-bg2);
+      border-top: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    .plan-config {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .plan-config__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .plan-config__grid { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--c-text);
+      font-family: var(--f-mono);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .form-group select,
+    .form-group input,
+    .form-group textarea {
+      padding: 10px 14px;
+      border: 1.5px solid var(--c-border);
+      border-radius: var(--r-md);
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f-body);
+      font-size: .92rem;
+      transition: border-color var(--trans);
+    }
+
+    .form-group select:focus,
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--c-gold);
+      box-shadow: 0 0 0 3px rgba(201,151,58,.15);
+    }
+
+    .focus-areas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .focus-chip {
+      padding: 7px 16px;
+      border: 1.5px solid var(--c-border);
+      border-radius: 40px;
+      font-size: .85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--trans);
+      color: var(--c-text2);
+      background: transparent;
+      font-family: var(--f-body);
+    }
+
+    .focus-chip.selected {
+      border-color: var(--c-navy);
+      background: var(--c-navy);
+      color: #fff;
+    }
+
+    /* Plan display */
+    .plan-display {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .plan-header {
+      background: linear-gradient(135deg, var(--c-navy), var(--c-navy-mid));
+      padding: 32px;
+      color: #fff;
+    }
+
+    .plan-header__title {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .plan-header__meta {
+      font-size: .82rem;
+      color: rgba(255,255,255,.65);
+      font-family: var(--f-mono);
+    }
+
+    .plan-actions {
+      display: flex;
+      gap: 10px;
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--c-border);
+      background: var(--c-surface2);
+      flex-wrap: wrap;
+    }
+
+    .plan-weeks {
+      padding: 32px;
+    }
+
+    .plan-week {
+      margin-bottom: 32px;
+    }
+
+    .plan-week__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .plan-week__num {
+      width: 40px;
+      height: 40px;
+      background: var(--c-navy);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-mono);
+      font-weight: 700;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+
+    .plan-week__title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .plan-week__focus {
+      font-size: .78rem;
+      color: var(--c-text3);
+      font-family: var(--f-mono);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .plan-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .plan-days { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .plan-days { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .plan-day {
+      background: var(--c-surface2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: 12px;
+      font-size: .8rem;
+    }
+
+    .plan-day__label {
+      font-family: var(--f-mono);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--c-gold);
+      margin-bottom: 6px;
+    }
+
+    .plan-day__task {
+      color: var(--c-text);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+
+    .plan-day.rest {
+      background: transparent;
+      border-style: dashed;
+      color: var(--c-text3);
+    }
+
+    .plan-day.rest .plan-day__task { color: var(--c-text3); }
+
+    .plan-checkpoint {
+      background: rgba(201,151,58,.1);
+      border: 1px solid rgba(201,151,58,.3);
+      border-radius: var(--r-md);
+      padding: 16px 20px;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .plan-checkpoint__icon {
+      font-size: 1.2rem;
+    }
+
+    .plan-checkpoint__text {
+      font-size: .88rem;
+      color: var(--c-text2);
+    }
+
+    .plan-checkpoint__text strong {
+      color: var(--c-text);
+    }
+
+    /* ================================================================
+       RESOURCES SECTION
+    ================================================================ */
+    #resources {
+      background: var(--c-bg);
+    }
+
+    .resources-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      border: 1.5px solid var(--c-border);
+      border-radius: 40px;
+      background: transparent;
+      font-family: var(--f-body);
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--c-text2);
+      cursor: pointer;
+      transition: all var(--trans);
+    }
+
+    .filter-btn.active {
+      border-color: var(--c-navy);
+      background: var(--c-navy);
+      color: #fff;
+    }
+
+    .filter-btn:hover:not(.active) {
+      border-color: var(--c-gold);
+      color: var(--c-gold);
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .resources-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .resources-grid { grid-template-columns: 1fr; }
+    }
+
+    .resource-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform var(--trans), box-shadow var(--trans);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .resource-card.recommended::before {
+      content: '⭐ แนะนำ';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: .65rem;
+      font-family: var(--f-mono);
+      font-weight: 700;
+      letter-spacing: .06em;
+      background: var(--c-gold);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .resource-card__tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .resource-card__title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--c-text);
+    }
+
+    .resource-card__desc {
+      font-size: .85rem;
+      color: var(--c-text2);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .resource-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    /* ================================================================
+       FEEDBACK SECTION
+    ================================================================ */
+    #feedback {
+      background: var(--c-bg2);
+      border-top: 1px solid var(--c-border);
+    }
+
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .feedback-grid { grid-template-columns: 1fr; }
+    }
+
+    .feedback-panel {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 28px;
+    }
+
+    .feedback-panel__title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .feedback-panel__desc {
+      font-size: .85rem;
+      color: var(--c-text2);
+      margin-bottom: 20px;
+    }
+
+    .rating-stars {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--c-border);
+      transition: color var(--trans), transform var(--trans);
+      padding: 2px;
+    }
+
+    .star-btn.active,
+    .star-btn:hover,
+    .star-btn.hover { color: var(--c-gold); }
+
+    .star-btn:hover { transform: scale(1.15); }
+
+    .journal-entries {
+      max-height: 280px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .journal-entry {
+      background: var(--c-surface2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+    }
+
+    .journal-entry__date {
+      font-size: .72rem;
+      font-family: var(--f-mono);
+      color: var(--c-text3);
+      margin-bottom: 4px;
+    }
+
+    .journal-entry__text {
+      font-size: .88rem;
+      color: var(--c-text2);
+      line-height: 1.6;
+    }
+
+    /* ================================================================
+       TODAY WIDGET
+    ================================================================ */
+    #today-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 500;
+      transition: all var(--trans);
+    }
+
+    .today-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--c-navy);
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--trans);
+    }
+
+    .today-btn:hover {
+      background: var(--c-gold);
+      transform: scale(1.08);
+    }
+
+    .today-panel {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      width: 300px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-xl);
+      padding: 20px;
+      display: none;
+      animation: fadeInUp .2s ease;
+    }
+
+    .today-panel.open { display: block; }
+
+    .today-panel__title {
+      font-size: .78rem;
+      font-family: var(--f-mono);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--c-gold);
+      margin-bottom: 12px;
+    }
+
+    .today-task {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--c-border);
+      font-size: .88rem;
+      color: var(--c-text2);
+    }
+
+    .today-task:last-child { border-bottom: none; }
+
+    .today-task__check {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--c-border);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+      transition: all var(--trans);
+    }
+
+    .today-task.done .today-task__check {
+      background: var(--c-green);
+      border-color: var(--c-green);
+    }
+
+    .today-task.done span { text-decoration: line-through; color: var(--c-text3); }
+
+    /* ================================================================
+       PRINT STYLES
+    ================================================================ */
+    @media print {
+      #nav, #today-widget, .nav__actions, .plan-actions,
+      .hero__actions, .quiz-nav, #feedback, .theme-toggle { display: none !important; }
+      body { background: white; color: black; }
+      .plan-display { border: 1px solid #ccc; }
+      .plan-header { background: #1B2B4B !important; -webkit-print-color-adjust: exact; }
+    }
+
+    /* ================================================================
+       MISC HELPERS
+    ================================================================ */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .gap-8 { gap: 8px; }
+    .gap-12 { gap: 12px; }
+    .gap-16 { gap: 16px; }
+    .mt-8 { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-32 { margin-top: 32px; }
+    .mb-8 { margin-bottom: 8px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .text-sm { font-size: .85rem; }
+    .text-xs { font-size: .75rem; }
+    .text-muted { color: var(--c-text2); }
+    .text-gold { color: var(--c-gold); }
+    .text-center { text-align: center; }
+    .hidden { display: none !important; }
+    .w-full { width: 100%; }
+
+    .card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: 24px;
+    }
+
+    .alert {
+      padding: 14px 18px;
+      border-radius: var(--r-md);
+      font-size: .9rem;
+      margin-top: 12px;
+      border-left: 4px solid;
+    }
+
+    .alert--success {
+      background: rgba(58,125,90,.1);
+      border-color: var(--c-green);
+      color: var(--c-green);
+    }
+
+    .alert--error {
+      background: rgba(196,74,74,.1);
+      border-color: var(--c-rose);
+      color: var(--c-rose);
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.4);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-overlay.show { display: flex; }
+
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255,255,255,.2);
+      border-top-color: var(--c-gold);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Canvas for mini chart */
+    #score-chart-canvas {
+      max-width: 100%;
+      border-radius: var(--r-md);
+    }
+
+    /* Demo banner */
+    .demo-banner {
+      background: linear-gradient(90deg, var(--c-navy), var(--c-navy-mid));
+      color: rgba(255,255,255,.85);
+      padding: 10px 24px;
+      font-size: .82rem;
+      text-align: center;
+      font-family: var(--f-mono);
+      letter-spacing: .04em;
+    }
+
+    .demo-banner a {
+      color: var(--c-gold-light);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Demo banner -->
+<div class="demo-banner">
+  🎓 TOEIC Study Planner — แอปพลิเคชันสำหรับวางแผนการสอบ TOEIC &nbsp;|&nbsp;
+  ข้อมูลทั้งหมดเก็บบนอุปกรณ์ของคุณ (localStorage)
+</div>
+
+<!-- ================================================================
+     NAVIGATION
+================================================================ -->
+<nav id="nav" role="navigation" aria-label="เมนูหลัก">
+  <div class="container nav__inner">
+    <a href="#hero" class="nav__logo" aria-label="TOEIC Study Planner หน้าหลัก">
+      <span>TOEIC</span>
+      <span class="nav__logo-badge">PLANNER</span>
+    </a>
+
+    <ul class="nav__links" role="list">
+      <li><a href="#assessment">📝 แบบทดสอบ</a></li>
+      <li><a href="#results">📊 ผลการทดสอบ</a></li>
+      <li><a href="#study-plan">📅 แผนการเรียน</a></li>
+      <li><a href="#resources">📚 แหล่งข้อมูล</a></li>
+      <li><a href="#feedback">💬 Feedback</a></li>
+    </ul>
+
+    <div class="nav__actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="สลับธีมสีเข้ม/สว่าง" title="Dark / Light mode">
+        🌙
+      </button>
+      <button class="nav__hamburger" id="hamburger" aria-label="เปิดเมนู" aria-expanded="false">
+        ☰
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div id="nav-drawer" role="dialog" aria-label="เมนูมือถือ">
+  <a href="#assessment" onclick="closeDrawer()">📝 แบบทดสอบ</a>
+  <a href="#results"    onclick="closeDrawer()">📊 ผลการทดสอบ</a>
+  <a href="#study-plan" onclick="closeDrawer()">📅 แผนการเรียน</a>
+  <a href="#resources"  onclick="closeDrawer()">📚 แหล่งข้อมูล</a>
+  <a href="#feedback"   onclick="closeDrawer()">💬 Feedback</a>
+</div>
+
+<!-- ================================================================
+     HERO
+================================================================ -->
+<section id="hero" aria-labelledby="hero-title">
+  <div class="hero__bg-text" aria-hidden="true">TOEIC</div>
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Personalized TOEIC Preparation</p>
+        <h1 class="hero__title" id="hero-title">
+          เรียน TOEIC<br>
+          <em>อย่างชาญฉลาด</em><br>
+          ด้วยแผนที่ใช่สำหรับคุณ
+        </h1>
+        <p class="hero__desc">
+          ทำแบบทดสอบวินิจฉัยสั้นๆ เพื่อค้นหาจุดแข็งและจุดอ่อน
+          จากนั้นรับแผนการเรียน TOEIC แบบ Personalized
+          พร้อมแหล่งข้อมูลฟรีที่คัดสรรมาเป็นพิเศษ
+        </p>
+        <div class="hero__actions">
+          <a href="#assessment" class="btn btn--primary btn--lg">
+            📝 เริ่มทำแบบทดสอบ
+          </a>
+          <button class="btn btn--outline btn--lg" onclick="showDemoResult()">
+            👁 ดูตัวอย่างผลลัพธ์
+          </button>
+        </div>
+      </div>
+
+      <div class="hero__stats" aria-label="สัดส่วนคะแนน TOEIC">
+        <div class="hero__stat-card">
+          <div class="hero__stat-num">495</div>
+          <div class="hero__stat-label">คะแนน Listening สูงสุด</div>
+        </div>
+        <div class="hero__stat-card">
+          <div class="hero__stat-num">495</div>
+          <div class="hero__stat-label">คะแนน Reading สูงสุด</div>
+        </div>
+        <div class="hero__stat-card">
+          <div class="hero__stat-num">990</div>
+          <div class="hero__stat-label">คะแนนเต็ม TOEIC</div>
+        </div>
+        <div class="hero__stat-card">
+          <div class="hero__stat-num">25</div>
+          <div class="hero__stat-label">คำถามในแบบทดสอบ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================================
+     ASSESSMENT
+================================================================ -->
+<section id="assessment" class="section" aria-labelledby="assessment-title">
+  <div class="container">
+    <div class="section__header">
+      <span class="section__eyebrow">Diagnostic Assessment</span>
+      <h2 class="section__title" id="assessment-title">แบบทดสอบวินิจฉัยทักษะ</h2>
+      <p class="section__desc">
+        ทดสอบทักษะทั้ง 3 ด้าน: Listening, Grammar/Vocabulary และ Reading
+        รวม 25 ข้อ ใช้เวลาประมาณ 20–30 นาที
+      </p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="assessment__tabs" role="tablist" aria-label="หมวดข้อสอบ">
+      <button class="tab-btn active" role="tab" aria-selected="true"
+        data-tab="quiz" onclick="switchTab('quiz')">
+        📝 ทำแบบทดสอบ
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+        data-tab="history" onclick="switchTab('history')">
+        📈 ประวัติการทดสอบ
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false"
+        data-tab="review" onclick="switchTab('review')">
+        🔍 ทบทวนคำตอบ
+      </button>
+    </div>
+
+    <!-- QUIZ PANEL -->
+    <div id="tab-quiz" class="tab-panel active" role="tabpanel">
+
+      <!-- Quiz Not Started -->
+      <div id="quiz-start-screen">
+        <div class="card" style="text-align:center; max-width: 600px; margin: 0 auto; padding: 48px;">
+          <div style="font-size:3rem; margin-bottom:16px;">📋</div>
+          <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:12px;">พร้อมเริ่มทดสอบแล้วหรือยัง?</h3>
+          <p class="text-muted" style="margin-bottom:28px; line-height:1.8;">
+            แบบทดสอบมี 3 ส่วน:<br>
+            <strong>Part A</strong> — Listening Comprehension (8 ข้อ)<br>
+            <strong>Part B</strong> — Grammar & Vocabulary (9 ข้อ)<br>
+            <strong>Part C</strong> — Reading Comprehension (8 ข้อ)
+          </p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;">
+            <label style="display:flex; align-items:center; gap:8px; font-size:.9rem; cursor:pointer;">
+              <input type="checkbox" id="timer-toggle" checked /> เปิดใช้งาน Timer (30 นาที)
+            </label>
+          </div>
+          <button class="btn btn--gold btn--lg" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
+        </div>
+      </div>
+
+      <!-- Quiz Active -->
+      <div id="quiz-active-screen" class="hidden">
+        <div class="quiz-header">
+          <div>
+            <div style="font-size:.75rem; font-family:var(--f-mono); color:var(--c-text3); text-transform:uppercase; letter-spacing:.08em;">
+              ความคืบหน้า
+            </div>
+            <div style="font-size:.82rem; font-weight:600; margin-top:2px;">
+              <span id="q-current">1</span> / <span id="q-total">25</span> ข้อ
+            </div>
+          </div>
+          <div class="quiz-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-el">
+            <div class="quiz-progress-bar__fill" id="quiz-progress-fill" style="width:0%"></div>
+          </div>
+          <div class="quiz-info">
+            <span id="quiz-timer" aria-live="polite">30:00</span>
+            <button class="btn btn--ghost btn--sm" onclick="toggleTimer()" id="timer-btn" title="หยุด/เดิน Timer">⏸</button>
+          </div>
+        </div>
+
+        <!-- Question -->
+        <div id="question-container"></div>
+
+        <!-- Navigation -->
+        <div class="quiz-nav">
+          <div class="question-dot-nav" id="dot-nav" aria-label="ข้ามไปยังข้อที่ต้องการ"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn--outline btn--sm" id="prev-btn" onclick="prevQuestion()">← ก่อนหน้า</button>
+            <button class="btn btn--outline btn--sm" id="next-btn" onclick="nextQuestion()">ถัดไป →</button>
+            <button class="btn btn--gold" id="submit-btn" onclick="confirmSubmit()" style="display:none;">
+              ✅ ส่งคำตอบ
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end tab-quiz -->
+
+    <!-- HISTORY PANEL -->
+    <div id="tab-history" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <h3 style="font-size:1rem; font-weight:600;">ประวัติการทดสอบทั้งหมด</h3>
+          <button class="btn btn--ghost btn--sm" onclick="clearHistory()">🗑 ล้างประวัติ</button>
+        </div>
+        <div id="history-content">
+          <p class="text-muted text-sm">ยังไม่มีประวัติการทดสอบ</p>
+        </div>
+        <div style="margin-top:24px;">
+          <canvas id="score-chart-canvas" width="600" height="200" style="display:none;"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEW PANEL -->
+    <div id="tab-review" class="tab-panel" role="tabpanel">
+      <div class="card">
+        <h3 style="font-size:1rem; font-weight:600; margin-bottom:16px;">ทบทวนคำตอบล่าสุด</h3>
+        <div id="review-content">
+          <p class="text-muted text-sm">ทำแบบทดสอบก่อน แล้วผลลัพธ์จะแสดงที่นี่</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================================
+     RESULTS
+================================================================ -->
+<section id="results" class="section" aria-labelledby="results-title">
+  <div class="container">
+    <div class="section__header">
+      <span class="section__eyebrow">Score Analysis</span>
+      <h2 class="section__title" id="results-title">ผลการทดสอบและการวิเคราะห์</h2>
+      <p class="section__desc">ดูคะแนนและการวิเคราะห์ทักษะแต่ละด้าน</p>
+    </div>
+
+    <div id="results-placeholder" class="card" style="text-align:center; padding:48px; max-width:500px; margin:0 auto;">
+      <div style="font-size:3rem; margin-bottom:16px;">📊</div>
+      <p class="text-muted">ทำแบบทดสอบก่อน ผลการวิเคราะห์จะแสดงที่นี่</p>
+      <a href="#assessment" class="btn btn--primary mt-16">เริ่มทดสอบ →</a>
+    </div>
+
+    <div id="results-content" class="hidden">
+      <!-- Score Hero -->
+      <div class="results-hero">
+        <div style="display:flex; align-items:flex-start; gap:40px; flex-wrap:wrap;">
+          <div>
+            <div class="results-label">คะแนนรวมโดยประมาณ (TOEIC Scale)</div>
+            <div class="results-score-big" id="total-score-display">—<span>/990</span></div>
+            <div id="score-band-display" class="results-band">—</div>
+          </div>
+          <div class="results-grid" style="flex:1; min-width:280px;">
+            <div class="score-card">
+              <div class="score-card__num" id="sc-listen">—</div>
+              <div class="score-card__pct" id="sc-listen-pct"></div>
+              <div class="score-card__label">Listening</div>
+              <div class="score-bar"><div class="score-bar__fill" id="sb-listen" style="background:var(--c-teal-light);width:0%"></div></div>
+            </div>
+            <div class="score-card">
+              <div class="score-card__num" id="sc-grammar">—</div>
+              <div class="score-card__pct" id="sc-grammar-pct"></div>
+              <div class="score-card__label">Grammar/Vocab</div>
+              <div class="score-bar"><div class="score-bar__fill" id="sb-grammar" style="background:#C09CE8;width:0%"></div></div>
+            </div>
+            <div class="score-card">
+              <div class="score-card__num" id="sc-reading">—</div>
+              <div class="score-card__pct" id="sc-reading-pct"></div>
+              <div class="score-card__label">Reading</div>
+              <div class="score-bar"><div class="score-bar__fill" id="sb-reading" style="background:var(--c-green-light);width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skill Cards -->
+      <div class="skill-cards">
+        <div class="skill-card skill-card--listen">
+          <div class="skill-card__stripe"></div>
+          <div class="skill-card__title">🎧 Listening</div>
+          <div class="skill-card__score"><span id="sk-listen-num">—</span><span class="skill-card__pct">/8</span></div>
+          <div class="skill-card__bar"><div class="skill-card__bar-fill" id="sk-listen-bar" style="width:0%"></div></div>
+          <div class="skill-card__status" id="sk-listen-status"></div>
+          <div class="skill-card__insight" id="sk-listen-insight"></div>
+        </div>
+        <div class="skill-card skill-card--grammar">
+          <div class="skill-card__stripe"></div>
+          <div class="skill-card__title">📖 Grammar & Vocabulary</div>
+          <div class="skill-card__score"><span id="sk-grammar-num">—</span><span class="skill-card__pct">/9</span></div>
+          <div class="skill-card__bar"><div class="skill-card__bar-fill" id="sk-grammar-bar" style="width:0%"></div></div>
+          <div class="skill-card__status" id="sk-grammar-status"></div>
+          <div class="skill-card__insight" id="sk-grammar-insight"></div>
+        </div>
+        <div class="skill-card skill-card--reading">
+          <div class="skill-card__stripe"></div>
+          <div class="skill-card__title">📰 Reading</div>
+          <div class="skill-card__score"><span id="sk-reading-num">—</span><span class="skill-card__pct">/8</span></div>
+          <div class="skill-card__bar"><div class="skill-card__bar-fill" id="sk-reading-bar" style="width:0%"></div></div>
+          <div class="skill-card__status" id="sk-reading-status"></div>
+          <div class="skill-card__insight" id="sk-reading-insight"></div>
+        </div>
+      </div>
+
+      <!-- Diagnosis -->
+      <div class="diagnosis-box">
+        <div class="diagnosis-box__title">
+          🧠 การวินิจฉัย AI-Style
+        </div>
+        <div class="diagnosis-box__text" id="diagnosis-text"></div>
+      </div>
+
+      <div class="flex gap-12 flex-wrap">
+        <button class="btn btn--primary" onclick="goToStudyPlan()">📅 สร้างแผนการเรียนของฉัน →</button>
+        <button class="btn btn--outline" onclick="restartQuiz()">🔄 ทดสอบใหม่</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================================
+     STUDY PLAN
+================================================================ -->
+<section id="study-plan" class="section" aria-labelledby="plan-title">
+  <div class="container">
+    <div class="section__header">
+      <span class="section__eyebrow">Personalized Study Plan</span>
+      <h2 class="section__title" id="plan-title">แผนการเรียนรู้ของคุณ</h2>
+      <p class="section__desc">ตั้งค่าแผนการเรียนที่เหมาะกับตารางและเป้าหมายของคุณ</p>
+    </div>
+
+    <!-- Plan Config -->
+    <div class="plan-config">
+      <h3 style="font-size:1rem; font-weight:600; margin-bottom:20px;">⚙️ กำหนดค่าแผนการเรียน</h3>
+
+      <div class="plan-config__grid">
+        <div class="form-group">
+          <label for="target-score">🎯 คะแนนเป้าหมาย TOEIC</label>
+          <select id="target-score">
+            <option value="550">550+ (ระดับกลาง)</option>
+            <option value="650">650+ (ระดับดี)</option>
+            <option value="750" selected>750+ (ระดับดีมาก)</option>
+            <option value="850">850+ (ระดับ Advanced)</option>
+            <option value="900">900+ (ระดับ Expert)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="plan-duration">📅 ระยะเวลาแผน</label>
+          <select id="plan-duration">
+            <option value="2">2 สัปดาห์ (Intensive)</option>
+            <option value="4" selected>4 สัปดาห์ (Standard)</option>
+            <option value="8">8 สัปดาห์ (Comprehensive)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="daily-time">⏰ เวลาเรียนต่อวัน</label>
+          <select id="daily-time">
+            <option value="30">30 นาที/วัน</option>
+            <option value="60" selected>1 ชั่วโมง/วัน</option>
+            <option value="90">1.5 ชั่วโมง/วัน</option>
+            <option value="120">2 ชั่วโมง/วัน</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group mb-24">
+        <label>🎨 โฟกัสหลัก (เลือกได้หลายอย่าง)</label>
+        <div class="focus-areas" id="focus-areas">
+          <button class="focus-chip selected" data-area="listening">🎧 Listening</button>
+          <button class="focus-chip selected" data-area="grammar">📖 Grammar</button>
+          <button class="focus-chip selected" data-area="reading">📰 Reading</button>
+          <button class="focus-chip" data-area="vocabulary">📝 Vocabulary</button>
+          <button class="focus-chip" data-area="speed">⚡ Speed Reading</button>
+          <button class="focus-chip" data-area="business">💼 Business English</button>
+        </div>
+      </div>
+
+      <button class="btn btn--gold btn--lg" onclick="generatePlan()">
+        ✨ สร้างแผนการเรียนของฉัน
+      </button>
+    </div>
+
+    <!-- Plan Display -->
+    <div id="plan-output" class="hidden">
+      <div class="plan-display">
+        <div class="plan-header">
+          <div class="plan-header__title" id="plan-title-display">แผนการเรียน TOEIC 4 สัปดาห์</div>
+          <div class="plan-header__meta" id="plan-meta-display">คะแนนเป้าหมาย: 750+ | เวลาเรียน: 1 ชั่วโมง/วัน</div>
+        </div>
+
+        <div class="plan-actions">
+          <button class="btn btn--outline btn--sm" onclick="printPlan()">🖨 พิมพ์</button>
+          <button class="btn btn--outline btn--sm" onclick="copyPlan()">📋 คัดลอก</button>
+          <button class="btn btn--outline btn--sm" onclick="downloadPlanJSON()">💾 ดาวน์โหลด JSON</button>
+          <button class="btn btn--ghost btn--sm" onclick="savePlanToStorage()">☁️ บันทึก</button>
+        </div>
+
+        <div class="plan-weeks" id="plan-weeks-content"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================================
+     RESOURCES
+================================================================ -->
+<section id="resources" class="section" aria-labelledby="resources-title">
+  <div class="container">
+    <div class="section__header">
+      <span class="section__eyebrow">Free Learning Resources</span>
+      <h2 class="section__title" id="resources-title">แหล่งข้อมูลและสื่อการเรียนฟรี</h2>
+      <p class="section__desc">แหล่งข้อมูลคุณภาพสูงที่คัดสรรมาเป็นพิเศษสำหรับผู้เรียน TOEIC</p>
+    </div>
+
+    <div class="resources-filter" role="group" aria-label="กรองตามทักษะ">
+      <button class="filter-btn active" data-filter="all" onclick="filterResources(this, 'all')">ทั้งหมด</button>
+      <button class="filter-btn" data-filter="official" onclick="filterResources(this, 'official')">🏆 Official TOEIC</button>
+      <button class="filter-btn" data-filter="listening" onclick="filterResources(this, 'listening')">🎧 Listening</button>
+      <button class="filter-btn" data-filter="reading" onclick="filterResources(this, 'reading')">📰 Reading</button>
+      <button class="filter-btn" data-filter="grammar" onclick="filterResources(this, 'grammar')">📖 Grammar</button>
+      <button class="filter-btn" data-filter="general" onclick="filterResources(this, 'general')">🌍 General English</button>
+    </div>
+
+    <div class="resources-grid" id="resources-grid"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ================================================================
+     FEEDBACK
+================================================================ -->
+<section id="feedback" class="section" aria-labelledby="feedback-title">
+  <div class="container">
+    <div class="section__header">
+      <span class="section__eyebrow">Feedback & Notes</span>
+      <h2 class="section__title" id="feedback-title">ความคิดเห็นและบันทึกส่วนตัว</h2>
+      <p class="section__desc">แชร์ความคิดเห็นหรือบันทึกโน้ตส่วนตัวของคุณ</p>
+    </div>
+
+    <div class="feedback-grid">
+
+      <!-- External Feedback Form -->
+      <div class="feedback-panel">
+        <div class="feedback-panel__title">📬 ส่ง Feedback</div>
+        <div class="feedback-panel__desc">แชร์ความคิดเห็นเพื่อช่วยพัฒนาแอปนี้</div>
+
+        <form id="feedback-form" novalidate>
+          <!-- Hidden field for Web3Forms — Replace with your access key -->
+          <input type="hidden" name="access_key" value="3c3a48db-015c-4d5c-aa9c-10578de50712" />
+          <input type="hidden" name="subject" value="TOEIC Study Planner Feedback" />
+
+          <div class="form-group mb-16">
+            <label for="fb-name">ชื่อ (ไม่บังคับ)</label>
+            <input type="text" id="fb-name" name="name" placeholder="ชื่อของคุณ" />
+          </div>
+
+          <div class="form-group mb-16">
+            <label for="fb-email">อีเมล (ไม่บังคับ)</label>
+            <input type="email" id="fb-email" name="email" placeholder="email@example.com" />
+          </div>
+
+          <div class="form-group mb-16">
+            <label>คะแนนความพึงพอใจ</label>
+            <div class="rating-stars" role="group" aria-label="ให้คะแนน 1-5 ดาว">
+              <button type="button" class="star-btn" data-star="1" aria-label="1 ดาว">★</button>
+              <button type="button" class="star-btn" data-star="2" aria-label="2 ดาว">★</button>
+              <button type="button" class="star-btn" data-star="3" aria-label="3 ดาว">★</button>
+              <button type="button" class="star-btn" data-star="4" aria-label="4 ดาว">★</button>
+              <button type="button" class="star-btn" data-star="5" aria-label="5 ดาว">★</button>
+            </div>
+            <input type="hidden" id="fb-rating" name="rating" value="0" />
+          </div>
+
+          <div class="form-group mb-16">
+            <label for="fb-message">ความคิดเห็น *</label>
+            <textarea id="fb-message" name="message" rows="4"
+              placeholder="บอกเราว่าแอปช่วยคุณได้อย่างไร หรือมีข้อเสนอแนะอะไรบ้าง..."
+              required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary w-full">📤 ส่ง Feedback</button>
+          <div id="feedback-status" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <!-- Personal Journal -->
+      <div class="feedback-panel">
+        <div class="feedback-panel__title">📓 บันทึกส่วนตัว (Journal)</div>
+        <div class="feedback-panel__desc">บันทึกสิ่งที่ได้เรียนรู้หรือเป้าหมายของวันนี้</div>
+
+        <div class="form-group mb-16">
+          <textarea id="journal-input" rows="4"
+            placeholder="เขียนบันทึกของคุณที่นี่... เช่น สิ่งที่ฝึกวันนี้, คำศัพท์ใหม่, เป้าหมายสัปดาห์นี้"></textarea>
+        </div>
+        <button class="btn btn--outline w-full" onclick="saveJournalEntry()">💾 บันทึก</button>
+
+        <div id="journal-entries" class="journal-entries" aria-live="polite" aria-label="บันทึกที่ผ่านมา"></div>
+      </div>
+
+    </div>
+
+    <!-- Reset Button -->
+    <div style="margin-top:40px; padding-top:32px; border-top:1px solid var(--c-border); text-align:center;">
+      <p class="text-sm text-muted mb-16">ต้องการล้างข้อมูลทั้งหมดออกจากอุปกรณ์นี้?</p>
+      <button class="btn btn--danger btn--sm" onclick="confirmReset()">
+        ⚠️ รีเซ็ตข้อมูลทั้งหมด
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================================
+     TODAY WIDGET
+================================================================ -->
+<div id="today-widget" aria-label="งานวันนี้">
+  <button class="today-btn" onclick="toggleTodayWidget()" title="งานวันนี้" aria-label="เปิดปิดวิดเจ็ตงานวันนี้">
+    📅
+  </button>
+  <div class="today-panel" id="today-panel" role="dialog" aria-label="งานประจำวัน">
+    <div class="today-panel__title">📅 งานวันนี้</div>
+    <div id="today-tasks-list"></div>
+  </div>
+</div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loading-overlay" aria-live="assertive" aria-busy="true">
+  <div class="loading-spinner"></div>
+</div>
+
+<script>
+/* ================================================================
+   TOEIC STUDY PLANNER — JavaScript Engine
+   ================================================================
+
+   โครงสร้าง:
+   1. STATE & CONSTANTS
+   2. QUESTION BANK (25 ข้อ)
+   3. QUIZ ENGINE
+   4. SCORING & DIAGNOSIS ENGINE
+   5. STUDY PLAN GENERATOR
+   6. RESOURCE RECOMMENDER
+   7. FEEDBACK & JOURNAL
+   8. HISTORY & CHART
+   9. THEME & NAV
+   10. INIT
+================================================================ */
+
+/* ================================================================
+   1. STATE & CONSTANTS
+================================================================ */
+const APP_STATE = {
+  currentQuestion: 0,
+  answers: {},
+  timerActive: false,
+  timerSeconds: 30 * 60,
+  timerInterval: null,
+  lastResult: null,
+  selectedRating: 0,
+  todayWidgetOpen: false,
+};
+
+const STORAGE_KEYS = {
+  HISTORY:   'toeic_history',
+  PLAN:      'toeic_plan',
+  JOURNAL:   'toeic_journal',
+  THEME:     'toeic_theme',
+  ANSWERS:   'toeic_answers',
+};
+
+const SCORE_SCALE = {
+  listen:  [0, 50, 80, 115, 140, 165, 200, 220, 240, 250, 270, 295, 320, 350, 370, 400, 420, 450, 470, 495],
+  reading: [0, 55, 90, 120, 145, 170, 200, 230, 250, 270, 295, 320, 350, 375, 395, 420, 445, 465, 485, 495],
+};
+
+/* ================================================================
+   2. QUESTION BANK
+   25 ข้อต้นฉบับ — ไม่ได้คัดลอกจากข้อสอบ TOEIC อย่างเป็นทางการ
+================================================================ */
+const QUESTIONS = [
+  // ── PART A: Listening Comprehension (Simulated — 8 ข้อ) ──────
+  {
+    id: 1, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: './audio/q1_conversation.mp3', // AUDIO_URL_PLACEHOLDER: 'https://your-cdn.com/audio/q1.mp3'
+    context: `[บทสนทนา — จินตนาการว่าได้ยินเสียง]\nWoman: "Excuse me, is this seat taken?"\nMan: "No, please go ahead. Are you here for the product launch?"\nWoman: "Yes, I flew in from Singapore just this morning."`,
+    text: 'Where did the woman come from?',
+    choices: ['London', 'Tokyo', 'Singapore', 'Bangkok'],
+    answer: 2,
+  },
+  {
+    id: 2, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: './audio/q2_announcement.mp3',
+    context: `[ประกาศ]\n"Attention all passengers. Flight TG208 to Seoul is now boarding at Gate 14B. Please have your boarding pass and identification ready."`,
+    text: 'What is the boarding gate number?',
+    choices: ['12A', '14B', '16C', '18D'],
+    answer: 1,
+  },
+  {
+    id: 3, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: '/audio/q3_phone_call.mp3',
+    context: `[โทรศัพท์]\nMan A: "Hi, I'd like to reschedule my appointment with Dr. Kim."\nReceptionist: "Of course. Would Tuesday at 3 PM work for you?"\nMan A: "Actually, could we make it Wednesday morning instead?"`,
+    text: 'When does the man want to reschedule his appointment?',
+    choices: ['Monday afternoon', 'Tuesday at 3 PM', 'Wednesday morning', 'Thursday evening'],
+    answer: 2,
+  },
+  {
+    id: 4, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: './audio/q4_office_announcement',
+    context: `[ประกาศในบริษัท]\n"This is a reminder that the quarterly budget report is due by Friday, 5 PM. Please submit it to your department head via the company intranet, not by email."`,
+    text: 'How should the report be submitted?',
+    choices: ['By email', 'Via the company intranet', 'In person to HR', 'By post'],
+    answer: 1,
+  },
+  {
+    id: 5, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: './audio/q5_coffee_shop.mp3',
+    context: `[บทสนทนา]\nWoman: "I heard the new coffee shop on Fifth Avenue just opened. Have you been?"\nMan: "Yes! I went last week. The espresso is excellent but the pastries are a bit overpriced."\nWoman: "That's too bad. I might still give it a try."`,
+    text: 'What did the man think of the pastries?',
+    choices: ['Excellent', 'Reasonably priced', 'Too expensive', 'Not available'],
+    answer: 2,
+  },
+  {
+    id: 6, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: './audio/q6_news_report',
+    context: `[ข่าวสาร]\n"The city council has approved a budget of 2.5 million dollars for renovating the central park. Construction is expected to begin next spring and take approximately eight months to complete."`,
+    text: 'How long will the park renovation take?',
+    choices: ['3 months', '6 months', '8 months', '12 months'],
+    answer: 2,
+  },
+  {
+    id: 7, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: './audio/q7_workplace.mp3',
+    context: `[บทสนทนา]\nManager: "Could you prepare the sales figures for the board meeting?"\nEmployee: "Sure. Should I include data from last quarter too?"\nManager: "Yes, and please also add a comparison chart with the previous year."`,
+    text: 'What additional information does the manager request?',
+    choices: [
+      'A list of clients', 
+      'A comparison chart with the previous year',
+      'Next quarter forecast', 
+      'Employee performance data'
+    ],
+    answer: 1,
+  },
+  {
+    id: 8, part: 'A', partLabel: 'Part A — Listening',
+    type: 'listening',
+    audio: './audio/q8_store_announcement',
+    context: `[ประกาศในร้านค้า]\n"We're happy to announce a special offer this weekend only. Buy any two items from our summer collection and receive 30% off your total purchase."`,
+    text: 'What discount is offered this weekend?',
+    choices: ['10% off', '20% off', '30% off', '50% off'],
+    answer: 2,
+  },
+
+  // ── PART B: Grammar & Vocabulary (9 ข้อ) ──────────────────────
+  {
+    id: 9, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'The new policy _______ into effect on January 1st next year.',
+    choices: ['will come', 'comes', 'came', 'coming'],
+    answer: 0,
+  },
+  {
+    id: 10, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'Despite the heavy rain, the outdoor event _______ as planned.',
+    choices: ['proceeded', 'has proceeded', 'proceeding', 'would proceed'],
+    answer: 0,
+  },
+  {
+    id: 11, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'Please submit your application _______ the deadline of March 15th.',
+    choices: ['until', 'by', 'since', 'during'],
+    answer: 1,
+  },
+  {
+    id: 12, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'The contract was signed by both parties, _______ means the deal is now final.',
+    choices: ['that', 'what', 'which', 'who'],
+    answer: 2,
+  },
+  {
+    id: 13, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'The HR department is responsible _______ managing employee benefits.',
+    choices: ['of', 'to', 'for', 'with'],
+    answer: 2,
+  },
+  {
+    id: 14, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'Sales have increased _______ since we launched the new marketing campaign.',
+    choices: ['considerably', 'considerable', 'consideration', 'consider'],
+    answer: 0,
+  },
+  {
+    id: 15, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'The _______ of the annual report will be discussed at next week\'s board meeting.',
+    choices: ['findings', 'found', 'find', 'finder'],
+    answer: 0,
+  },
+  {
+    id: 16, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'Employees are _______ to wear their ID badges at all times while in the building.',
+    choices: ['demand', 'demanding', 'required', 'requirement'],
+    answer: 2,
+  },
+  {
+    id: 17, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
+    type: 'grammar',
+    text: 'If you _______ the document earlier, we would have had time to make corrections.',
+    choices: ['review', 'reviewed', 'had reviewed', 'have reviewed'],
+    answer: 2,
+  },
+
+  // ── PART C: Reading Comprehension (8 ข้อ) ────────────────────
+  {
+    id: 18, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `MEMO\nTo: All Staff\nFrom: Operations Department\nRe: Office Relocation\n\nPlease be informed that our main office will relocate to the new building at 88 Business Center, Tower B on November 1st. All employees are expected to complete their personal desk moves by October 28th. IT equipment will be moved by the technical team over the weekend of October 29–30. The cafeteria at the new location will open from Day 1.`,
+    text: 'By what date should employees complete their personal moves?',
+    choices: ['October 28th', 'October 30th', 'November 1st', 'November 3rd'],
+    answer: 0,
+  },
+  {
+    id: 19, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `(Same passage as above)`,
+    contextRef: 18,
+    text: 'Who is responsible for moving IT equipment?',
+    choices: ['Each individual employee', 'The HR department', 'The technical team', 'External movers'],
+    answer: 2,
+  },
+  {
+    id: 20, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `ADVERTISEMENT\n\nGlobal Business Summit 2025\nDate: February 14–16, 2025 | Venue: Centara Grand Hotel, Bangkok\n\nJoin over 2,000 business leaders from 40+ countries for three days of keynote sessions, networking events, and workshops on international trade, digital transformation, and sustainable business practices.\n\nEarly Bird Registration: $350 (ends December 31)\nStandard Registration: $450\nGroup Discount: 15% off for 5 or more attendees\n\nRegister at www.globalbiz2025.com`,
+    text: 'What is the early bird registration price?',
+    choices: ['$250', '$350', '$450', '$500'],
+    answer: 1,
+  },
+  {
+    id: 21, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `(Same advertisement as above)`,
+    contextRef: 20,
+    text: 'What discount is available for group registrations?',
+    choices: ['10% off for 3 or more', '15% off for 5 or more', '20% off for 10 or more', 'No group discount'],
+    answer: 1,
+  },
+  {
+    id: 22, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `PRODUCT REVIEW — CloudDesk Pro Software\n\nAfter using CloudDesk Pro for three months, our team is impressed with its project management features. The Kanban board is intuitive, and real-time collaboration works seamlessly across time zones. However, the mobile app still lacks some desktop features, including the reporting dashboard. Customer support responded within 24 hours to all our queries. Overall, we would recommend this tool for medium to large teams.`,
+    text: 'What is ONE limitation mentioned about CloudDesk Pro?',
+    choices: [
+      'Poor customer support',
+      'The mobile app lacks some features',
+      'It does not support collaboration',
+      'The Kanban board is difficult to use'
+    ],
+    answer: 1,
+  },
+  {
+    id: 23, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `(Same review as above)`,
+    contextRef: 22,
+    text: 'For what type of teams does the reviewer recommend CloudDesk Pro?',
+    choices: ['Freelancers', 'Small teams only', 'Medium to large teams', 'Government organizations'],
+    answer: 2,
+  },
+  {
+    id: 24, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `EMAIL\nFrom: marketing@nexgen.com\nTo: subscribers@newsletter.com\nSubject: Important Update to Our Service Terms\n\nDear Valued Customer,\n\nAs of March 1, 2025, we will be updating our Terms of Service to reflect changes in data privacy regulations. Key changes include:\n\n• User data will be retained for a maximum of 2 years\n• Third-party data sharing now requires explicit opt-in consent\n• Users may request full data deletion at any time\n\nIf you have any questions, please contact privacy@nexgen.com.`,
+    text: 'According to the email, what requires explicit opt-in consent?',
+    choices: [
+      'Email marketing',
+      'Data retention period',
+      'Third-party data sharing',
+      'Account deletion'
+    ],
+    answer: 2,
+  },
+  {
+    id: 25, part: 'C', partLabel: 'Part C — Reading Comprehension',
+    type: 'reading',
+    context: `(Same email as above)`,
+    contextRef: 24,
+    text: 'How long will user data be retained under the new policy?',
+    choices: ['6 months', '1 year', '2 years', '5 years'],
+    answer: 2,
+  },
+];
+
+/* ================================================================
+   3. QUIZ ENGINE
+================================================================ */
+function startQuiz() {
+  APP_STATE.currentQuestion = 0;
+  APP_STATE.answers = {};
+  APP_STATE.timerSeconds = 30 * 60;
+
+  // Load saved answers from storage
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.ANSWERS);
+    if (saved) APP_STATE.answers = JSON.parse(saved);
+  } catch(e) {}
+
+  document.getElementById('quiz-start-screen').classList.add('hidden');
+  document.getElementById('quiz-active-screen').classList.remove('hidden');
+  document.getElementById('q-total').textContent = QUESTIONS.length;
+
+  buildDotNav();
+  renderQuestion(0);
+
+  // Start timer if enabled
+  if (document.getElementById('timer-toggle').checked) {
+    APP_STATE.timerActive = true;
+    startTimer();
+  }
+}
+
+function buildDotNav() {
+  const nav = document.getElementById('dot-nav');
+  nav.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'q-dot' + (i === 0 ? ' current' : '');
+    btn.textContent = i + 1;
+    btn.setAttribute('aria-label', `ไปที่ข้อ ${i + 1}`);
+    btn.onclick = () => goToQuestion(i);
+    nav.appendChild(btn);
+  });
+}
+
+function renderQuestion(index) {
+  const q = QUESTIONS[index];
+  APP_STATE.currentQuestion = index;
+
+  const pct = Math.round((index / QUESTIONS.length) * 100);
+  document.getElementById('quiz-progress-fill').style.width = pct + '%';
+  document.getElementById('progress-bar-el').setAttribute('aria-valuenow', pct);
+  document.getElementById('q-current').textContent = index + 1;
+
+  // Update dots
+  document.querySelectorAll('.q-dot').forEach((dot, i) => {
+    dot.classList.remove('current');
+    dot.classList.toggle('answered', APP_STATE.answers[i] !== undefined);
+    if (i === index) dot.classList.add('current');
+  });
+
+  // Context
+  let contextHtml = '';
+  if (q.context) {
+    contextHtml = `<div class="question-context">${q.context.replace(/\n/g, '<br>')}</div>`;
+  }
+
+  // Audio placeholder
+  let audioHtml = '';
+  if (q.type === 'listening') {
+    audioHtml = `
+      <div class="question-audio">
+        <div class="audio-icon" aria-hidden="true">🔊</div>
+        <div>
+          <strong>Listening Section</strong> — 
+          ${q.audio
+            ? `<audio controls src="${q.audio}" style="vertical-align:middle; height:24px;"></audio>`
+            : '<span>อ่านบทถอดเสียงด้านล่างแทนไฟล์เสียง</span>'}
+          <br><span style="font-size:.75rem; color:var(--c-text3);">💡 ในข้อสอบจริง จะมีไฟล์เสียงแทนบทถอดเสียง</span>
+        </div>
+      </div>`;
+  }
+
+  const selectedAns = APP_STATE.answers[index];
+
+  const choicesHtml = q.choices.map((c, ci) => {
+    const isSelected = selectedAns === ci;
+    return `
+      <button
+        class="choice${isSelected ? ' selected' : ''}"
+        onclick="selectAnswer(${ci})"
+        aria-pressed="${isSelected}"
+        aria-label="ตัวเลือก ${String.fromCharCode(65+ci)}: ${c}"
+      >
+        <span class="choice__label">${String.fromCharCode(65+ci)}</span>
+        <span>${c}</span>
+      </button>`;
+  }).join('');
+
+  document.getElementById('question-container').innerHTML = `
+    <div class="question-card">
+      <div class="question-part part-${q.part.toLowerCase()}">${q.partLabel}</div>
+      <div class="question-num">ข้อที่ ${index + 1} จาก ${QUESTIONS.length}</div>
+      ${audioHtml}
+      ${contextHtml}
+      <div class="question-text">${q.text}</div>
+      <div class="choices" role="group" aria-label="เลือกคำตอบ">${choicesHtml}</div>
+    </div>`;
+
+  // Show/hide prev/next/submit
+  document.getElementById('prev-btn').disabled = index === 0;
+  document.getElementById('next-btn').style.display = index < QUESTIONS.length - 1 ? 'inline-flex' : 'none';
+  document.getElementById('submit-btn').style.display = index === QUESTIONS.length - 1 ? 'inline-flex' : 'none';
+}
+
+function selectAnswer(choiceIndex) {
+  APP_STATE.answers[APP_STATE.currentQuestion] = choiceIndex;
+  try { localStorage.setItem(STORAGE_KEYS.ANSWERS, JSON.stringify(APP_STATE.answers)); } catch(e) {}
+
+  // Update UI
+  document.querySelectorAll('.choice').forEach((el, i) => {
+    el.classList.toggle('selected', i === choiceIndex);
+    el.setAttribute('aria-pressed', i === choiceIndex);
+  });
+
+  // Update dot
+  const dots = document.querySelectorAll('.q-dot');
+  if (dots[APP_STATE.currentQuestion]) {
+    dots[APP_STATE.currentQuestion].classList.add('answered');
+  }
+}
+
+function nextQuestion() {
+  if (APP_STATE.currentQuestion < QUESTIONS.length - 1) {
+    renderQuestion(APP_STATE.currentQuestion + 1);
+  }
+}
+
+function prevQuestion() {
+  if (APP_STATE.currentQuestion > 0) {
+    renderQuestion(APP_STATE.currentQuestion - 1);
+  }
+}
+
+function goToQuestion(i) { renderQuestion(i); }
+
+function confirmSubmit() {
+  const answered = Object.keys(APP_STATE.answers).length;
+  const total = QUESTIONS.length;
+  const unanswered = total - answered;
+
+  if (unanswered > 0) {
+    const ok = confirm(`คุณยังไม่ได้ตอบ ${unanswered} ข้อ\nต้องการส่งคำตอบเลยหรือไม่?`);
+    if (!ok) return;
+  }
+  submitQuiz();
+}
+
+function submitQuiz() {
+  stopTimer();
+  showLoading();
+  setTimeout(() => {
+    const results = calculateScores();
+    APP_STATE.lastResult = results;
+    saveToHistory(results);
+    displayResults(results);
+    buildReviewTable(results);
+    updateHistory();
+    hideLoading();
+    document.getElementById('quiz-active-screen').classList.add('hidden');
+    document.getElementById('quiz-start-screen').classList.remove('hidden');
+    document.getElementById('quiz-start-screen').innerHTML = `
+      <div class="card" style="text-align:center; max-width:600px; margin:0 auto; padding:48px;">
+        <div style="font-size:3rem; margin-bottom:16px;">✅</div>
+        <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:12px;">ส่งคำตอบเรียบร้อย!</h3>
+        <p class="text-muted mb-24">ผลการทดสอบของคุณพร้อมแล้ว</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <a href="#results" class="btn btn--gold btn--lg">📊 ดูผลการทดสอบ</a>
+          <button class="btn btn--outline" onclick="restartQuiz()">🔄 ทดสอบใหม่</button>
+        </div>
+      </div>`;
+    // Auto-scroll to results
+    setTimeout(() => document.getElementById('results').scrollIntoView({behavior:'smooth'}), 500);
+  }, 800);
+}
+
+function restartQuiz() {
+  APP_STATE.answers = {};
+  try { localStorage.removeItem(STORAGE_KEYS.ANSWERS); } catch(e) {}
+  document.getElementById('quiz-start-screen').innerHTML = `
+    <div class="card" style="text-align:center; max-width: 600px; margin: 0 auto; padding: 48px;">
+      <div style="font-size:3rem; margin-bottom:16px;">📋</div>
+      <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:12px;">พร้อมเริ่มทดสอบแล้วหรือยัง?</h3>
+      <p class="text-muted" style="margin-bottom:28px; line-height:1.8;">
+        แบบทดสอบมี 3 ส่วน:<br>
+        <strong>Part A</strong> — Listening Comprehension (8 ข้อ)<br>
+        <strong>Part B</strong> — Grammar & Vocabulary (9 ข้อ)<br>
+        <strong>Part C</strong> — Reading Comprehension (8 ข้อ)
+      </p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;">
+        <label style="display:flex; align-items:center; gap:8px; font-size:.9rem; cursor:pointer;">
+          <input type="checkbox" id="timer-toggle" checked /> เปิดใช้งาน Timer (30 นาที)
+        </label>
+      </div>
+      <button class="btn btn--gold btn--lg" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
+    </div>`;
+  document.getElementById('quiz-active-screen').classList.add('hidden');
+  document.getElementById('quiz-start-screen').classList.remove('hidden');
+}
+
+/* ── Timer ── */
+function startTimer() {
+  clearInterval(APP_STATE.timerInterval);
+  APP_STATE.timerInterval = setInterval(() => {
+    if (!APP_STATE.timerActive) return;
+    APP_STATE.timerSeconds--;
+    updateTimerDisplay();
+    if (APP_STATE.timerSeconds <= 0) {
+      clearInterval(APP_STATE.timerInterval);
+      alert('หมดเวลาแล้ว! ระบบจะส่งคำตอบให้อัตโนมัติ');
+      submitQuiz();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(APP_STATE.timerInterval);
+  APP_STATE.timerActive = false;
+}
+
+function toggleTimer() {
+  APP_STATE.timerActive = !APP_STATE.timerActive;
+  document.getElementById('timer-btn').textContent = APP_STATE.timerActive ? '⏸' : '▶';
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('quiz-timer');
+  if (!el) return;
+  const m = Math.floor(APP_STATE.timerSeconds / 60);
+  const s = APP_STATE.timerSeconds % 60;
+  el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.classList.toggle('warning', APP_STATE.timerSeconds < 120);
+}
+
+/* ================================================================
+   4. SCORING & DIAGNOSIS ENGINE
+================================================================ */
+function calculateScores() {
+  let listenScore = 0, grammarScore = 0, readingScore = 0;
+  const details = [];
+
+  QUESTIONS.forEach((q, i) => {
+    const userAns = APP_STATE.answers[i];
+    const correct = userAns === q.answer;
+    if (correct) {
+      if (q.type === 'listening') listenScore++;
+      if (q.type === 'grammar')   grammarScore++;
+      if (q.type === 'reading')   readingScore++;
+    }
+    details.push({ q, userAns, correct });
+  });
+
+  const listenPct  = listenScore  / 8;
+  const grammarPct = grammarScore / 9;
+  const readingPct = readingScore / 8;
+
+  // Scale to approximate TOEIC range (simplified heuristic)
+  const listenToeic  = Math.round(listenPct  * 495);
+  const readingToeic = Math.round(((grammarPct + readingPct) / 2) * 495);
+  const totalToeic   = listenToeic + readingToeic;
+
+  const band = getBand(totalToeic);
+  const diagnosis = getDiagnosis(listenPct, grammarPct, readingPct);
+
+  return {
+    listen:  { raw: listenScore,  total: 8, pct: listenPct,  toeic: listenToeic },
+    grammar: { raw: grammarScore, total: 9, pct: grammarPct, toeic: Math.round(grammarPct * 495) },
+    reading: { raw: readingScore, total: 8, pct: readingPct, toeic: readingToeic },
+    total: totalToeic,
+    band,
+    diagnosis,
+    details,
+    date: new Date().toLocaleDateString('th-TH'),
+    timestamp: Date.now(),
+  };
+}
+
+function getBand(score) {
+  if (score >= 900) return { label: 'Expert (900–990)',   color: '#C9973A' };
+  if (score >= 750) return { label: 'Advanced (750–895)', color: '#3A7D5A' };
+  if (score >= 600) return { label: 'Upper-Intermediate (600–745)', color: '#2D6A8A' };
+  if (score >= 450) return { label: 'Intermediate (450–595)', color: '#6A4B8A' };
+  if (score >= 300) return { label: 'Elementary (300–445)', color: '#C44A4A' };
+  return { label: 'Beginner (< 300)', color: '#8B8680' };
+}
+
+function getDiagnosis(lPct, gPct, rPct) {
+  // Rule-based diagnosis engine
+  const scores = { listening: lPct, grammar: gPct, reading: rPct };
+  const avg = (lPct + gPct + rPct) / 3;
+
+  const strong  = Object.entries(scores).filter(([,v]) => v >= avg + 0.1).map(([k]) => k);
+  const weak    = Object.entries(scores).filter(([,v]) => v <= avg - 0.1).map(([k]) => k);
+  const skillTh = { listening: 'Listening', grammar: 'Grammar/Vocabulary', reading: 'Reading' };
+
+  const insights = {
+    listening: {
+      high: 'ทักษะ Listening ของคุณแข็งแกร่ง สามารถจับใจความสำคัญจากบทสนทนาและประกาศได้ดี',
+      med:  'ทักษะ Listening พอใช้ได้ แต่ควรฝึกฟังสำเนียงที่หลากหลายเพิ่มเติม',
+      low:  'ควรเน้นฝึก Listening เป็นพิเศษ ฟังรายการภาษาอังกฤษทุกวันจะช่วยได้มาก',
+    },
+    grammar: {
+      high: 'ความรู้ Grammar แน่นดีมาก สามารถระบุโครงสร้างประโยคที่ซับซ้อนได้',
+      med:  'Grammar อยู่ในระดับปานกลาง ควรทบทวนเรื่อง Tense, Preposition และ Relative Clause',
+      low:  'Grammar ต้องเร่งพัฒนา แนะนำให้เริ่มจากพื้นฐาน Tense และ Word Form',
+    },
+    reading: {
+      high: 'ทักษะ Reading ดีเยี่ยม จับ Main Idea และ Detail ได้แม่นยำ',
+      med:  'Reading ใช้ได้ แต่ควรฝึกความเร็วและทักษะ Skimming/Scanning เพิ่มเติม',
+      low:  'ควรฝึก Reading Comprehension โดยเฉพาะ เน้นคำศัพท์ธุรกิจและการเชื่อมโยงเนื้อหา',
+    },
+  };
+
+  const getLevel = (p) => p >= 0.7 ? 'high' : p >= 0.45 ? 'med' : 'low';
+
+  const parts = [
+    { key: 'listening', pct: lPct },
+    { key: 'grammar',   pct: gPct },
+    { key: 'reading',   pct: rPct },
+  ].map(({key, pct}) => ({
+    key, pct,
+    level: getLevel(pct),
+    insight: insights[key][getLevel(pct)],
+  }));
+
+  let summary = '';
+  if (strong.length && weak.length) {
+    summary = `คุณ<strong>เก่ง${strong.map(k=>skillTh[k]).join(' และ ')}</strong> แต่ควรพัฒนา <strong>${weak.map(k=>skillTh[k]).join(' และ ')}</strong> เป็นลำดับแรก`;
+  } else if (avg >= 0.7) {
+    summary = `ผลการทดสอบ<strong>ดีเยี่ยม!</strong> คุณมีพื้นฐานที่แข็งแกร่งในทุกทักษะ ควรเน้นฝึกข้อสอบ Full Test เพื่อเพิ่มความเร็วและความแม่นยำ`;
+  } else if (avg < 0.35) {
+    summary = `ยังมีพื้นที่ให้พัฒนาอีกมาก แนะนำให้<strong>สร้างพื้นฐานให้แน่น</strong>ก่อน โดยเฉพาะคำศัพท์พื้นฐาน Grammar และการฟังภาษาอังกฤษทุกวัน`;
+  } else {
+    summary = `ผลการทดสอบ<strong>อยู่ในระดับปานกลาง</strong> มีความสม่ำเสมอพอสมควร การฝึกฝนอย่างสม่ำเสมอจะช่วยยกระดับคะแนน TOEIC ของคุณได้อย่างแน่นอน`;
+  }
+
+  return { summary, parts, weakAreas: weak, strongAreas: strong };
+}
+
+function displayResults(r) {
+  document.getElementById('results-placeholder').classList.add('hidden');
+  document.getElementById('results-content').classList.remove('hidden');
+
+  // Big score
+  document.getElementById('total-score-display').innerHTML = `${r.total}<span>/990</span>`;
+  const bandEl = document.getElementById('score-band-display');
+  bandEl.textContent = r.band.label;
+  bandEl.style.background = r.band.color;
+
+  // Sub-scores
+  document.getElementById('sc-listen').textContent = r.listen.toeic;
+  document.getElementById('sc-listen-pct').textContent = `${Math.round(r.listen.pct*100)}%`;
+  document.getElementById('sb-listen').style.width = (r.listen.pct*100) + '%';
+
+  document.getElementById('sc-grammar').textContent = r.grammar.toeic;
+  document.getElementById('sc-grammar-pct').textContent = `${Math.round(r.grammar.pct*100)}%`;
+  document.getElementById('sb-grammar').style.width = (r.grammar.pct*100) + '%';
+
+  document.getElementById('sc-reading').textContent = r.reading.toeic;
+  document.getElementById('sc-reading-pct').textContent = `${Math.round(r.reading.pct*100)}%`;
+  document.getElementById('sb-reading').style.width = (r.reading.pct*100) + '%';
+
+  // Skill cards
+  const skills = [
+    { key: 'listen',  total: 8,  raw: r.listen.raw,  pct: r.listen.pct },
+    { key: 'grammar', total: 9,  raw: r.grammar.raw, pct: r.grammar.pct },
+    { key: 'reading', total: 8,  raw: r.reading.raw, pct: r.reading.pct },
+  ];
+  skills.forEach(({key, total, raw, pct}) => {
+    document.getElementById(`sk-${key}-num`).textContent = raw;
+    document.getElementById(`sk-${key}-bar`).style.width = (pct*100) + '%';
+
+    const statusEl = document.getElementById(`sk-${key}-status`);
+    const lvl = pct >= 0.7 ? {icon:'✅', label:'แข็งแกร่ง', color:'var(--c-green)'} :
+                pct >= 0.45 ? {icon:'⚠️', label:'ปานกลาง', color:'var(--c-gold)'} :
+                              {icon:'❗', label:'ต้องพัฒนา', color:'var(--c-rose)'};
+    statusEl.innerHTML = `<span style="color:${lvl.color}">${lvl.icon} ${lvl.label}</span>`;
+
+    const insightParts = r.diagnosis.parts.find(p => {
+      if (key === 'listen')  return p.key === 'listening';
+      if (key === 'grammar') return p.key === 'grammar';
+      if (key === 'reading') return p.key === 'reading';
+    });
+    if (insightParts) {
+      document.getElementById(`sk-${key}-insight`).textContent = insightParts.insight;
+    }
+  });
+
+  // Diagnosis
+  document.getElementById('diagnosis-text').innerHTML = r.diagnosis.summary;
+
+  // Recommend resources based on weakness
+  sortResourcesByWeakness(r.diagnosis.weakAreas);
+}
+
+function buildReviewTable(r) {
+  const rows = r.details.map((d, i) => `
+    <tr>
+      <td style="font-family:var(--f-mono); color:var(--c-text3)">${i+1}</td>
+      <td class="tag tag--${d.q.type === 'listening' ? 'listen' : d.q.type === 'grammar' ? 'grammar' : 'reading'}"
+        style="font-size:.7rem; white-space:nowrap">${d.q.part}</td>
+      <td style="max-width:260px; font-size:.82rem;">${d.q.text.substring(0,80)}…</td>
+      <td style="font-family:var(--f-mono); font-size:.82rem;">${d.userAns !== undefined ? String.fromCharCode(65+d.userAns) : '—'}</td>
+      <td style="font-family:var(--f-mono); font-size:.82rem; color:var(--c-green)">${String.fromCharCode(65+d.q.answer)}</td>
+      <td>${d.correct
+        ? '<span class="correct-mark" aria-label="ถูก">✅</span>'
+        : '<span class="wrong-mark"   aria-label="ผิด">❌</span>'}</td>
+    </tr>`).join('');
+
+  document.getElementById('review-content').innerHTML = `
+    <div style="overflow-x:auto;">
+      <table class="review-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Part</th><th>คำถาม</th>
+            <th>คำตอบของคุณ</th><th>คำตอบที่ถูก</th><th>ผล</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+/* ================================================================
+   5. STUDY PLAN GENERATOR
+================================================================ */
+const PLAN_TEMPLATES = {
+  listening: ['ฟัง Podcast ภาษาอังกฤษ 20 นาที', 'ฝึก Listening TOEIC Part 1-2', 'ดูวิดีโอ TED Talks พร้อม Subtitle', 'ฝึก TOEIC Part 3-4 (Conversations)', 'ทำ Dictation Exercise'],
+  grammar:   ['ทบทวน Tense ทั้งหมด', 'ฝึก Word Form (N/V/Adj/Adv)', 'เรียน Preposition & Phrasal Verbs', 'ฝึก Relative Clauses', 'ทำแบบฝึกหัด Sentence Completion'],
+  reading:   ['ฝึกอ่าน Email/Memo ธุรกิจ', 'ฝึก Skimming & Scanning', 'เรียนคำศัพท์ธุรกิจ 10 คำ/วัน', 'ทำ Reading Comprehension TOEIC Part 7', 'ฝึกจับ Main Idea และ Detail'],
+  vocabulary:['เรียนคำศัพท์ TOEIC 15 คำ/วัน', 'ทำ Vocabulary Exercise', 'ฝึกใช้ Flashcards (Anki)', 'Review คำศัพท์เดิม + เรียนใหม่'],
+  speed:     ['จับเวลาอ่าน 500 คำ', 'ฝึก Rapid Reading Techniques', 'ทำข้อสอบ Reading ภายใต้เวลา'],
+  business:  ['เรียน Business Vocabulary', 'ฝึกอ่าน Business Documents', 'ดูรายการข่าวธุรกิจภาษาอังกฤษ'],
+};
+
+const MOTIVATIONAL = [
+  '💪 ความสำเร็จเริ่มจากก้าวเล็กๆ ทุกวัน',
+  '🎯 คุณเดินมาได้ครึ่งทางแล้ว อย่าหยุด!',
+  '⭐ ความสม่ำเสมอคือกุญแจสู่ TOEIC Score ที่ดีขึ้น',
+  '🚀 ทุกชั่วโมงที่ฝึกคือการลงทุนในอนาคตของคุณ',
+  '🌟 เชื่อมั่นในตัวเอง คุณทำได้แน่นอน!',
+];
+
+function generatePlan() {
+  const targetScore = parseInt(document.getElementById('target-score').value);
+  const duration    = parseInt(document.getElementById('plan-duration').value);
+  const dailyTime   = parseInt(document.getElementById('daily-time').value);
+
+  const selectedAreas = Array.from(document.querySelectorAll('.focus-chip.selected'))
+    .map(el => el.dataset.area);
+
+  if (selectedAreas.length === 0) {
+    alert('กรุณาเลือกโฟกัสหลักอย่างน้อย 1 ด้าน');
+    return;
+  }
+
+  const plan = buildPlanData(targetScore, duration, dailyTime, selectedAreas);
+  APP_STATE.currentPlan = plan;
+  renderPlan(plan);
+
+  document.getElementById('plan-output').classList.remove('hidden');
+  document.getElementById('plan-output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  savePlanToStorage();
+}
+
+function buildPlanData(targetScore, weeks, dailyMins, areas) {
+  const tasks = areas.flatMap(a => PLAN_TEMPLATES[a] || []);
+  const shuffle = arr => [...arr].sort(() => Math.random() - .5);
+
+  const weekPlans = [];
+  const checkpoints = [];
+
+  for (let w = 1; w <= weeks; w++) {
+    const isCheckpointWeek = w % 2 === 0 || w === weeks;
+    const weekFocus = areas[Math.floor((w-1) / Math.max(1, weeks / areas.length)) % areas.length];
+    const focusTasks = shuffle(PLAN_TEMPLATES[weekFocus] || tasks).slice(0, 7);
+
+    const days = ['จ.','อ.','พ.','พฤ.','ศ.','ส.','อา.'].map((label, di) => {
+      if (di === 6) return { label, task: '🛌 พักผ่อน / Review สั้นๆ', rest: true };
+      const task = focusTasks[di % focusTasks.length];
+      return { label, task: `${task} (${dailyMins} นาที)` };
+    });
+
+    if (isCheckpointWeek) {
+      checkpoints.push({ week: w, text: `ทำ Mini Test เพื่อวัด Progress และปรับแผนถ้าจำเป็น` });
+    }
+
+    weekPlans.push({
+      week: w,
+      title: `สัปดาห์ที่ ${w}`,
+      focus: weekFocus,
+      days,
+      checkpoint: isCheckpointWeek ? `ทดสอบ Progress — เป้าหมายสัปดาห์นี้: ${Math.round(targetScore * (w/weeks))} คะแนน` : null,
+      motivation: MOTIVATIONAL[(w-1) % MOTIVATIONAL.length],
+    });
+  }
+
+  return {
+    targetScore, weeks, dailyMins, areas,
+    weekPlans,
+    title: `แผนการเรียน TOEIC ${weeks} สัปดาห์`,
+    meta: `คะแนนเป้าหมาย: ${targetScore}+ | เวลาเรียน: ${dailyMins} นาที/วัน`,
+    createdAt: new Date().toLocaleDateString('th-TH'),
+  };
+}
+
+function renderPlan(plan) {
+  document.getElementById('plan-title-display').textContent = plan.title;
+  document.getElementById('plan-meta-display').textContent = plan.meta + ` | สร้างเมื่อ: ${plan.createdAt}`;
+
+  const areaLabels = { listening:'Listening', grammar:'Grammar', reading:'Reading', vocabulary:'Vocabulary', speed:'Speed Reading', business:'Business English' };
+
+  const weeksHtml = plan.weekPlans.map(wk => `
+    <div class="plan-week">
+      <div class="plan-week__header">
+        <div class="plan-week__num">${wk.week}</div>
+        <div>
+          <div class="plan-week__title">${wk.title} — โฟกัส: ${areaLabels[wk.focus] || wk.focus}</div>
+          <div class="plan-week__focus">${wk.motivation}</div>
+        </div>
+      </div>
+      <div class="plan-days">
+        ${wk.days.map(d => `
+          <div class="plan-day${d.rest ? ' rest' : ''}">
+            <div class="plan-day__label">${d.label}</div>
+            <div class="plan-day__task">${d.task}</div>
+          </div>`).join('')}
+      </div>
+      ${wk.checkpoint ? `
+        <div class="plan-checkpoint">
+          <span class="plan-checkpoint__icon">🏁</span>
+          <span class="plan-checkpoint__text"><strong>Checkpoint:</strong> ${wk.checkpoint}</span>
+        </div>` : ''}
+    </div>`).join('');
+
+  document.getElementById('plan-weeks-content').innerHTML = weeksHtml;
+  updateTodayWidget();
+}
+
+function printPlan() { window.print(); }
+
+function copyPlan() {
+  if (!APP_STATE.currentPlan) return;
+  const lines = [`${APP_STATE.currentPlan.title}\n${APP_STATE.currentPlan.meta}\n`];
+  APP_STATE.currentPlan.weekPlans.forEach(wk => {
+    lines.push(`\n=== ${wk.title} ===`);
+    wk.days.forEach(d => lines.push(`  ${d.label}: ${d.task}`));
+    if (wk.checkpoint) lines.push(`  🏁 ${wk.checkpoint}`);
+  });
+  navigator.clipboard.writeText(lines.join('\n'))
+    .then(() => alert('✅ คัดลอกแผนการเรียนสำเร็จ!'))
+    .catch(() => alert('ไม่สามารถคัดลอกได้ในเบราว์เซอร์นี้'));
+}
+
+function downloadPlanJSON() {
+  if (!APP_STATE.currentPlan) return;
+  const blob = new Blob([JSON.stringify(APP_STATE.currentPlan, null, 2)], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'toeic-study-plan.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function savePlanToStorage() {
+  if (!APP_STATE.currentPlan) return;
+  try {
+    localStorage.setItem(STORAGE_KEYS.PLAN, JSON.stringify(APP_STATE.currentPlan));
+    alert('✅ บันทึกแผนการเรียนสำเร็จ!');
+  } catch(e) { alert('ไม่สามารถบันทึกได้'); }
+}
+
+function loadSavedPlan() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.PLAN);
+    if (saved) {
+      APP_STATE.currentPlan = JSON.parse(saved);
+      renderPlan(APP_STATE.currentPlan);
+      document.getElementById('plan-output').classList.remove('hidden');
+      // Pre-fill form
+      const p = APP_STATE.currentPlan;
+      if (p.targetScore) document.getElementById('target-score').value = p.targetScore;
+      if (p.weeks)       document.getElementById('plan-duration').value = p.weeks;
+      if (p.dailyMins)   document.getElementById('daily-time').value = p.dailyMins;
+    }
+  } catch(e) {}
+}
+
+/* ================================================================
+   6. RESOURCE RECOMMENDER
+================================================================ */
+// EXTERNAL_RESOURCE_URL: Replace placeholder URLs below with real links
+const RESOURCES = [
+  {
+    id: 'ets-official',
+    title: 'ETS TOEIC Official Practice',
+    desc: 'แหล่งฝึกซ้อมอย่างเป็นทางการจาก ETS ผู้ออกข้อสอบ TOEIC มีข้อสอบตัวอย่างและข้อมูลเกี่ยวกับรูปแบบการสอบ',
+    reason: 'ข้อมูลตรงจากผู้ออกข้อสอบ — น่าเชื่อถือที่สุด',
+    skill: 'official',
+    difficulty: 'medium',
+    url: 'https://www.ets.org/toeic/test-takers/listening-reading/about/', // EXTERNAL_RESOURCE_URL
+    tag: 'official',
+  },
+  {
+    id: 'ets-level-projector',
+    title: 'TOEIC Level Projector (ETS Global)',
+    desc: 'เครื่องมือประเมินระดับภาษาอังกฤษและประมาณคะแนน TOEIC ที่คาดว่าจะทำได้',
+    reason: 'ช่วยประเมิน Current Level ก่อนลงสมัครสอบ',
+    skill: 'official',
+    difficulty: 'easy',
+    url: 'https://www.etsglobal.org/th/en/toeic/level-projector', // EXTERNAL_RESOURCE_URL
+    tag: 'official',
+  },
+  {
+    id: 'british-council-listening',
+    title: 'British Council LearnEnglish Listening',
+    desc: 'แบบฝึกหัด Listening แบ่งตามระดับ A1–C1 มีทั้ง Podcast, Short Conversations และ Exercises ฟรี',
+    reason: 'สำเนียง British ที่ชัดเจน ระดับชัด ฝึกได้ทุกวัน',
+    skill: 'listening',
+    difficulty: 'easy',
+    url: 'https://learnenglish.britishcouncil.org/skills/listening', // EXTERNAL_RESOURCE_URL
+    tag: 'listen',
+  },
+  {
+    id: 'voa-learning',
+    title: 'VOA Learning English',
+    desc: 'สื่อข่าวและรายการภาษาอังกฤษช้าๆ จาก Voice of America เหมาะสำหรับฝึก Listening และ Vocabulary',
+    reason: 'คำศัพท์ธุรกิจและข่าวสาร ฟังทุกวันช่วยได้มาก',
+    skill: 'listening',
+    difficulty: 'easy',
+    url: 'https://learningenglish.voanews.com/', // EXTERNAL_RESOURCE_URL
+    tag: 'listen',
+  },
+  {
+    id: 'bbc-learning',
+    title: 'BBC Learning English',
+    desc: 'วิดีโอ Podcast และแบบฝึกหัดภาษาอังกฤษจาก BBC ครอบคลุมทั้ง Grammar, Vocabulary และ Pronunciation',
+    reason: 'คุณภาพสูง หลากหลาย รูปแบบที่น่าสนใจ ฟรีทั้งหมด',
+    skill: 'listening',
+    difficulty: 'medium',
+    url: 'https://www.bbc.co.uk/learningenglish/', // EXTERNAL_RESOURCE_URL
+    tag: 'listen',
+  },
+  {
+    id: 'cambridge-free',
+    title: 'Cambridge English Free Activities',
+    desc: 'แบบฝึกหัด Grammar, Vocabulary และ Listening ฟรีจาก Cambridge จัดตามระดับ A1–C2',
+    reason: 'มาตรฐาน Cambridge เน้นความถูกต้องทางภาษา',
+    skill: 'grammar',
+    difficulty: 'medium',
+    url: 'https://www.cambridgeenglish.org/learning-english/free-resources/', // EXTERNAL_RESOURCE_URL
+    tag: 'grammar',
+  },
+  {
+    id: 'perfect-english-grammar',
+    title: 'Perfect English Grammar',
+    desc: 'เว็บไซต์ Grammar อธิบายชัดเจน มีแบบฝึกหัดหลายระดับ ครอบคลุม Tense, Modals, Conditionals ฯลฯ',
+    reason: 'อธิบายภาษาไทย + อังกฤษ เข้าใจง่าย',
+    skill: 'grammar',
+    difficulty: 'easy',
+    url: 'https://www.perfect-english-grammar.com/', // EXTERNAL_RESOURCE_URL
+    tag: 'grammar',
+  },
+  {
+    id: 'engvid-grammar',
+    title: 'EngVid — English Grammar Videos',
+    desc: 'วิดีโอสอน Grammar โดยครูชาวต่างชาติ ครอบคลุมเนื้อหาที่ออกสอบ TOEIC บ่อย',
+    reason: 'เรียนรู้ Grammar จากตัวอย่างบริบทธุรกิจจริง',
+    skill: 'grammar',
+    difficulty: 'medium',
+    url: 'https://www.engvid.com/english-grammar/', // EXTERNAL_RESOURCE_URL
+    tag: 'grammar',
+  },
+  {
+    id: 'breaking-news-reading',
+    title: 'Breaking News English',
+    desc: 'บทความข่าวระดับง่าย-กลาง มีคำถาม Comprehension พร้อมไฟล์เสียง เหมาะฝึก Reading + Listening',
+    reason: 'คำศัพท์ธุรกิจและข่าวสาร ตรงกับ TOEIC มาก',
+    skill: 'reading',
+    difficulty: 'easy',
+    url: 'https://www.breakingnewsenglish.com/', // EXTERNAL_RESOURCE_URL
+    tag: 'reading',
+  },
+  {
+    id: 'news-in-levels',
+    title: 'News in Levels',
+    desc: 'ข่าวเดียวกันเขียนใน 3 ระดับ ง่ายไปยาก เหมาะสำหรับฝึก Reading ตาม Level ของตัวเอง',
+    reason: 'ค่อยๆ ยกระดับ Reading Comprehension อย่างเป็นขั้นตอน',
+    skill: 'reading',
+    difficulty: 'easy',
+    url: 'https://www.newsinlevels.com/', // EXTERNAL_RESOURCE_URL
+    tag: 'reading',
+  },
+  {
+    id: 'quizlet-toeic',
+    title: 'Quizlet — TOEIC Vocabulary Sets',
+    desc: 'Flashcard คำศัพท์ TOEIC หลายร้อยชุดที่ผู้ใช้สร้างขึ้น ฝึกได้ทั้งบน PC และ Mobile',
+    reason: 'Spaced Repetition ช่วยให้จำคำศัพท์ได้นานขึ้น',
+    skill: 'general',
+    difficulty: 'easy',
+    url: 'https://quizlet.com/subject/toeic/', // EXTERNAL_RESOURCE_URL
+    tag: 'general',
+  },
+  {
+    id: 'ted-talks',
+    title: 'TED Talks — English Subtitles',
+    desc: 'ดูการบรรยายภาษาอังกฤษพร้อม Subtitle หลากหลายหัวข้อ ฝึก Listening และ Vocabulary ธุรกิจ',
+    reason: 'สำเนียงหลากหลาย ความเร็วปานกลาง เหมาะ TOEIC มาก',
+    skill: 'general',
+    difficulty: 'medium',
+    url: 'https://www.ted.com/talks', // EXTERNAL_RESOURCE_URL
+    tag: 'general',
+  },
+];
+
+function renderResources(filter = 'all', weakAreas = []) {
+  const grid = document.getElementById('resources-grid');
+  const skillMap = { listening: 'listen', grammar: 'grammar', reading: 'reading' };
+  const weakTags = weakAreas.map(a => skillMap[a]).filter(Boolean);
+
+  let filtered = filter === 'all' ? RESOURCES : RESOURCES.filter(r => r.skill === filter);
+
+  // Sort: recommended (matching weak areas) first
+  filtered = filtered.sort((a, b) => {
+    const aRec = weakTags.includes(a.tag) || weakAreas.includes(a.skill);
+    const bRec = weakTags.includes(b.tag) || weakAreas.includes(b.skill);
+    return bRec - aRec;
+  });
+
+  const diffLabels = { easy: { cls: 'easy', label: 'เริ่มต้น' }, medium: { cls: 'medium', label: 'กลาง' }, hard: { cls: 'hard', label: 'สูง' } };
+  const tagLabels  = { official:'official', listen:'listen', grammar:'grammar', reading:'reading', general:'general' };
+
+  grid.innerHTML = filtered.map(r => {
+    const isRec = weakTags.includes(r.tag) || weakAreas.includes(r.skill);
+    const diff  = diffLabels[r.difficulty] || diffLabels.medium;
+    return `
+      <article class="resource-card${isRec ? ' recommended' : ''}" data-skill="${r.skill}">
+        <div class="resource-card__tags">
+          <span class="tag tag--${tagLabels[r.tag] || 'general'}">${r.skill.toUpperCase()}</span>
+          <span class="badge badge--${diff.cls}">${diff.label}</span>
+        </div>
+        <h3 class="resource-card__title">${r.title}</h3>
+        <p class="resource-card__desc">${r.desc}</p>
+        <p style="font-size:.78rem; color:var(--c-gold); font-weight:600;">💡 ${r.reason}</p>
+        <div class="resource-card__footer">
+          <a
+            href="${r.url}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--primary btn--sm"
+            aria-label="เปิด ${r.title} ในแท็บใหม่"
+          >เปิดเว็บไซต์ →</a>
+        </div>
+      </article>`;
+  }).join('');
+}
+
+function filterResources(btn, filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const weakAreas = APP_STATE.lastResult ? APP_STATE.lastResult.diagnosis.weakAreas : [];
+  renderResources(filter, weakAreas);
+}
+
+function sortResourcesByWeakness(weakAreas) {
+  renderResources('all', weakAreas);
+}
+
+/* ================================================================
+   7. FEEDBACK & JOURNAL
+================================================================ */
+// Setup star rating
+function initStars() {
+  const stars = document.querySelectorAll('.star-btn');
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      const val = parseInt(star.dataset.star);
+      APP_STATE.selectedRating = val;
+      document.getElementById('fb-rating').value = val;
+      stars.forEach((s, i) => s.classList.toggle('active', i < val));
+    });
+    star.addEventListener('mouseenter', () => {
+      const val = parseInt(star.dataset.star);
+      stars.forEach((s, i) => s.classList.toggle('hover', i < val));
+    });
+    star.addEventListener('mouseleave', () => {
+      stars.forEach(s => s.classList.remove('hover'));
+    });
+  });
+}
+
+// Feedback form submission
+document.getElementById('feedback-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const statusEl = document.getElementById('feedback-status');
+  const msg = document.getElementById('fb-message').value.trim();
+  if (!msg) {
+    statusEl.innerHTML = '<div class="alert alert--error">กรุณากรอกความคิดเห็น</div>';
+    return;
+  }
+
+  statusEl.innerHTML = '<div class="alert" style="border-color:var(--c-border);">⏳ กำลังส่ง...</div>';
+
+  try {
+    /* ── Web3Forms Integration ────────────────────────────────────
+       Replace "REPLACE_WITH_YOUR_WEB3FORMS_KEY" with your actual key from https://web3forms.com
+       Alternatively, change the action to your Formspree URL:
+       form.action = "REPLACE_WITH_YOUR_FORMSPREE_URL" (e.g., https://formspree.io/f/xyzabcde)
+    ──────────────────────────────────────────────────────────── */
+    const formData = new FormData(form);
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      statusEl.innerHTML = '<div class="alert alert--success">✅ ส่ง Feedback สำเร็จ! ขอบคุณสำหรับความคิดเห็น</div>';
+      form.reset();
+      APP_STATE.selectedRating = 0;
+      document.querySelectorAll('.star-btn').forEach(s => s.classList.remove('active'));
+    } else {
+      throw new Error(data.message || 'เกิดข้อผิดพลาด');
+    }
+  } catch (err) {
+    statusEl.innerHTML = `<div class="alert alert--error">❌ ส่งไม่สำเร็จ: ${err.message}<br><small>ตรวจสอบการตั้งค่า Web3Forms/Formspree</small></div>`;
+  }
+});
+
+// Journal
+function saveJournalEntry() {
+  const text = document.getElementById('journal-input').value.trim();
+  if (!text) return;
+
+  let entries = [];
+  try { entries = JSON.parse(localStorage.getItem(STORAGE_KEYS.JOURNAL) || '[]'); } catch(e) {}
+
+  entries.unshift({ text, date: new Date().toLocaleString('th-TH'), id: Date.now() });
+  entries = entries.slice(0, 30); // Keep last 30
+
+  try { localStorage.setItem(STORAGE_KEYS.JOURNAL, JSON.stringify(entries)); } catch(e) {}
+
+  document.getElementById('journal-input').value = '';
+  renderJournal(entries);
+}
+
+function renderJournal(entries) {
+  const container = document.getElementById('journal-entries');
+  if (!entries || entries.length === 0) {
+    container.innerHTML = '<p class="text-sm text-muted">ยังไม่มีบันทึก</p>';
+    return;
+  }
+  container.innerHTML = entries.map(e => `
+    <div class="journal-entry">
+      <div class="journal-entry__date">${e.date}</div>
+      <div class="journal-entry__text">${e.text.replace(/</g,'&lt;')}</div>
+    </div>`).join('');
+}
+
+function loadJournal() {
+  try {
+    const entries = JSON.parse(localStorage.getItem(STORAGE_KEYS.JOURNAL) || '[]');
+    renderJournal(entries);
+  } catch(e) { renderJournal([]); }
+}
+
+/* ================================================================
+   8. HISTORY & CHART
+================================================================ */
+function saveToHistory(result) {
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem(STORAGE_KEYS.HISTORY) || '[]'); } catch(e) {}
+
+  history.unshift({
+    date:      result.date,
+    timestamp: result.timestamp,
+    total:     result.total,
+    listen:    result.listen.raw,
+    grammar:   result.grammar.raw,
+    reading:   result.reading.raw,
+    listenPct: Math.round(result.listen.pct * 100),
+    grammarPct:Math.round(result.grammar.pct * 100),
+    readingPct:Math.round(result.reading.pct * 100),
+    strongest: getStrongestArea(result),
+    weakest:   getWeakestArea(result),
+    band:      result.band.label,
+  });
+  history = history.slice(0, 20);
+  try { localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(history)); } catch(e) {}
+}
+
+function getStrongestArea(r) {
+  const areas = [
+    {name:'Listening', pct:r.listen.pct},
+    {name:'Grammar',   pct:r.grammar.pct},
+    {name:'Reading',   pct:r.reading.pct},
+  ];
+  return areas.sort((a,b) => b.pct - a.pct)[0].name;
+}
+
+function getWeakestArea(r) {
+  const areas = [
+    {name:'Listening', pct:r.listen.pct},
+    {name:'Grammar',   pct:r.grammar.pct},
+    {name:'Reading',   pct:r.reading.pct},
+  ];
+  return areas.sort((a,b) => a.pct - b.pct)[0].name;
+}
+
+function updateHistory() {
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem(STORAGE_KEYS.HISTORY) || '[]'); } catch(e) {}
+
+  const container = document.getElementById('history-content');
+  if (!history.length) {
+    container.innerHTML = '<p class="text-muted text-sm">ยังไม่มีประวัติการทดสอบ</p>';
+    return;
+  }
+
+  const rows = history.map(h => `
+    <tr>
+      <td style="font-family:var(--f-mono); font-size:.8rem; color:var(--c-text3)">${h.date}</td>
+      <td style="font-family:var(--f-display); font-size:1.1rem; font-weight:700; color:var(--c-gold)">${h.total}</td>
+      <td style="font-size:.82rem;">${h.band.split('(')[0].trim()}</td>
+      <td style="font-size:.82rem;">${h.strongest}</td>
+      <td style="font-size:.82rem; color:var(--c-rose)">${h.weakest}</td>
+      <td style="font-size:.8rem; color:var(--c-text3)">${h.listenPct}% / ${h.grammarPct}% / ${h.readingPct}%</td>
+    </tr>`).join('');
+
+  container.innerHTML = `
+    <div style="overflow-x:auto;">
+      <table class="history-table">
+        <thead><tr>
+          <th>วันที่</th><th>คะแนนรวม</th><th>ระดับ</th>
+          <th>จุดแข็ง</th><th>ต้องพัฒนา</th><th>L/G/R %</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+
+  drawHistoryChart(history);
+}
+
+function drawHistoryChart(history) {
+  const canvas = document.getElementById('score-chart-canvas');
+  if (!canvas || history.length < 2) { canvas.style.display = 'none'; return; }
+  canvas.style.display = 'block';
+
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = { t:20, r:20, b:40, l:50 };
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const textColor = isDark ? '#B8B3A8' : '#5C5750';
+  const gridColor = isDark ? '#3A3830' : '#D8D3C8';
+  const bgColor   = isDark ? '#22201C' : '#FFFFFF';
+
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, W, H);
+
+  const scores = history.slice().reverse().map(h => h.total);
+  const maxS = Math.max(...scores, 400);
+  const minS = Math.max(0, Math.min(...scores) - 100);
+
+  const xStep = cW / (scores.length - 1);
+
+  // Grid lines
+  ctx.strokeStyle = gridColor; ctx.lineWidth = 1;
+  [0, 0.25, 0.5, 0.75, 1].forEach(r => {
+    const y = pad.t + cH * (1 - r);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
+    ctx.fillStyle = textColor; ctx.font = '11px JetBrains Mono, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(minS + r * (maxS - minS)), pad.l - 6, y + 4);
+  });
+
+  // Score line
+  ctx.strokeStyle = '#C9973A'; ctx.lineWidth = 2.5;
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  scores.forEach((s, i) => {
+    const x = pad.l + i * xStep;
+    const y = pad.t + cH * (1 - (s - minS) / (maxS - minS));
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  // Dots + labels
+  scores.forEach((s, i) => {
+    const x = pad.l + i * xStep;
+    const y = pad.t + cH * (1 - (s - minS) / (maxS - minS));
+    ctx.fillStyle = '#C9973A';
+    ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = textColor; ctx.font = 'bold 11px JetBrains Mono, monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(s, x, y - 10);
+
+    // X-axis dates
+    ctx.fillStyle = textColor; ctx.font = '10px Sarabun, sans-serif';
+    ctx.fillText(history[history.length - 1 - i].date, x, H - 8);
+  });
+
+  // X-axis label
+  ctx.fillStyle = textColor; ctx.font = '11px Sarabun, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('ประวัติคะแนน TOEIC (โดยประมาณ)', W/2, H - 26);
+}
+
+function clearHistory() {
+  if (!confirm('ต้องการลบประวัติการทดสอบทั้งหมด?')) return;
+  try { localStorage.removeItem(STORAGE_KEYS.HISTORY); } catch(e) {}
+  updateHistory();
+}
+
+/* ================================================================
+   9. TODAY WIDGET
+================================================================ */
+function updateTodayWidget() {
+  const plan = APP_STATE.currentPlan;
+  const listEl = document.getElementById('today-tasks-list');
+  if (!plan) {
+    listEl.innerHTML = '<p class="text-sm text-muted">สร้างแผนการเรียนก่อนนะ 📅</p>';
+    return;
+  }
+
+  // Get week 1, day 1 tasks
+  const today = new Date().getDay(); // 0=Sun, 1=Mon...
+  const dayIndex = today === 0 ? 6 : today - 1;
+  const firstWeek = plan.weekPlans[0];
+  if (!firstWeek) return;
+
+  const todayTask = firstWeek.days[dayIndex];
+  const tasks = [
+    todayTask ? `📚 ${todayTask.task}` : '🎉 วันนี้พักผ่อน!',
+    `⏰ ตั้งเป้าเรียน ${plan.dailyMins} นาที`,
+    `🎯 เป้าหมาย: ${plan.targetScore}+ คะแนน`,
+  ];
+
+  let savedTasks = {};
+  try {
+    savedTasks = JSON.parse(localStorage.getItem('toeic_today_tasks') || '{}');
+    const today_str = new Date().toDateString();
+    if (savedTasks.date !== today_str) { savedTasks = { date: today_str, done: {} }; }
+  } catch(e) { savedTasks = { date: new Date().toDateString(), done: {} }; }
+
+  listEl.innerHTML = tasks.map((t, i) => `
+    <div class="today-task${savedTasks.done?.[i] ? ' done' : ''}" id="today-task-${i}">
+      <div class="today-task__check" onclick="toggleTodayTask(${i})" role="checkbox" aria-checked="${!!savedTasks.done?.[i]}" tabindex="0"></div>
+      <span>${t}</span>
+    </div>`).join('');
+}
+
+function toggleTodayTask(i) {
+  let savedTasks = {};
+  try {
+    savedTasks = JSON.parse(localStorage.getItem('toeic_today_tasks') || '{}');
+    const today_str = new Date().toDateString();
+    if (savedTasks.date !== today_str) savedTasks = { date: today_str, done: {} };
+  } catch(e) { savedTasks = { date: new Date().toDateString(), done: {} }; }
+
+  savedTasks.done = savedTasks.done || {};
+  savedTasks.done[i] = !savedTasks.done[i];
+  try { localStorage.setItem('toeic_today_tasks', JSON.stringify(savedTasks)); } catch(e) {}
+
+  const el = document.getElementById(`today-task-${i}`);
+  if (el) el.classList.toggle('done', savedTasks.done[i]);
+}
+
+function toggleTodayWidget() {
+  APP_STATE.todayWidgetOpen = !APP_STATE.todayWidgetOpen;
+  document.getElementById('today-panel').classList.toggle('open', APP_STATE.todayWidgetOpen);
+}
+
+/* ================================================================
+   10. THEME & NAV
+================================================================ */
+function initTheme() {
+  const saved = localStorage.getItem(STORAGE_KEYS.THEME) || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.getElementById('theme-toggle').textContent = saved === 'dark' ? '☀️' : '🌙';
+}
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const curr = document.documentElement.getAttribute('data-theme');
+  const next = curr === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+  try { localStorage.setItem(STORAGE_KEYS.THEME, next); } catch(e) {}
+  // Redraw chart
+  if (document.getElementById('score-chart-canvas').style.display !== 'none') {
+    try {
+      const history = JSON.parse(localStorage.getItem(STORAGE_KEYS.HISTORY) || '[]');
+      drawHistoryChart(history);
+    } catch(e) {}
+  }
+});
+
+document.getElementById('hamburger').addEventListener('click', () => {
+  const drawer = document.getElementById('nav-drawer');
+  const isOpen = drawer.classList.toggle('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+function closeDrawer() {
+  document.getElementById('nav-drawer').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+/* Tab switch */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+    b.setAttribute('aria-selected', b.dataset.tab === tab);
+  });
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  if (tab === 'history') updateHistory();
+}
+
+/* Focus chips */
+document.getElementById('focus-areas').addEventListener('click', (e) => {
+  const chip = e.target.closest('.focus-chip');
+  if (!chip) return;
+  chip.classList.toggle('selected');
+});
+
+/* Demo result */
+function showDemoResult() {
+  // Simulate a demo result
+  const demo = {
+    listen:  { raw: 5, total: 8,  pct: 5/8,  toeic: Math.round(5/8*495) },
+    grammar: { raw: 6, total: 9,  pct: 6/9,  toeic: Math.round(6/9*495) },
+    reading: { raw: 4, total: 8,  pct: 4/8,  toeic: Math.round(4/8*495) },
+    total: 550,
+    band: getBand(550),
+    diagnosis: getDiagnosis(5/8, 6/9, 4/8),
+    details: [],
+    date: new Date().toLocaleDateString('th-TH'),
+    timestamp: Date.now(),
+  };
+  APP_STATE.lastResult = demo;
+  APP_STATE.answers = {};
+  QUESTIONS.forEach((q,i) => { APP_STATE.answers[i] = i % 2 === 0 ? q.answer : (q.answer + 1) % 4; });
+  const realDemo = calculateScores();
+  APP_STATE.lastResult = realDemo;
+  displayResults(realDemo);
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function goToStudyPlan() {
+  document.getElementById('study-plan').scrollIntoView({ behavior: 'smooth' });
+  if (APP_STATE.lastResult) {
+    const weakAreas = APP_STATE.lastResult.diagnosis.weakAreas;
+    // Pre-select weak focus chips
+    document.querySelectorAll('.focus-chip').forEach(chip => {
+      const area = chip.dataset.area;
+      const shouldSelect = weakAreas.includes(area) ||
+        (weakAreas.includes('listening') && area === 'listening') ||
+        (weakAreas.includes('grammar')   && area === 'grammar') ||
+        (weakAreas.includes('reading')   && area === 'reading');
+      chip.classList.toggle('selected', shouldSelect);
+    });
+  }
+}
+
+/* Reset all */
+function confirmReset() {
+  if (!confirm('⚠️ การดำเนินการนี้จะลบข้อมูลทั้งหมดออกจากอุปกรณ์นี้ รวมถึงประวัติการทดสอบ แผนการเรียน และบันทึกส่วนตัว\n\nต้องการดำเนินการต่อหรือไม่?')) return;
+  Object.values(STORAGE_KEYS).forEach(key => {
+    try { localStorage.removeItem(key); } catch(e) {}
+  });
+  try { localStorage.removeItem('toeic_today_tasks'); } catch(e) {}
+  APP_STATE.lastResult = null;
+  APP_STATE.currentPlan = null;
+  APP_STATE.answers = {};
+  alert('✅ ล้างข้อมูลทั้งหมดเรียบร้อยแล้ว');
+  location.reload();
+}
+
+/* Loading helpers */
+function showLoading() { document.getElementById('loading-overlay').classList.add('show'); }
+function hideLoading()  { document.getElementById('loading-overlay').classList.remove('show'); }
+
+/* ================================================================
+   INIT — เรียกใช้เมื่อหน้าเว็บโหลดเสร็จ
+================================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initStars();
+  renderResources('all', []);
+  loadJournal();
+  loadSavedPlan();
+  updateHistory();
+  updateTodayWidget();
+
+  // Close today widget when clicking outside
+  document.addEventListener('click', (e) => {
+    const widget = document.getElementById('today-widget');
+    if (!widget.contains(e.target)) {
+      APP_STATE.todayWidgetOpen = false;
+      document.getElementById('today-panel').classList.remove('open');
+    }
+  });
+
+  // Load partial answers if any
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.ANSWERS);
+    if (saved) APP_STATE.answers = JSON.parse(saved);
+  } catch(e) {}
+
+  console.log(`
+  ┌─────────────────────────────────────┐
+  │  🎓 TOEIC Study Planner v1.0.0     │
+  │  Static Site — GitHub Pages Ready  │
+  │                                     │
+  │  localStorage keys:                 │
+  │   toeic_history, toeic_plan,        │
+  │   toeic_journal, toeic_theme        │
+  └─────────────────────────────────────┘
+  `);
+});
+</script>
+</body>
+</html>
