@@ -1782,6 +1782,158 @@
       border-radius: var(--r-md);
     }
 
+    /* ================================================================
+       TOPIC MODE SELECTOR + INSTANT ANSWER TOGGLE
+    ================================================================ */
+    .quiz-mode-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .quiz-mode-selector { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .mode-card {
+      border: 1.5px solid var(--c-border);
+      border-radius: var(--r-md);
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--trans);
+      background: transparent;
+      font-family: var(--f-body);
+      color: var(--c-text);
+    }
+
+    .mode-card:hover {
+      border-color: var(--c-gold);
+      background: rgba(201,151,58,.05);
+    }
+
+    .mode-card.selected {
+      border-color: var(--c-navy);
+      background: var(--c-navy);
+      color: #fff;
+    }
+
+    .mode-card__icon  { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+    .mode-card__label { font-size: .82rem; font-weight: 600; display: block; }
+    .mode-card__count { font-size: .7rem; font-family: var(--f-mono); opacity: .6; display: block; margin-top: 2px; }
+
+    /* Toggle switch */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--c-surface2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      margin-bottom: 8px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .9rem;
+      font-weight: 500;
+    }
+
+    .toggle-desc { font-size: .75rem; color: var(--c-text3); font-family: var(--f-mono); }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: var(--c-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background var(--trans);
+    }
+
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform var(--trans);
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+
+    .toggle-switch input:checked + .toggle-track { background: var(--c-green); }
+    .toggle-switch input:checked + .toggle-track::after { transform: translateX(20px); }
+
+    /* Instant answer feedback box */
+    .instant-feedback {
+      margin-top: 12px;
+      padding: 14px 18px;
+      border-radius: var(--r-md);
+      border-left: 4px solid;
+      font-size: .9rem;
+      line-height: 1.7;
+      animation: fadeInUp .25s ease;
+      display: none;
+    }
+
+    .instant-feedback.show { display: block; }
+
+    .instant-feedback.correct {
+      background: rgba(58,125,90,.1);
+      border-color: var(--c-green);
+    }
+
+    .instant-feedback.wrong {
+      background: rgba(196,74,74,.08);
+      border-color: var(--c-rose);
+    }
+
+    .instant-feedback__verdict {
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .instant-feedback.correct .instant-feedback__verdict { color: var(--c-green); }
+    .instant-feedback.wrong   .instant-feedback__verdict { color: var(--c-rose); }
+    .instant-feedback__explain { color: var(--c-text2); font-size: .88rem; }
+
+    /* Topic badge shown in quiz header */
+    .quiz-topic-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      font-family: var(--f-mono);
+      letter-spacing: .06em;
+    }
+
+    .quiz-topic-badge.all       { background: rgba(27,43,75,.12);   color: var(--c-navy); }
+    .quiz-topic-badge.listening { background: rgba(45,106,138,.15); color: var(--c-listen); }
+    .quiz-topic-badge.grammar   { background: rgba(106,75,138,.15); color: var(--c-grammar); }
+    .quiz-topic-badge.reading   { background: rgba(58,125,90,.15);  color: var(--c-reading); }
+
     /* Demo banner */
     .demo-banner {
       background: linear-gradient(90deg, var(--c-navy), var(--c-navy-mid));
@@ -1934,21 +2086,80 @@
 
       <!-- Quiz Not Started -->
       <div id="quiz-start-screen">
-        <div class="card" style="text-align:center; max-width: 600px; margin: 0 auto; padding: 48px;">
-          <div style="font-size:3rem; margin-bottom:16px;">📋</div>
-          <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:12px;">พร้อมเริ่มทดสอบแล้วหรือยัง?</h3>
-          <p class="text-muted" style="margin-bottom:28px; line-height:1.8;">
-            แบบทดสอบมี 3 ส่วน:<br>
-            <strong>Part A</strong> — Listening Comprehension (8 ข้อ)<br>
-            <strong>Part B</strong> — Grammar & Vocabulary (9 ข้อ)<br>
-            <strong>Part C</strong> — Reading Comprehension (8 ข้อ)
-          </p>
-          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;">
-            <label style="display:flex; align-items:center; gap:8px; font-size:.9rem; cursor:pointer;">
-              <input type="checkbox" id="timer-toggle" checked /> เปิดใช้งาน Timer (30 นาที)
-            </label>
+        <div class="card" style="max-width: 680px; margin: 0 auto; padding: 40px;">
+
+          <div style="text-align:center; margin-bottom:28px;">
+            <div style="font-size:2.8rem; margin-bottom:12px;">📋</div>
+            <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:8px;">เลือกโหมดการทดสอบ</h3>
+            <p class="text-muted text-sm">เลือกทดสอบเฉพาะทักษะที่ต้องการ หรือทดสอบแบบเต็ม</p>
           </div>
-          <button class="btn btn--gold btn--lg" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
+
+          <!-- Topic Mode Selector -->
+          <div class="quiz-mode-selector" id="topic-selector" role="group" aria-label="เลือกหมวดข้อสอบ">
+            <button class="mode-card selected" data-topic="all" onclick="selectTopic(this, 'all')">
+              <span class="mode-card__icon">📋</span>
+              <span class="mode-card__label">Full Test</span>
+              <span class="mode-card__count">25 ข้อ</span>
+            </button>
+            <button class="mode-card" data-topic="listening" onclick="selectTopic(this, 'listening')">
+              <span class="mode-card__icon">🎧</span>
+              <span class="mode-card__label">Listening</span>
+              <span class="mode-card__count">8 ข้อ</span>
+            </button>
+            <button class="mode-card" data-topic="grammar" onclick="selectTopic(this, 'grammar')">
+              <span class="mode-card__icon">📖</span>
+              <span class="mode-card__label">Grammar</span>
+              <span class="mode-card__count">9 ข้อ</span>
+            </button>
+            <button class="mode-card" data-topic="reading" onclick="selectTopic(this, 'reading')">
+              <span class="mode-card__icon">📰</span>
+              <span class="mode-card__label">Reading</span>
+              <span class="mode-card__count">8 ข้อ</span>
+            </button>
+          </div>
+
+          <!-- Toggle Options -->
+          <div style="margin: 20px 0;">
+
+            <!-- Timer Toggle -->
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-label">
+                  <span>⏱</span>
+                  <span>เปิดใช้งาน Timer</span>
+                </div>
+                <div class="toggle-desc" id="timer-toggle-desc">30 นาที (Full Test)</div>
+              </div>
+              <label class="toggle-switch" aria-label="เปิดปิด Timer">
+                <input type="checkbox" id="timer-toggle" checked
+                  onchange="updateTimerDesc()" />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+
+            <!-- Instant Answer Toggle -->
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-label">
+                  <span>⚡</span>
+                  <span>Instant Answer Mode</span>
+                </div>
+                <div class="toggle-desc">เฉลยพร้อมคำอธิบายทันทีหลังเลือกคำตอบ</div>
+              </div>
+              <label class="toggle-switch" aria-label="เปิดปิด Instant Answer">
+                <input type="checkbox" id="instant-answer-toggle" />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+
+          </div>
+
+          <!-- Summary -->
+          <div style="background:var(--c-surface2); border:1px solid var(--c-border); border-radius:var(--r-md); padding:14px 18px; margin-bottom:24px; font-size:.85rem; color:var(--c-text2);" id="quiz-summary">
+            📋 <strong>Full Test</strong> — 25 ข้อ ครอบคลุมทุกทักษะ | Timer: 30 นาที
+          </div>
+
+          <button class="btn btn--gold btn--lg w-full" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
         </div>
       </div>
 
@@ -1959,8 +2170,11 @@
             <div style="font-size:.75rem; font-family:var(--f-mono); color:var(--c-text3); text-transform:uppercase; letter-spacing:.08em;">
               ความคืบหน้า
             </div>
-            <div style="font-size:.82rem; font-weight:600; margin-top:2px;">
-              <span id="q-current">1</span> / <span id="q-total">25</span> ข้อ
+            <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+              <span style="font-size:.82rem; font-weight:600;">
+                <span id="q-current">1</span> / <span id="q-total">25</span> ข้อ
+              </span>
+              <span class="quiz-topic-badge all" id="quiz-topic-badge">Full Test</span>
             </div>
           </div>
           <div class="quiz-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-el">
@@ -2075,7 +2289,7 @@
         <div class="skill-card skill-card--listen">
           <div class="skill-card__stripe"></div>
           <div class="skill-card__title">🎧 Listening</div>
-          <div class="skill-card__score"><span id="sk-listen-num">—</span><span class="skill-card__pct">/8</span></div>
+          <div class="skill-card__score"><span id="sk-listen-num">—</span><span class="skill-card__pct" id="sk-listen-total">/8</span></div>
           <div class="skill-card__bar"><div class="skill-card__bar-fill" id="sk-listen-bar" style="width:0%"></div></div>
           <div class="skill-card__status" id="sk-listen-status"></div>
           <div class="skill-card__insight" id="sk-listen-insight"></div>
@@ -2250,7 +2464,7 @@
 
         <form id="feedback-form" novalidate>
           <!-- Hidden field for Web3Forms — Replace with your access key -->
-          <input type="hidden" name="access_key" value="3c3a48db-015c-4d5c-aa9c-10578de50712" />
+          <input type="hidden" name="access_key" value="REPLACE_WITH_YOUR_WEB3FORMS_KEY" />
           <input type="hidden" name="subject" value="TOEIC Study Planner Feedback" />
 
           <div class="form-group mb-16">
@@ -2362,6 +2576,9 @@ const APP_STATE = {
   lastResult: null,
   selectedRating: 0,
   todayWidgetOpen: false,
+  selectedTopic: 'all',       // 'all' | 'listening' | 'grammar' | 'reading'
+  instantAnswer: false,        // true = show answer + explanation immediately
+  activeQuestions: [],         // filtered question set for current session
 };
 
 const STORAGE_KEYS = {
@@ -2386,79 +2603,87 @@ const QUESTIONS = [
   {
     id: 1, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: './audio/q1_conversation.mp3', // AUDIO_URL_PLACEHOLDER: 'https://your-cdn.com/audio/q1.mp3'
+    audio: null, // AUDIO_URL_PLACEHOLDER: 'https://your-cdn.com/audio/q1.mp3'
     context: `[บทสนทนา — จินตนาการว่าได้ยินเสียง]\nWoman: "Excuse me, is this seat taken?"\nMan: "No, please go ahead. Are you here for the product launch?"\nWoman: "Yes, I flew in from Singapore just this morning."`,
     text: 'Where did the woman come from?',
     choices: ['London', 'Tokyo', 'Singapore', 'Bangkok'],
     answer: 2,
+    explain: 'Woman กล่าวว่า "I flew in from Singapore" แปลว่าเธอเดินทางมาจาก Singapore',
   },
   {
     id: 2, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: './audio/q2_announcement.mp3',
+    audio: null,
     context: `[ประกาศ]\n"Attention all passengers. Flight TG208 to Seoul is now boarding at Gate 14B. Please have your boarding pass and identification ready."`,
     text: 'What is the boarding gate number?',
     choices: ['12A', '14B', '16C', '18D'],
     answer: 1,
+    explain: 'ประกาศระบุชัดเจนว่า "now boarding at Gate 14B" ดังนั้นคำตอบคือ 14B',
   },
   {
     id: 3, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: '/audio/q3_phone_call.mp3',
+    audio: null,
     context: `[โทรศัพท์]\nMan A: "Hi, I'd like to reschedule my appointment with Dr. Kim."\nReceptionist: "Of course. Would Tuesday at 3 PM work for you?"\nMan A: "Actually, could we make it Wednesday morning instead?"`,
     text: 'When does the man want to reschedule his appointment?',
     choices: ['Monday afternoon', 'Tuesday at 3 PM', 'Wednesday morning', 'Thursday evening'],
     answer: 2,
+    explain: 'Man ปฏิเสธ Tuesday และขอเปลี่ยนเป็น "Wednesday morning instead" = Wednesday morning',
   },
   {
     id: 4, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: './audio/q4_office_announcement',
+    audio: null,
     context: `[ประกาศในบริษัท]\n"This is a reminder that the quarterly budget report is due by Friday, 5 PM. Please submit it to your department head via the company intranet, not by email."`,
     text: 'How should the report be submitted?',
     choices: ['By email', 'Via the company intranet', 'In person to HR', 'By post'],
     answer: 1,
+    explain: 'ประกาศบอกว่า "submit it via the company intranet, not by email" — ต้องส่งผ่าน Intranet',
   },
   {
     id: 5, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: './audio/q5_coffee_shop.mp3',
+    audio: null,
     context: `[บทสนทนา]\nWoman: "I heard the new coffee shop on Fifth Avenue just opened. Have you been?"\nMan: "Yes! I went last week. The espresso is excellent but the pastries are a bit overpriced."\nWoman: "That's too bad. I might still give it a try."`,
     text: 'What did the man think of the pastries?',
     choices: ['Excellent', 'Reasonably priced', 'Too expensive', 'Not available'],
     answer: 2,
+    explain: '"a bit overpriced" หมายความว่าราคาแพงเกินไป = Too expensive',
   },
   {
     id: 6, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: './audio/q6_news_report',
+    audio: null,
     context: `[ข่าวสาร]\n"The city council has approved a budget of 2.5 million dollars for renovating the central park. Construction is expected to begin next spring and take approximately eight months to complete."`,
     text: 'How long will the park renovation take?',
     choices: ['3 months', '6 months', '8 months', '12 months'],
     answer: 2,
+    explain: '"take approximately eight months to complete" = ใช้เวลาประมาณ 8 เดือน',
   },
   {
     id: 7, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: './audio/q7_workplace.mp3',
+    audio: null,
     context: `[บทสนทนา]\nManager: "Could you prepare the sales figures for the board meeting?"\nEmployee: "Sure. Should I include data from last quarter too?"\nManager: "Yes, and please also add a comparison chart with the previous year."`,
     text: 'What additional information does the manager request?',
     choices: [
-      'A list of clients', 
+      'A list of clients',
       'A comparison chart with the previous year',
-      'Next quarter forecast', 
+      'Next quarter forecast',
       'Employee performance data'
     ],
     answer: 1,
+    explain: 'Manager บอกว่า "please also add a comparison chart with the previous year"',
   },
   {
     id: 8, part: 'A', partLabel: 'Part A — Listening',
     type: 'listening',
-    audio: './audio/q8_store_announcement',
+    audio: null,
     context: `[ประกาศในร้านค้า]\n"We're happy to announce a special offer this weekend only. Buy any two items from our summer collection and receive 30% off your total purchase."`,
     text: 'What discount is offered this weekend?',
     choices: ['10% off', '20% off', '30% off', '50% off'],
     answer: 2,
+    explain: '"receive 30% off your total purchase" = ลด 30% จากราคาทั้งหมด',
   },
 
   // ── PART B: Grammar & Vocabulary (9 ข้อ) ──────────────────────
@@ -2468,6 +2693,7 @@ const QUESTIONS = [
     text: 'The new policy _______ into effect on January 1st next year.',
     choices: ['will come', 'comes', 'came', 'coming'],
     answer: 0,
+    explain: '"next year" บอกว่าเป็นอนาคต ใช้ Future Simple: "will come into effect"',
   },
   {
     id: 10, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2475,6 +2701,7 @@ const QUESTIONS = [
     text: 'Despite the heavy rain, the outdoor event _______ as planned.',
     choices: ['proceeded', 'has proceeded', 'proceeding', 'would proceed'],
     answer: 0,
+    explain: '"Despite" + past context → ใช้ Simple Past: "proceeded" เหตุการณ์เกิดขึ้นแล้ว',
   },
   {
     id: 11, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2482,6 +2709,7 @@ const QUESTIONS = [
     text: 'Please submit your application _______ the deadline of March 15th.',
     choices: ['until', 'by', 'since', 'during'],
     answer: 1,
+    explain: '"by + deadline" = ภายในวันที่กำหนด เป็น Preposition ที่ถูกต้องสำหรับ deadline',
   },
   {
     id: 12, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2489,6 +2717,7 @@ const QUESTIONS = [
     text: 'The contract was signed by both parties, _______ means the deal is now final.',
     choices: ['that', 'what', 'which', 'who'],
     answer: 2,
+    explain: 'Non-defining relative clause อ้างถึงทั้งประโยคก่อนหน้า ใช้ "which"',
   },
   {
     id: 13, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2496,6 +2725,7 @@ const QUESTIONS = [
     text: 'The HR department is responsible _______ managing employee benefits.',
     choices: ['of', 'to', 'for', 'with'],
     answer: 2,
+    explain: '"responsible for + V-ing" เป็น Fixed Phrase ที่ใช้ในภาษาธุรกิจ',
   },
   {
     id: 14, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2503,6 +2733,7 @@ const QUESTIONS = [
     text: 'Sales have increased _______ since we launched the new marketing campaign.',
     choices: ['considerably', 'considerable', 'consideration', 'consider'],
     answer: 0,
+    explain: 'ต้องการ Adverb เพื่อขยาย Verb "increased" → "considerably" (adverb)',
   },
   {
     id: 15, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2510,6 +2741,7 @@ const QUESTIONS = [
     text: 'The _______ of the annual report will be discussed at next week\'s board meeting.',
     choices: ['findings', 'found', 'find', 'finder'],
     answer: 0,
+    explain: 'ต้องการ Noun เป็น Subject → "findings" (noun) = ผลการค้นพบ/สรุปรายงาน',
   },
   {
     id: 16, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2517,6 +2749,7 @@ const QUESTIONS = [
     text: 'Employees are _______ to wear their ID badges at all times while in the building.',
     choices: ['demand', 'demanding', 'required', 'requirement'],
     answer: 2,
+    explain: '"are required to" = ถูกกำหนดให้ต้อง — Passive Voice + Adjective',
   },
   {
     id: 17, part: 'B', partLabel: 'Part B — Grammar & Vocabulary',
@@ -2524,6 +2757,7 @@ const QUESTIONS = [
     text: 'If you _______ the document earlier, we would have had time to make corrections.',
     choices: ['review', 'reviewed', 'had reviewed', 'have reviewed'],
     answer: 2,
+    explain: 'Third Conditional (If + Past Perfect, would have + PP) → "had reviewed" เหตุการณ์สมมติในอดีต',
   },
 
   // ── PART C: Reading Comprehension (8 ข้อ) ────────────────────
@@ -2534,15 +2768,16 @@ const QUESTIONS = [
     text: 'By what date should employees complete their personal moves?',
     choices: ['October 28th', 'October 30th', 'November 1st', 'November 3rd'],
     answer: 0,
+    explain: 'Memo ระบุว่า "complete their personal desk moves by October 28th"',
   },
   {
     id: 19, part: 'C', partLabel: 'Part C — Reading Comprehension',
     type: 'reading',
-    context: `(Same passage as above)`,
-    contextRef: 18,
+    context: `MEMO\nTo: All Staff\nFrom: Operations Department\nRe: Office Relocation\n\nPlease be informed that our main office will relocate to the new building at 88 Business Center, Tower B on November 1st. All employees are expected to complete their personal desk moves by October 28th. IT equipment will be moved by the technical team over the weekend of October 29–30. The cafeteria at the new location will open from Day 1.`,
     text: 'Who is responsible for moving IT equipment?',
     choices: ['Each individual employee', 'The HR department', 'The technical team', 'External movers'],
     answer: 2,
+    explain: '"IT equipment will be moved by the technical team" = ทีม IT เป็นผู้ดูแล',
   },
   {
     id: 20, part: 'C', partLabel: 'Part C — Reading Comprehension',
@@ -2551,15 +2786,16 @@ const QUESTIONS = [
     text: 'What is the early bird registration price?',
     choices: ['$250', '$350', '$450', '$500'],
     answer: 1,
+    explain: 'โฆษณาระบุ "Early Bird Registration: $350" ชัดเจน',
   },
   {
     id: 21, part: 'C', partLabel: 'Part C — Reading Comprehension',
     type: 'reading',
-    context: `(Same advertisement as above)`,
-    contextRef: 20,
+    context: `ADVERTISEMENT\n\nGlobal Business Summit 2025\nDate: February 14–16, 2025 | Venue: Centara Grand Hotel, Bangkok\n\nJoin over 2,000 business leaders from 40+ countries for three days of keynote sessions, networking events, and workshops on international trade, digital transformation, and sustainable business practices.\n\nEarly Bird Registration: $350 (ends December 31)\nStandard Registration: $450\nGroup Discount: 15% off for 5 or more attendees\n\nRegister at www.globalbiz2025.com`,
     text: 'What discount is available for group registrations?',
     choices: ['10% off for 3 or more', '15% off for 5 or more', '20% off for 10 or more', 'No group discount'],
     answer: 1,
+    explain: '"Group Discount: 15% off for 5 or more attendees" ระบุไว้ชัดเจน',
   },
   {
     id: 22, part: 'C', partLabel: 'Part C — Reading Comprehension',
@@ -2573,15 +2809,16 @@ const QUESTIONS = [
       'The Kanban board is difficult to use'
     ],
     answer: 1,
+    explain: '"the mobile app still lacks some desktop features" = Mobile App ยังขาดฟีเจอร์บางอย่าง',
   },
   {
     id: 23, part: 'C', partLabel: 'Part C — Reading Comprehension',
     type: 'reading',
-    context: `(Same review as above)`,
-    contextRef: 22,
+    context: `PRODUCT REVIEW — CloudDesk Pro Software\n\nAfter using CloudDesk Pro for three months, our team is impressed with its project management features. The Kanban board is intuitive, and real-time collaboration works seamlessly across time zones. However, the mobile app still lacks some desktop features, including the reporting dashboard. Customer support responded within 24 hours to all our queries. Overall, we would recommend this tool for medium to large teams.`,
     text: 'For what type of teams does the reviewer recommend CloudDesk Pro?',
     choices: ['Freelancers', 'Small teams only', 'Medium to large teams', 'Government organizations'],
     answer: 2,
+    explain: '"we would recommend this tool for medium to large teams" = แนะนำสำหรับทีมขนาดกลางถึงใหญ่',
   },
   {
     id: 24, part: 'C', partLabel: 'Part C — Reading Comprehension',
@@ -2595,40 +2832,91 @@ const QUESTIONS = [
       'Account deletion'
     ],
     answer: 2,
+    explain: '"Third-party data sharing now requires explicit opt-in consent" ระบุไว้ชัดเจน',
   },
   {
     id: 25, part: 'C', partLabel: 'Part C — Reading Comprehension',
     type: 'reading',
-    context: `(Same email as above)`,
-    contextRef: 24,
+    context: `EMAIL\nFrom: marketing@nexgen.com\nTo: subscribers@newsletter.com\nSubject: Important Update to Our Service Terms\n\nDear Valued Customer,\n\nAs of March 1, 2025, we will be updating our Terms of Service to reflect changes in data privacy regulations. Key changes include:\n\n• User data will be retained for a maximum of 2 years\n• Third-party data sharing now requires explicit opt-in consent\n• Users may request full data deletion at any time\n\nIf you have any questions, please contact privacy@nexgen.com.`,
     text: 'How long will user data be retained under the new policy?',
     choices: ['6 months', '1 year', '2 years', '5 years'],
     answer: 2,
+    explain: '"User data will be retained for a maximum of 2 years" = เก็บข้อมูลสูงสุด 2 ปี',
   },
 ];
 
 /* ================================================================
    3. QUIZ ENGINE
 ================================================================ */
+
+/* ── Topic Selector UI ── */
+function selectTopic(btn, topic) {
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  APP_STATE.selectedTopic = topic;
+  updateQuizSummary();
+}
+
+function updateTimerDesc() {
+  const topic = APP_STATE.selectedTopic || 'all';
+  const counts = { all: 25, listening: 8, grammar: 9, reading: 8 };
+  const mins   = { all: 30, listening: 10, grammar: 12, reading: 10 };
+  const on = document.getElementById('timer-toggle').checked;
+  document.getElementById('timer-toggle-desc').textContent =
+    on ? `${mins[topic]} นาที` : 'ปิด Timer';
+  updateQuizSummary();
+}
+
+function updateQuizSummary() {
+  const topic = APP_STATE.selectedTopic || 'all';
+  const timerOn = document.getElementById('timer-toggle')?.checked;
+  const instantOn = document.getElementById('instant-answer-toggle')?.checked;
+  const labels = { all: 'Full Test', listening: 'Listening Only', grammar: 'Grammar Only', reading: 'Reading Only' };
+  const counts = { all: 25, listening: 8, grammar: 9, reading: 8 };
+  const mins   = { all: 30, listening: 10, grammar: 12, reading: 10 };
+  const icons  = { all: '📋', listening: '🎧', grammar: '📖', reading: '📰' };
+  const el = document.getElementById('quiz-summary');
+  if (!el) return;
+  el.innerHTML = `${icons[topic]} <strong>${labels[topic]}</strong> — ${counts[topic]} ข้อ
+    | Timer: ${timerOn ? mins[topic] + ' นาที' : 'ปิด'}
+    | Instant Answer: ${instantOn ? '<span style="color:var(--c-green)">เปิด ⚡</span>' : 'ปิด'}`;
+}
+
+function getTimerSeconds() {
+  const topic = APP_STATE.selectedTopic || 'all';
+  const mins = { all: 30, listening: 10, grammar: 12, reading: 10 };
+  return (mins[topic] || 30) * 60;
+}
+
 function startQuiz() {
   APP_STATE.currentQuestion = 0;
   APP_STATE.answers = {};
-  APP_STATE.timerSeconds = 30 * 60;
+  APP_STATE.selectedTopic  = APP_STATE.selectedTopic || 'all';
+  APP_STATE.instantAnswer  = document.getElementById('instant-answer-toggle')?.checked || false;
+  APP_STATE.timerSeconds   = getTimerSeconds();
 
-  // Load saved answers from storage
-  try {
-    const saved = localStorage.getItem(STORAGE_KEYS.ANSWERS);
-    if (saved) APP_STATE.answers = JSON.parse(saved);
-  } catch(e) {}
+  // Filter questions by topic
+  if (APP_STATE.selectedTopic === 'all') {
+    APP_STATE.activeQuestions = QUESTIONS;
+  } else {
+    APP_STATE.activeQuestions = QUESTIONS.filter(q => q.type === APP_STATE.selectedTopic);
+  }
+
+  // Update topic badge in header
+  const badge = document.getElementById('quiz-topic-badge');
+  const badgeLabels = { all:'Full Test', listening:'Listening', grammar:'Grammar', reading:'Reading' };
+  if (badge) {
+    badge.textContent = badgeLabels[APP_STATE.selectedTopic];
+    badge.className   = `quiz-topic-badge ${APP_STATE.selectedTopic}`;
+  }
 
   document.getElementById('quiz-start-screen').classList.add('hidden');
   document.getElementById('quiz-active-screen').classList.remove('hidden');
-  document.getElementById('q-total').textContent = QUESTIONS.length;
+  document.getElementById('q-total').textContent = APP_STATE.activeQuestions.length;
 
   buildDotNav();
   renderQuestion(0);
 
-  // Start timer if enabled
   if (document.getElementById('timer-toggle').checked) {
     APP_STATE.timerActive = true;
     startTimer();
@@ -2638,7 +2926,7 @@ function startQuiz() {
 function buildDotNav() {
   const nav = document.getElementById('dot-nav');
   nav.innerHTML = '';
-  QUESTIONS.forEach((_, i) => {
+  APP_STATE.activeQuestions.forEach((_, i) => {
     const btn = document.createElement('button');
     btn.className = 'q-dot' + (i === 0 ? ' current' : '');
     btn.textContent = i + 1;
@@ -2649,10 +2937,10 @@ function buildDotNav() {
 }
 
 function renderQuestion(index) {
-  const q = QUESTIONS[index];
+  const q = APP_STATE.activeQuestions[index];
   APP_STATE.currentQuestion = index;
 
-  const pct = Math.round((index / QUESTIONS.length) * 100);
+  const pct = Math.round((index / APP_STATE.activeQuestions.length) * 100);
   document.getElementById('quiz-progress-fill').style.width = pct + '%';
   document.getElementById('progress-bar-el').setAttribute('aria-valuenow', pct);
   document.getElementById('q-current').textContent = index + 1;
@@ -2677,7 +2965,7 @@ function renderQuestion(index) {
       <div class="question-audio">
         <div class="audio-icon" aria-hidden="true">🔊</div>
         <div>
-          <strong>Listening Section</strong> — 
+          <strong>Listening Section</strong> —
           ${q.audio
             ? `<audio controls src="${q.audio}" style="vertical-align:middle; height:24px;"></audio>`
             : '<span>อ่านบทถอดเสียงด้านล่างแทนไฟล์เสียง</span>'}
@@ -2687,46 +2975,78 @@ function renderQuestion(index) {
   }
 
   const selectedAns = APP_STATE.answers[index];
+  // In instant answer mode, already-answered questions show correct/wrong styling
+  const showResult = APP_STATE.instantAnswer && selectedAns !== undefined;
 
   const choicesHtml = q.choices.map((c, ci) => {
-    const isSelected = selectedAns === ci;
+    let cls = 'choice';
+    if (selectedAns === ci)   cls += ' selected';
+    if (showResult) {
+      if (ci === q.answer)                       cls += ' correct';
+      else if (selectedAns === ci)               cls += ' wrong';
+    }
     return `
       <button
-        class="choice${isSelected ? ' selected' : ''}"
+        class="${cls}"
         onclick="selectAnswer(${ci})"
-        aria-pressed="${isSelected}"
+        aria-pressed="${selectedAns === ci}"
         aria-label="ตัวเลือก ${String.fromCharCode(65+ci)}: ${c}"
+        ${showResult ? 'disabled' : ''}
       >
         <span class="choice__label">${String.fromCharCode(65+ci)}</span>
         <span>${c}</span>
       </button>`;
   }).join('');
 
+  // Instant feedback box
+  let feedbackHtml = '';
+  if (showResult) {
+    const isCorrect = selectedAns === q.answer;
+    feedbackHtml = `
+      <div class="instant-feedback ${isCorrect ? 'correct' : 'wrong'} show">
+        <div class="instant-feedback__verdict">
+          ${isCorrect ? '✅ ถูกต้อง!' : `❌ ไม่ถูกต้อง — คำตอบที่ถูกคือ <strong>${String.fromCharCode(65+q.answer)}: ${q.choices[q.answer]}</strong>`}
+        </div>
+        ${q.explain ? `<div class="instant-feedback__explain">💡 ${q.explain}</div>` : ''}
+      </div>`;
+  }
+
   document.getElementById('question-container').innerHTML = `
     <div class="question-card">
       <div class="question-part part-${q.part.toLowerCase()}">${q.partLabel}</div>
-      <div class="question-num">ข้อที่ ${index + 1} จาก ${QUESTIONS.length}</div>
+      <div class="question-num">ข้อที่ ${index + 1} จาก ${APP_STATE.activeQuestions.length}</div>
       ${audioHtml}
       ${contextHtml}
       <div class="question-text">${q.text}</div>
       <div class="choices" role="group" aria-label="เลือกคำตอบ">${choicesHtml}</div>
+      ${feedbackHtml}
     </div>`;
 
   // Show/hide prev/next/submit
   document.getElementById('prev-btn').disabled = index === 0;
-  document.getElementById('next-btn').style.display = index < QUESTIONS.length - 1 ? 'inline-flex' : 'none';
-  document.getElementById('submit-btn').style.display = index === QUESTIONS.length - 1 ? 'inline-flex' : 'none';
+  document.getElementById('next-btn').style.display =
+    index < APP_STATE.activeQuestions.length - 1 ? 'inline-flex' : 'none';
+  document.getElementById('submit-btn').style.display =
+    index === APP_STATE.activeQuestions.length - 1 ? 'inline-flex' : 'none';
 }
 
 function selectAnswer(choiceIndex) {
+  // In instant answer mode, disable re-answering
+  if (APP_STATE.instantAnswer && APP_STATE.answers[APP_STATE.currentQuestion] !== undefined) return;
+
   APP_STATE.answers[APP_STATE.currentQuestion] = choiceIndex;
   try { localStorage.setItem(STORAGE_KEYS.ANSWERS, JSON.stringify(APP_STATE.answers)); } catch(e) {}
 
-  // Update UI
-  document.querySelectorAll('.choice').forEach((el, i) => {
-    el.classList.toggle('selected', i === choiceIndex);
-    el.setAttribute('aria-pressed', i === choiceIndex);
-  });
+  if (APP_STATE.instantAnswer) {
+    // Re-render with instant feedback
+    renderQuestion(APP_STATE.currentQuestion);
+  } else {
+    // Just update choice styles
+    document.querySelectorAll('.choice').forEach((el, i) => {
+      el.classList.toggle('selected', i === choiceIndex);
+      el.setAttribute('aria-pressed', i === choiceIndex);
+    });
+  }
 
   // Update dot
   const dots = document.querySelectorAll('.q-dot');
@@ -2736,7 +3056,7 @@ function selectAnswer(choiceIndex) {
 }
 
 function nextQuestion() {
-  if (APP_STATE.currentQuestion < QUESTIONS.length - 1) {
+  if (APP_STATE.currentQuestion < APP_STATE.activeQuestions.length - 1) {
     renderQuestion(APP_STATE.currentQuestion + 1);
   }
 }
@@ -2791,24 +3111,68 @@ function submitQuiz() {
 
 function restartQuiz() {
   APP_STATE.answers = {};
+  APP_STATE.selectedTopic = 'all';
+  APP_STATE.activeQuestions = [];
   try { localStorage.removeItem(STORAGE_KEYS.ANSWERS); } catch(e) {}
+
+  // Reset start screen to original
   document.getElementById('quiz-start-screen').innerHTML = `
-    <div class="card" style="text-align:center; max-width: 600px; margin: 0 auto; padding: 48px;">
-      <div style="font-size:3rem; margin-bottom:16px;">📋</div>
-      <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:12px;">พร้อมเริ่มทดสอบแล้วหรือยัง?</h3>
-      <p class="text-muted" style="margin-bottom:28px; line-height:1.8;">
-        แบบทดสอบมี 3 ส่วน:<br>
-        <strong>Part A</strong> — Listening Comprehension (8 ข้อ)<br>
-        <strong>Part B</strong> — Grammar & Vocabulary (9 ข้อ)<br>
-        <strong>Part C</strong> — Reading Comprehension (8 ข้อ)
-      </p>
-      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;">
-        <label style="display:flex; align-items:center; gap:8px; font-size:.9rem; cursor:pointer;">
-          <input type="checkbox" id="timer-toggle" checked /> เปิดใช้งาน Timer (30 นาที)
-        </label>
+    <div class="card" style="max-width: 680px; margin: 0 auto; padding: 40px;">
+      <div style="text-align:center; margin-bottom:28px;">
+        <div style="font-size:2.8rem; margin-bottom:12px;">📋</div>
+        <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:8px;">เลือกโหมดการทดสอบ</h3>
+        <p class="text-muted text-sm">เลือกทดสอบเฉพาะทักษะที่ต้องการ หรือทดสอบแบบเต็ม</p>
       </div>
-      <button class="btn btn--gold btn--lg" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
+      <div class="quiz-mode-selector" id="topic-selector">
+        <button class="mode-card selected" data-topic="all" onclick="selectTopic(this,'all')">
+          <span class="mode-card__icon">📋</span>
+          <span class="mode-card__label">Full Test</span>
+          <span class="mode-card__count">25 ข้อ</span>
+        </button>
+        <button class="mode-card" data-topic="listening" onclick="selectTopic(this,'listening')">
+          <span class="mode-card__icon">🎧</span>
+          <span class="mode-card__label">Listening</span>
+          <span class="mode-card__count">8 ข้อ</span>
+        </button>
+        <button class="mode-card" data-topic="grammar" onclick="selectTopic(this,'grammar')">
+          <span class="mode-card__icon">📖</span>
+          <span class="mode-card__label">Grammar</span>
+          <span class="mode-card__count">9 ข้อ</span>
+        </button>
+        <button class="mode-card" data-topic="reading" onclick="selectTopic(this,'reading')">
+          <span class="mode-card__icon">📰</span>
+          <span class="mode-card__label">Reading</span>
+          <span class="mode-card__count">8 ข้อ</span>
+        </button>
+      </div>
+      <div style="margin:20px 0;">
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label"><span>⏱</span><span>เปิดใช้งาน Timer</span></div>
+            <div class="toggle-desc" id="timer-toggle-desc">30 นาที (Full Test)</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="timer-toggle" checked onchange="updateTimerDesc()" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label"><span>⚡</span><span>Instant Answer Mode</span></div>
+            <div class="toggle-desc">เฉลยพร้อมคำอธิบายทันทีหลังเลือกคำตอบ</div>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="instant-answer-toggle" />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+      <div style="background:var(--c-surface2); border:1px solid var(--c-border); border-radius:var(--r-md); padding:14px 18px; margin-bottom:24px; font-size:.85rem; color:var(--c-text2);" id="quiz-summary">
+        📋 <strong>Full Test</strong> — 25 ข้อ ครอบคลุมทุกทักษะ | Timer: 30 นาที
+      </div>
+      <button class="btn btn--gold btn--lg w-full" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
     </div>`;
+
   document.getElementById('quiz-active-screen').classList.add('hidden');
   document.getElementById('quiz-start-screen').classList.remove('hidden');
 }
@@ -2853,8 +3217,9 @@ function updateTimerDisplay() {
 function calculateScores() {
   let listenScore = 0, grammarScore = 0, readingScore = 0;
   const details = [];
+  const qs = APP_STATE.activeQuestions.length ? APP_STATE.activeQuestions : QUESTIONS;
 
-  QUESTIONS.forEach((q, i) => {
+  qs.forEach((q, i) => {
     const userAns = APP_STATE.answers[i];
     const correct = userAns === q.answer;
     if (correct) {
@@ -2865,11 +3230,15 @@ function calculateScores() {
     details.push({ q, userAns, correct });
   });
 
-  const listenPct  = listenScore  / 8;
-  const grammarPct = grammarScore / 9;
-  const readingPct = readingScore / 8;
+  // Totals per type in this session
+  const listenTotal  = qs.filter(q => q.type === 'listening').length || 1;
+  const grammarTotal = qs.filter(q => q.type === 'grammar').length   || 1;
+  const readingTotal = qs.filter(q => q.type === 'reading').length   || 1;
 
-  // Scale to approximate TOEIC range (simplified heuristic)
+  const listenPct  = listenScore  / listenTotal;
+  const grammarPct = grammarScore / grammarTotal;
+  const readingPct = readingScore / readingTotal;
+
   const listenToeic  = Math.round(listenPct  * 495);
   const readingToeic = Math.round(((grammarPct + readingPct) / 2) * 495);
   const totalToeic   = listenToeic + readingToeic;
@@ -2878,13 +3247,14 @@ function calculateScores() {
   const diagnosis = getDiagnosis(listenPct, grammarPct, readingPct);
 
   return {
-    listen:  { raw: listenScore,  total: 8, pct: listenPct,  toeic: listenToeic },
-    grammar: { raw: grammarScore, total: 9, pct: grammarPct, toeic: Math.round(grammarPct * 495) },
-    reading: { raw: readingScore, total: 8, pct: readingPct, toeic: readingToeic },
+    listen:  { raw: listenScore,  total: listenTotal,  pct: listenPct,  toeic: listenToeic },
+    grammar: { raw: grammarScore, total: grammarTotal, pct: grammarPct, toeic: Math.round(grammarPct * 495) },
+    reading: { raw: readingScore, total: readingTotal, pct: readingPct, toeic: readingToeic },
     total: totalToeic,
     band,
     diagnosis,
     details,
+    topic: APP_STATE.selectedTopic || 'all',
     date: new Date().toLocaleDateString('th-TH'),
     timestamp: Date.now(),
   };
@@ -2977,9 +3347,9 @@ function displayResults(r) {
 
   // Skill cards
   const skills = [
-    { key: 'listen',  total: 8,  raw: r.listen.raw,  pct: r.listen.pct },
-    { key: 'grammar', total: 9,  raw: r.grammar.raw, pct: r.grammar.pct },
-    { key: 'reading', total: 8,  raw: r.reading.raw, pct: r.reading.pct },
+    { key: 'listen',  total: r.listen.total,  raw: r.listen.raw,  pct: r.listen.pct },
+    { key: 'grammar', total: r.grammar.total, raw: r.grammar.raw, pct: r.grammar.pct },
+    { key: 'reading', total: r.reading.total, raw: r.reading.raw, pct: r.reading.pct },
   ];
   skills.forEach(({key, total, raw, pct}) => {
     document.getElementById(`sk-${key}-num`).textContent = raw;
@@ -3814,6 +4184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSavedPlan();
   updateHistory();
   updateTodayWidget();
+  updateQuizSummary(); // init quiz summary text
 
   // Close today widget when clicking outside
   document.addEventListener('click', (e) => {
