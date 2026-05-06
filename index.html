@@ -1789,12 +1789,65 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     @media (max-width: 600px) {
       .quiz-mode-selector { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* Count selector chips */
+    .count-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .count-chip {
+      padding: 6px 16px;
+      border: 1.5px solid var(--c-border);
+      border-radius: 40px;
+      background: transparent;
+      font-family: var(--f-mono);
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--c-text2);
+      cursor: pointer;
+      transition: all var(--trans);
+    }
+
+    .count-chip:hover { border-color: var(--c-gold); color: var(--c-gold); }
+    .count-chip.selected { border-color: var(--c-navy); background: var(--c-navy); color: #fff; }
+    .count-chip.disabled { opacity: .35; cursor: not-allowed; }
+
+    /* Reset mid-quiz button */
+    .quiz-reset-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 8px 0;
+      margin-bottom: 8px;
+    }
+
+    .btn--reset {
+      background: transparent;
+      border: 1.5px solid var(--c-rose);
+      color: var(--c-rose);
+      font-size: .8rem;
+      padding: 6px 14px;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      font-family: var(--f-body);
+      font-weight: 600;
+      transition: all var(--trans);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn--reset:hover { background: var(--c-rose); color: #fff; }
 
     .mode-card {
       border: 1.5px solid var(--c-border);
@@ -2086,77 +2139,80 @@
 
       <!-- Quiz Not Started -->
       <div id="quiz-start-screen">
-        <div class="card" style="max-width: 680px; margin: 0 auto; padding: 40px;">
+        <div class="card" style="max-width: 720px; margin: 0 auto; padding: 40px;">
 
           <div style="text-align:center; margin-bottom:28px;">
             <div style="font-size:2.8rem; margin-bottom:12px;">📋</div>
             <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:8px;">เลือกโหมดการทดสอบ</h3>
-            <p class="text-muted text-sm">เลือกทดสอบเฉพาะทักษะที่ต้องการ หรือทดสอบแบบเต็ม</p>
+            <p class="text-muted text-sm">เลือก Part และจำนวนข้อที่ต้องการ ระบบจะสุ่มข้อสอบใหม่ทุกครั้ง</p>
           </div>
 
-          <!-- Topic Mode Selector -->
+          <!-- Part / Topic Selector -->
+          <div style="margin-bottom:6px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">เลือก Part</div>
           <div class="quiz-mode-selector" id="topic-selector" role="group" aria-label="เลือกหมวดข้อสอบ">
-            <button class="mode-card selected" data-topic="all" onclick="selectTopic(this, 'all')">
+            <button class="mode-card selected" data-topic="all" onclick="selectTopic(this,'all')">
               <span class="mode-card__icon">📋</span>
-              <span class="mode-card__label">Full Test</span>
-              <span class="mode-card__count">25 ข้อ</span>
+              <span class="mode-card__label">All Parts</span>
+              <span class="mode-card__count">300 ข้อในคลัง</span>
             </button>
-            <button class="mode-card" data-topic="listening" onclick="selectTopic(this, 'listening')">
-              <span class="mode-card__icon">🎧</span>
-              <span class="mode-card__label">Listening</span>
-              <span class="mode-card__count">8 ข้อ</span>
+            <button class="mode-card" data-topic="5" onclick="selectTopic(this,'5')">
+              <span class="mode-card__icon">✏️</span>
+              <span class="mode-card__label">Part 5</span>
+              <span class="mode-card__count">Incomplete Sentences</span>
             </button>
-            <button class="mode-card" data-topic="grammar" onclick="selectTopic(this, 'grammar')">
-              <span class="mode-card__icon">📖</span>
-              <span class="mode-card__label">Grammar</span>
-              <span class="mode-card__count">9 ข้อ</span>
+            <button class="mode-card" data-topic="6" onclick="selectTopic(this,'6')">
+              <span class="mode-card__icon">📝</span>
+              <span class="mode-card__label">Part 6</span>
+              <span class="mode-card__count">Text Completion</span>
             </button>
-            <button class="mode-card" data-topic="reading" onclick="selectTopic(this, 'reading')">
+            <button class="mode-card" data-topic="7" onclick="selectTopic(this,'7')">
               <span class="mode-card__icon">📰</span>
-              <span class="mode-card__label">Reading</span>
-              <span class="mode-card__count">8 ข้อ</span>
+              <span class="mode-card__label">Part 7</span>
+              <span class="mode-card__count">Reading Comprehension</span>
             </button>
           </div>
 
-          <!-- Toggle Options -->
-          <div style="margin: 20px 0;">
+          <!-- Question Count Selector -->
+          <div style="margin: 20px 0 8px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">จำนวนข้อสอบ</div>
+          <div class="count-selector" id="count-selector" role="group" aria-label="เลือกจำนวนข้อ">
+            <button class="count-chip" data-count="10" onclick="selectCount(this,10)">10 ข้อ</button>
+            <button class="count-chip" data-count="20" onclick="selectCount(this,20)">20 ข้อ</button>
+            <button class="count-chip selected" data-count="30" onclick="selectCount(this,30)">30 ข้อ</button>
+            <button class="count-chip" data-count="50" onclick="selectCount(this,50)">50 ข้อ</button>
+            <button class="count-chip" data-count="100" onclick="selectCount(this,100)">100 ข้อ</button>
+            <button class="count-chip" data-count="999" onclick="selectCount(this,999)">ทั้งหมด</button>
+          </div>
+          <div style="font-size:.75rem; color:var(--c-text3); font-family:var(--f-mono); margin-bottom:16px;" id="count-info">
+            สุ่ม 30 ข้อ จากคลัง 300 ข้อ | ⏱ เวลา: <span id="time-preview">37 นาที</span>
+          </div>
 
-            <!-- Timer Toggle -->
+          <!-- Toggles -->
+          <div style="margin-bottom:16px;">
             <div class="toggle-row">
               <div>
-                <div class="toggle-label">
-                  <span>⏱</span>
-                  <span>เปิดใช้งาน Timer</span>
-                </div>
-                <div class="toggle-desc" id="timer-toggle-desc">30 นาที (Full Test)</div>
+                <div class="toggle-label"><span>⏱</span><span>เปิดใช้งาน Timer</span></div>
+                <div class="toggle-desc" id="timer-toggle-desc">ปรับตามจำนวนข้อ (~1.25 นาที/ข้อ)</div>
               </div>
               <label class="toggle-switch" aria-label="เปิดปิด Timer">
-                <input type="checkbox" id="timer-toggle" checked
-                  onchange="updateTimerDesc()" />
+                <input type="checkbox" id="timer-toggle" checked onchange="updateTimerDesc()" />
                 <span class="toggle-track"></span>
               </label>
             </div>
-
-            <!-- Instant Answer Toggle -->
             <div class="toggle-row">
               <div>
-                <div class="toggle-label">
-                  <span>⚡</span>
-                  <span>Instant Answer Mode</span>
-                </div>
+                <div class="toggle-label"><span>⚡</span><span>Instant Answer Mode</span></div>
                 <div class="toggle-desc">เฉลยพร้อมคำอธิบายทันทีหลังเลือกคำตอบ</div>
               </div>
               <label class="toggle-switch" aria-label="เปิดปิด Instant Answer">
-                <input type="checkbox" id="instant-answer-toggle" />
+                <input type="checkbox" id="instant-answer-toggle" onchange="updateQuizSummary()" />
                 <span class="toggle-track"></span>
               </label>
             </div>
-
           </div>
 
           <!-- Summary -->
           <div style="background:var(--c-surface2); border:1px solid var(--c-border); border-radius:var(--r-md); padding:14px 18px; margin-bottom:24px; font-size:.85rem; color:var(--c-text2);" id="quiz-summary">
-            📋 <strong>Full Test</strong> — 25 ข้อ ครอบคลุมทุกทักษะ | Timer: 30 นาที
+            📋 <strong>All Parts</strong> — สุ่ม 30 ข้อ | Timer: เปิด | Instant Answer: ปิด
           </div>
 
           <button class="btn btn--gold btn--lg w-full" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
@@ -2165,6 +2221,14 @@
 
       <!-- Quiz Active -->
       <div id="quiz-active-screen" class="hidden">
+        <!-- Reset mid-quiz bar -->
+        <div class="quiz-reset-bar">
+          <span style="font-size:.8rem; color:var(--c-text3);" id="quiz-mode-label"></span>
+          <button class="btn--reset" onclick="confirmResetQuiz()" aria-label="รีเซ็ตและเริ่มใหม่">
+            🔄 Reset & สุ่มใหม่
+          </button>
+        </div>
+
         <div class="quiz-header">
           <div>
             <div style="font-size:.75rem; font-family:var(--f-mono); color:var(--c-text3); text-transform:uppercase; letter-spacing:.08em;">
@@ -2546,6 +2610,9 @@
   <div class="loading-spinner"></div>
 </div>
 
+<!-- Question Bank (แยกไฟล์เพื่อง่ายต่อการบำรุงรักษา) -->
+<script src="questions.js"></script>
+
 <script>
 /* ================================================================
    TOEIC STUDY PLANNER — JavaScript Engine
@@ -2576,9 +2643,10 @@ const APP_STATE = {
   lastResult: null,
   selectedRating: 0,
   todayWidgetOpen: false,
-  selectedTopic: 'all',       // 'all' | 'listening' | 'grammar' | 'reading'
-  instantAnswer: false,        // true = show answer + explanation immediately
-  activeQuestions: [],         // filtered question set for current session
+  selectedTopic: 'all',       // 'all' | '5' | '6' | '7'
+  selectedCount: 30,           // จำนวนข้อที่เลือก
+  instantAnswer: false,
+  activeQuestions: [],
 };
 
 const STORAGE_KEYS = {
@@ -2849,65 +2917,122 @@ const QUESTIONS = [
    3. QUIZ ENGINE
 ================================================================ */
 
-/* ── Topic Selector UI ── */
+/* ── Topic & Count Selectors ── */
 function selectTopic(btn, topic) {
   document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
   btn.classList.add('selected');
   APP_STATE.selectedTopic = topic;
+  updateCountChips();
   updateQuizSummary();
 }
 
+function selectCount(btn, count) {
+  document.querySelectorAll('.count-chip').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  APP_STATE.selectedCount = count;
+  updateQuizSummary();
+}
+
+function updateCountChips() {
+  // Disable chips that exceed available pool
+  const topic = APP_STATE.selectedTopic;
+  const pool = typeof QUESTION_BANK !== 'undefined'
+    ? (topic === 'all' ? QUESTION_BANK : QUESTION_BANK.filter(q => q.part === topic))
+    : [];
+  const available = pool.length || 300;
+
+  document.querySelectorAll('.count-chip').forEach(chip => {
+    const n = parseInt(chip.dataset.count);
+    const actual = n >= 999 ? available : n;
+    chip.classList.toggle('disabled', actual > available && n !== 999);
+    chip.textContent = n >= 999 ? `ทั้งหมด (${available})` : `${n} ข้อ`;
+  });
+}
+
+function getTimerSeconds() {
+  // ~1.25 mins per question (75 seconds), min 5 mins
+  const count = getActualCount();
+  return Math.max(5 * 60, count * 75);
+}
+
+function getActualCount() {
+  const topic = APP_STATE.selectedTopic;
+  const pool = typeof QUESTION_BANK !== 'undefined'
+    ? (topic === 'all' ? QUESTION_BANK : QUESTION_BANK.filter(q => q.part === topic))
+    : [];
+  const available = pool.length || 30;
+  return APP_STATE.selectedCount >= 999
+    ? available
+    : Math.min(APP_STATE.selectedCount, available);
+}
+
 function updateTimerDesc() {
-  const topic = APP_STATE.selectedTopic || 'all';
-  const counts = { all: 25, listening: 8, grammar: 9, reading: 8 };
-  const mins   = { all: 30, listening: 10, grammar: 12, reading: 10 };
-  const on = document.getElementById('timer-toggle').checked;
+  const secs = getTimerSeconds();
+  const mins = Math.round(secs / 60);
+  const on = document.getElementById('timer-toggle')?.checked;
   document.getElementById('timer-toggle-desc').textContent =
-    on ? `${mins[topic]} นาที` : 'ปิด Timer';
+    on ? `${mins} นาที (~1.25 นาที/ข้อ)` : 'ปิด Timer';
   updateQuizSummary();
 }
 
 function updateQuizSummary() {
-  const topic = APP_STATE.selectedTopic || 'all';
+  const topic = APP_STATE.selectedTopic;
+  const count = getActualCount();
   const timerOn = document.getElementById('timer-toggle')?.checked;
   const instantOn = document.getElementById('instant-answer-toggle')?.checked;
-  const labels = { all: 'Full Test', listening: 'Listening Only', grammar: 'Grammar Only', reading: 'Reading Only' };
-  const counts = { all: 25, listening: 8, grammar: 9, reading: 8 };
-  const mins   = { all: 30, listening: 10, grammar: 12, reading: 10 };
-  const icons  = { all: '📋', listening: '🎧', grammar: '📖', reading: '📰' };
-  const el = document.getElementById('quiz-summary');
-  if (!el) return;
-  el.innerHTML = `${icons[topic]} <strong>${labels[topic]}</strong> — ${counts[topic]} ข้อ
-    | Timer: ${timerOn ? mins[topic] + ' นาที' : 'ปิด'}
-    | Instant Answer: ${instantOn ? '<span style="color:var(--c-green)">เปิด ⚡</span>' : 'ปิด'}`;
-}
+  const mins = Math.round(getTimerSeconds() / 60);
 
-function getTimerSeconds() {
-  const topic = APP_STATE.selectedTopic || 'all';
-  const mins = { all: 30, listening: 10, grammar: 12, reading: 10 };
-  return (mins[topic] || 30) * 60;
+  const labels = { all:'All Parts', '5':'Part 5', '6':'Part 6', '7':'Part 7' };
+  const icons  = { all:'📋', '5':'✏️', '6':'📝', '7':'📰' };
+
+  // Update count info line
+  const pool = typeof QUESTION_BANK !== 'undefined'
+    ? (topic === 'all' ? QUESTION_BANK : QUESTION_BANK.filter(q => q.part === topic))
+    : [];
+  const infoEl = document.getElementById('count-info');
+  const timeEl = document.getElementById('time-preview');
+  if (infoEl) infoEl.innerHTML = `สุ่ม <strong>${count}</strong> ข้อ จากคลัง ${pool.length || 300} ข้อ | ⏱ เวลา: <span id="time-preview">${mins} นาที</span>`;
+
+  const summEl = document.getElementById('quiz-summary');
+  if (!summEl) return;
+  summEl.innerHTML = `${icons[topic]} <strong>${labels[topic]}</strong> — สุ่ม ${count} ข้อ
+    | Timer: ${timerOn ? mins + ' นาที' : '<span style="color:var(--c-text3)">ปิด</span>'}
+    | Instant Answer: ${instantOn ? '<span style="color:var(--c-green)">เปิด ⚡</span>' : 'ปิด'}`;
 }
 
 function startQuiz() {
   APP_STATE.currentQuestion = 0;
   APP_STATE.answers = {};
-  APP_STATE.selectedTopic  = APP_STATE.selectedTopic || 'all';
-  APP_STATE.instantAnswer  = document.getElementById('instant-answer-toggle')?.checked || false;
-  APP_STATE.timerSeconds   = getTimerSeconds();
+  APP_STATE.instantAnswer = document.getElementById('instant-answer-toggle')?.checked || false;
+  APP_STATE.timerSeconds  = getTimerSeconds();
 
-  // Filter questions by topic
-  if (APP_STATE.selectedTopic === 'all') {
-    APP_STATE.activeQuestions = QUESTIONS;
+  // Sample questions from QUESTION_BANK (questions.js)
+  // Falls back to built-in QUESTIONS array if questions.js not loaded
+  if (typeof sampleQuestions !== 'undefined') {
+    APP_STATE.activeQuestions = sampleQuestions(APP_STATE.selectedTopic, getActualCount());
   } else {
-    APP_STATE.activeQuestions = QUESTIONS.filter(q => q.type === APP_STATE.selectedTopic);
+    // Fallback: use built-in questions filtered by old topic map
+    const typeMap = { all: null, listening: 'listening', grammar: 'grammar', reading: 'reading' };
+    const t = typeMap[APP_STATE.selectedTopic];
+    const pool = t ? QUESTIONS.filter(q => q.type === t) : QUESTIONS;
+    APP_STATE.activeQuestions = [...pool].sort(() => Math.random() - .5)
+      .slice(0, getActualCount());
   }
 
-  // Update topic badge in header
+  // Update header badge
   const badge = document.getElementById('quiz-topic-badge');
-  const badgeLabels = { all:'Full Test', listening:'Listening', grammar:'Grammar', reading:'Reading' };
+  const badgeLabels = { all:'All Parts', '5':'Part 5', '6':'Part 6', '7':'Part 7',
+    listening:'Listening', grammar:'Grammar', reading:'Reading' };
   if (badge) {
-    badge.textContent = badgeLabels[APP_STATE.selectedTopic];
+    badge.textContent = badgeLabels[APP_STATE.selectedTopic] || APP_STATE.selectedTopic;
     badge.className   = `quiz-topic-badge ${APP_STATE.selectedTopic}`;
+  }
+
+  // Update mode label in reset bar
+  const modeLabel = document.getElementById('quiz-mode-label');
+  if (modeLabel) {
+    const count = APP_STATE.activeQuestions.length;
+    modeLabel.textContent = `${badgeLabels[APP_STATE.selectedTopic]} | ${count} ข้อ | สุ่มแล้ว`;
   }
 
   document.getElementById('quiz-start-screen').classList.add('hidden');
@@ -2921,6 +3046,15 @@ function startQuiz() {
     APP_STATE.timerActive = true;
     startTimer();
   }
+}
+
+/* ── Mid-quiz Reset ── */
+function confirmResetQuiz() {
+  if (!confirm('🔄 ต้องการรีเซ็ตและสุ่มข้อสอบชุดใหม่เลยไหม?\n\nคำตอบปัจจุบันจะถูกล้างทั้งหมด')) return;
+  stopTimer();
+  APP_STATE.answers = {};
+  // Re-sample new set
+  startQuiz();
 }
 
 function buildDotNav() {
@@ -3112,44 +3246,66 @@ function submitQuiz() {
 function restartQuiz() {
   APP_STATE.answers = {};
   APP_STATE.selectedTopic = 'all';
+  APP_STATE.selectedCount = 30;
   APP_STATE.activeQuestions = [];
+  stopTimer();
   try { localStorage.removeItem(STORAGE_KEYS.ANSWERS); } catch(e) {}
 
-  // Reset start screen to original
-  document.getElementById('quiz-start-screen').innerHTML = `
-    <div class="card" style="max-width: 680px; margin: 0 auto; padding: 40px;">
+  document.getElementById('quiz-start-screen').innerHTML = buildStartScreen();
+  document.getElementById('quiz-active-screen').classList.add('hidden');
+  document.getElementById('quiz-start-screen').classList.remove('hidden');
+  updateCountChips();
+  updateQuizSummary();
+}
+
+function buildStartScreen() {
+  return `
+    <div class="card" style="max-width:720px; margin:0 auto; padding:40px;">
       <div style="text-align:center; margin-bottom:28px;">
         <div style="font-size:2.8rem; margin-bottom:12px;">📋</div>
         <h3 style="font-family:var(--f-display); font-size:1.5rem; margin-bottom:8px;">เลือกโหมดการทดสอบ</h3>
-        <p class="text-muted text-sm">เลือกทดสอบเฉพาะทักษะที่ต้องการ หรือทดสอบแบบเต็ม</p>
+        <p class="text-muted text-sm">เลือก Part และจำนวนข้อที่ต้องการ ระบบจะสุ่มข้อสอบใหม่ทุกครั้ง</p>
       </div>
+      <div style="margin-bottom:6px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">เลือก Part</div>
       <div class="quiz-mode-selector" id="topic-selector">
         <button class="mode-card selected" data-topic="all" onclick="selectTopic(this,'all')">
           <span class="mode-card__icon">📋</span>
-          <span class="mode-card__label">Full Test</span>
-          <span class="mode-card__count">25 ข้อ</span>
+          <span class="mode-card__label">All Parts</span>
+          <span class="mode-card__count">300 ข้อในคลัง</span>
         </button>
-        <button class="mode-card" data-topic="listening" onclick="selectTopic(this,'listening')">
-          <span class="mode-card__icon">🎧</span>
-          <span class="mode-card__label">Listening</span>
-          <span class="mode-card__count">8 ข้อ</span>
+        <button class="mode-card" data-topic="5" onclick="selectTopic(this,'5')">
+          <span class="mode-card__icon">✏️</span>
+          <span class="mode-card__label">Part 5</span>
+          <span class="mode-card__count">Incomplete Sentences</span>
         </button>
-        <button class="mode-card" data-topic="grammar" onclick="selectTopic(this,'grammar')">
-          <span class="mode-card__icon">📖</span>
-          <span class="mode-card__label">Grammar</span>
-          <span class="mode-card__count">9 ข้อ</span>
+        <button class="mode-card" data-topic="6" onclick="selectTopic(this,'6')">
+          <span class="mode-card__icon">📝</span>
+          <span class="mode-card__label">Part 6</span>
+          <span class="mode-card__count">Text Completion</span>
         </button>
-        <button class="mode-card" data-topic="reading" onclick="selectTopic(this,'reading')">
+        <button class="mode-card" data-topic="7" onclick="selectTopic(this,'7')">
           <span class="mode-card__icon">📰</span>
-          <span class="mode-card__label">Reading</span>
-          <span class="mode-card__count">8 ข้อ</span>
+          <span class="mode-card__label">Part 7</span>
+          <span class="mode-card__count">Reading Comprehension</span>
         </button>
       </div>
-      <div style="margin:20px 0;">
+      <div style="margin:20px 0 8px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">จำนวนข้อสอบ</div>
+      <div class="count-selector" id="count-selector">
+        <button class="count-chip" data-count="10" onclick="selectCount(this,10)">10 ข้อ</button>
+        <button class="count-chip" data-count="20" onclick="selectCount(this,20)">20 ข้อ</button>
+        <button class="count-chip selected" data-count="30" onclick="selectCount(this,30)">30 ข้อ</button>
+        <button class="count-chip" data-count="50" onclick="selectCount(this,50)">50 ข้อ</button>
+        <button class="count-chip" data-count="100" onclick="selectCount(this,100)">100 ข้อ</button>
+        <button class="count-chip" data-count="999" onclick="selectCount(this,999)">ทั้งหมด</button>
+      </div>
+      <div style="font-size:.75rem; color:var(--c-text3); font-family:var(--f-mono); margin-bottom:16px;" id="count-info">
+        สุ่ม 30 ข้อ จากคลัง 300 ข้อ | ⏱ เวลา: 37 นาที
+      </div>
+      <div style="margin-bottom:16px;">
         <div class="toggle-row">
           <div>
             <div class="toggle-label"><span>⏱</span><span>เปิดใช้งาน Timer</span></div>
-            <div class="toggle-desc" id="timer-toggle-desc">30 นาที (Full Test)</div>
+            <div class="toggle-desc" id="timer-toggle-desc">ปรับตามจำนวนข้อ (~1.25 นาที/ข้อ)</div>
           </div>
           <label class="toggle-switch">
             <input type="checkbox" id="timer-toggle" checked onchange="updateTimerDesc()" />
@@ -3162,19 +3318,16 @@ function restartQuiz() {
             <div class="toggle-desc">เฉลยพร้อมคำอธิบายทันทีหลังเลือกคำตอบ</div>
           </div>
           <label class="toggle-switch">
-            <input type="checkbox" id="instant-answer-toggle" />
+            <input type="checkbox" id="instant-answer-toggle" onchange="updateQuizSummary()" />
             <span class="toggle-track"></span>
           </label>
         </div>
       </div>
       <div style="background:var(--c-surface2); border:1px solid var(--c-border); border-radius:var(--r-md); padding:14px 18px; margin-bottom:24px; font-size:.85rem; color:var(--c-text2);" id="quiz-summary">
-        📋 <strong>Full Test</strong> — 25 ข้อ ครอบคลุมทุกทักษะ | Timer: 30 นาที
+        📋 <strong>All Parts</strong> — สุ่ม 30 ข้อ | Timer: เปิด | Instant Answer: ปิด
       </div>
       <button class="btn btn--gold btn--lg w-full" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
     </div>`;
-
-  document.getElementById('quiz-active-screen').classList.add('hidden');
-  document.getElementById('quiz-start-screen').classList.remove('hidden');
 }
 
 /* ── Timer ── */
@@ -4184,7 +4337,8 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSavedPlan();
   updateHistory();
   updateTodayWidget();
-  updateQuizSummary(); // init quiz summary text
+  updateCountChips();   // init count chip labels with actual pool sizes
+  updateQuizSummary();  // init quiz summary text
 
   // Close today widget when clicking outside
   document.addEventListener('click', (e) => {
