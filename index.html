@@ -2221,12 +2221,19 @@
 
       <!-- Quiz Active -->
       <div id="quiz-active-screen" class="hidden">
-        <!-- Reset mid-quiz bar -->
+        <!-- Top control bar -->
         <div class="quiz-reset-bar">
           <span style="font-size:.8rem; color:var(--c-text3);" id="quiz-mode-label"></span>
-          <button class="btn--reset" onclick="confirmResetQuiz()" aria-label="รีเซ็ตและเริ่มใหม่">
-            🔄 Reset & สุ่มใหม่
-          </button>
+          <div style="display:flex; gap:8px;">
+            <button class="btn--reset" onclick="confirmResetQuiz()" aria-label="รีเซ็ตและสุ่มข้อสอบชุดใหม่" title="Reset & สุ่มใหม่">
+              🔄 สุ่มใหม่
+            </button>
+            <button class="btn--reset" onclick="exitQuiz()"
+              style="border-color:var(--c-text3); color:var(--c-text3);"
+              aria-label="ออกจากการทดสอบ" title="ออกจากการทดสอบ">
+              ✕ ออก
+            </button>
+          </div>
         </div>
 
         <div class="quiz-header">
@@ -3053,8 +3060,39 @@ function confirmResetQuiz() {
   if (!confirm('🔄 ต้องการรีเซ็ตและสุ่มข้อสอบชุดใหม่เลยไหม?\n\nคำตอบปัจจุบันจะถูกล้างทั้งหมด')) return;
   stopTimer();
   APP_STATE.answers = {};
-  // Re-sample new set
   startQuiz();
+}
+
+/* ── Exit Quiz — กลับหน้าเลือกโหมดโดยไม่ล้าง State ── */
+function exitQuiz() {
+  const answered = Object.keys(APP_STATE.answers).length;
+  const total    = APP_STATE.activeQuestions.length;
+
+  if (answered > 0) {
+    const ok = confirm(
+      `ออกจากการทดสอบ?\n\nคุณทำไปแล้ว ${answered}/${total} ข้อ\n\n` +
+      `• กด OK → ออกและกลับหน้าเลือกโหมด (คำตอบจะถูกล้าง)\n` +
+      `• กด Cancel → ทำต่อ`
+    );
+    if (!ok) return;
+  }
+
+  stopTimer();
+  APP_STATE.answers = {};
+  APP_STATE.activeQuestions = [];
+  try { localStorage.removeItem(STORAGE_KEYS.ANSWERS); } catch(e) {}
+
+  // Return to start screen
+  document.getElementById('quiz-active-screen').classList.add('hidden');
+  document.getElementById('quiz-start-screen').classList.remove('hidden');
+
+  // Re-init start screen if it was replaced after submit
+  const startScreen = document.getElementById('quiz-start-screen');
+  if (!startScreen.querySelector('#topic-selector')) {
+    startScreen.innerHTML = buildStartScreen();
+  }
+  updateCountChips();
+  updateQuizSummary();
 }
 
 function buildDotNav() {
@@ -3235,7 +3273,7 @@ function submitQuiz() {
         <p class="text-muted mb-24">ผลการทดสอบของคุณพร้อมแล้ว</p>
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
           <a href="#results" class="btn btn--gold btn--lg">📊 ดูผลการทดสอบ</a>
-          <button class="btn btn--outline" onclick="restartQuiz()">🔄 ทดสอบใหม่</button>
+          <button class="btn btn--outline" onclick="restartQuiz()">🔄 ทดสอบอีกครั้ง</button>
         </div>
       </div>`;
     // Auto-scroll to results
