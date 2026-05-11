@@ -1872,6 +1872,17 @@
       color: #fff;
     }
 
+    .mode-card--old {
+      border-color: var(--c-gold);
+      background: rgba(201,151,58,.06);
+    }
+
+    .mode-card--old.selected {
+      background: linear-gradient(135deg, var(--c-gold-dark), var(--c-gold));
+      border-color: var(--c-gold);
+      color: #fff;
+    }
+
     .mode-card__icon  { font-size: 1.6rem; display: block; margin-bottom: 6px; }
     .mode-card__label { font-size: .82rem; font-weight: 600; display: block; }
     .mode-card__count { font-size: .7rem; font-family: var(--f-mono); opacity: .6; display: block; margin-top: 2px; }
@@ -1986,6 +1997,7 @@
     .quiz-topic-badge.listening { background: rgba(45,106,138,.15); color: var(--c-listen); }
     .quiz-topic-badge.grammar   { background: rgba(106,75,138,.15); color: var(--c-grammar); }
     .quiz-topic-badge.reading   { background: rgba(58,125,90,.15);  color: var(--c-reading); }
+    .quiz-topic-badge.old       { background: rgba(201,151,58,.18); color: var(--c-gold-dark); }
 
     /* Demo banner */
     .demo-banner {
@@ -2149,7 +2161,7 @@
 
           <!-- Part / Topic Selector -->
           <div style="margin-bottom:6px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">เลือก Part</div>
-          <div class="quiz-mode-selector" id="topic-selector" role="group" aria-label="เลือกหมวดข้อสอบ">
+          <div class="quiz-mode-selector" id="topic-selector" role="group" aria-label="เลือกหมวดข้อสอบ" style="grid-template-columns: repeat(5,1fr);">
             <button class="mode-card selected" data-topic="all" onclick="selectTopic(this,'all')">
               <span class="mode-card__icon">📋</span>
               <span class="mode-card__label">All Parts</span>
@@ -2170,6 +2182,22 @@
               <span class="mode-card__label">Part 7</span>
               <span class="mode-card__count">Reading Comprehension</span>
             </button>
+            <button class="mode-card mode-card--old" data-topic="old" onclick="selectTopic(this,'old')">
+              <span class="mode-card__icon">🏆</span>
+              <span class="mode-card__label">ข้อสอบเก่า</span>
+              <span class="mode-card__count">100 ข้อ · Set 1/2024</span>
+            </button>
+          </div>
+
+          <!-- Old exam sub-part selector (hidden by default) -->
+          <div id="old-subpart-row" class="hidden" style="margin-bottom:8px;">
+            <div style="font-size:.72rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3); margin-bottom:6px;">เลือก Part ของข้อสอบเก่า</div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <button class="count-chip selected" data-oldpart="old" onclick="selectOldPart(this,'old')">ทุก Part</button>
+              <button class="count-chip" data-oldpart="old-5" onclick="selectOldPart(this,'old-5')">Part 5 (30 ข้อ)</button>
+              <button class="count-chip" data-oldpart="old-6" onclick="selectOldPart(this,'old-6')">Part 6 (16 ข้อ)</button>
+              <button class="count-chip" data-oldpart="old-7" onclick="selectOldPart(this,'old-7')">Part 7 (54 ข้อ)</button>
+            </div>
           </div>
 
           <!-- Question Count Selector -->
@@ -2929,44 +2957,75 @@ function selectTopic(btn, topic) {
   document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
   btn.classList.add('selected');
   APP_STATE.selectedTopic = topic;
+
+  // Show/hide old sub-part selector
+  const oldRow = document.getElementById('old-subpart-row');
+  if (oldRow) oldRow.classList.toggle('hidden', topic !== 'old');
+
+  // Reset old sub-part when switching away
+  if (topic !== 'old') {
+    APP_STATE.selectedOldPart = null;
+  }
+
+  updateCountChips();
+  updateQuizSummary();
+}
+
+function selectOldPart(btn, oldPart) {
+  document.querySelectorAll('[data-oldpart]').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('selected');
+  APP_STATE.selectedOldPart = oldPart;
   updateCountChips();
   updateQuizSummary();
 }
 
 function selectCount(btn, count) {
-  document.querySelectorAll('.count-chip').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.count-chip:not([data-oldpart])').forEach(c => c.classList.remove('selected'));
   btn.classList.add('selected');
   APP_STATE.selectedCount = count;
   updateQuizSummary();
 }
 
 function updateCountChips() {
-  // Disable chips that exceed available pool
-  const topic = APP_STATE.selectedTopic;
-  const pool = typeof QUESTION_BANK !== 'undefined'
-    ? (topic === 'all' ? QUESTION_BANK : QUESTION_BANK.filter(q => q.part === topic))
-    : [];
-  const available = pool.length || 300;
+  const topic = getEffectiveTopic();
+  const pool = getPool(topic);
+  const available = pool.length;
 
-  document.querySelectorAll('.count-chip').forEach(chip => {
+  document.querySelectorAll('.count-chip:not([data-oldpart])').forEach(chip => {
     const n = parseInt(chip.dataset.count);
-    const actual = n >= 999 ? available : n;
-    chip.classList.toggle('disabled', actual > available && n !== 999);
+    chip.classList.toggle('disabled', n !== 999 && n > available);
     chip.textContent = n >= 999 ? `ทั้งหมด (${available})` : `${n} ข้อ`;
   });
 }
 
+function getEffectiveTopic() {
+  if (APP_STATE.selectedTopic === 'old') {
+    return APP_STATE.selectedOldPart || 'old';
+  }
+  return APP_STATE.selectedTopic;
+}
+
+function getPool(topic) {
+  if (typeof QUESTION_BANK === 'undefined') return [];
+  if (topic === 'all')   return QUESTION_BANK.filter(q => !q.set);
+  if (topic === 'old')   return QUESTION_BANK.filter(q => q.set === 'ข้อสอบเก่า');
+  if (topic.startsWith('old-')) {
+    const p = topic.split('-')[1];
+    return QUESTION_BANK.filter(q => q.set === 'ข้อสอบเก่า' && q.part === p);
+  }
+  return QUESTION_BANK.filter(q => q.part === topic && !q.set);
+}
+
 function getTimerSeconds() {
-  // ~1.25 mins per question (75 seconds), min 5 mins
-  const count = getActualCount();
-  return Math.max(5 * 60, count * 75);
+  const topic = APP_STATE.selectedTopic;
+  // ข้อสอบเก่า = fixed 75 นาที (จำลองสนามสอบจริง)
+  if (topic === 'old') return 75 * 60;
+  // อื่นๆ = ~1.25 นาที/ข้อ
+  return Math.max(5 * 60, getActualCount() * 75);
 }
 
 function getActualCount() {
-  const topic = APP_STATE.selectedTopic;
-  const pool = typeof QUESTION_BANK !== 'undefined'
-    ? (topic === 'all' ? QUESTION_BANK : QUESTION_BANK.filter(q => q.part === topic))
-    : [];
+  const pool = getPool(getEffectiveTopic());
   const available = pool.length || 30;
   return APP_STATE.selectedCount >= 999
     ? available
@@ -2974,37 +3033,53 @@ function getActualCount() {
 }
 
 function updateTimerDesc() {
+  const topic = APP_STATE.selectedTopic;
   const secs = getTimerSeconds();
   const mins = Math.round(secs / 60);
   const on = document.getElementById('timer-toggle')?.checked;
-  document.getElementById('timer-toggle-desc').textContent =
-    on ? `${mins} นาที (~1.25 นาที/ข้อ)` : 'ปิด Timer';
+  const desc = topic === 'old'
+    ? `${mins} นาที (fixed — จำลองสนามสอบจริง)`
+    : `${mins} นาที (~1.25 นาที/ข้อ)`;
+  const el = document.getElementById('timer-toggle-desc');
+  if (el) el.textContent = on ? desc : 'ปิด Timer';
   updateQuizSummary();
 }
 
 function updateQuizSummary() {
-  const topic = APP_STATE.selectedTopic;
-  const count = getActualCount();
-  const timerOn = document.getElementById('timer-toggle')?.checked;
-  const instantOn = document.getElementById('instant-answer-toggle')?.checked;
-  const mins = Math.round(getTimerSeconds() / 60);
+  const topic    = APP_STATE.selectedTopic;
+  const effTopic = getEffectiveTopic();
+  const count    = getActualCount();
+  const timerOn  = document.getElementById('timer-toggle')?.checked;
+  const instantOn= document.getElementById('instant-answer-toggle')?.checked;
+  const mins     = Math.round(getTimerSeconds() / 60);
+  const pool     = getPool(effTopic);
 
-  const labels = { all:'All Parts', '5':'Part 5', '6':'Part 6', '7':'Part 7' };
-  const icons  = { all:'📋', '5':'✏️', '6':'📝', '7':'📰' };
+  const labelMap = {
+    all:'All Parts', '5':'Part 5', '6':'Part 6', '7':'Part 7',
+    old:'ข้อสอบเก่า', 'old-5':'ข้อสอบเก่า · P5',
+    'old-6':'ข้อสอบเก่า · P6', 'old-7':'ข้อสอบเก่า · P7',
+  };
+  const iconMap  = {
+    all:'📋', '5':'✏️', '6':'📝', '7':'📰',
+    old:'🏆', 'old-5':'🏆', 'old-6':'🏆', 'old-7':'🏆',
+  };
+  const label = labelMap[effTopic] || effTopic;
+  const icon  = iconMap[effTopic] || '📋';
 
-  // Update count info line
-  const pool = typeof QUESTION_BANK !== 'undefined'
-    ? (topic === 'all' ? QUESTION_BANK : QUESTION_BANK.filter(q => q.part === topic))
-    : [];
   const infoEl = document.getElementById('count-info');
-  const timeEl = document.getElementById('time-preview');
-  if (infoEl) infoEl.innerHTML = `สุ่ม <strong>${count}</strong> ข้อ จากคลัง ${pool.length || 300} ข้อ | ⏱ เวลา: <span id="time-preview">${mins} นาที</span>`;
+  if (infoEl) {
+    const timerNote = topic === 'old' ? `⏱ <strong>${mins} นาที (fixed)</strong>` : `⏱ เวลา: ${mins} นาที`;
+    infoEl.innerHTML = `สุ่ม <strong>${count}</strong> ข้อ จากคลัง ${pool.length} ข้อ | ${timerNote}`;
+  }
 
   const summEl = document.getElementById('quiz-summary');
   if (!summEl) return;
-  summEl.innerHTML = `${icons[topic]} <strong>${labels[topic]}</strong> — สุ่ม ${count} ข้อ
-    | Timer: ${timerOn ? mins + ' นาที' : '<span style="color:var(--c-text3)">ปิด</span>'}
-    | Instant Answer: ${instantOn ? '<span style="color:var(--c-green)">เปิด ⚡</span>' : 'ปิด'}`;
+  const timerStr = timerOn
+    ? `${mins} นาที${topic === 'old' ? ' <span style="color:var(--c-gold);font-size:.75rem;">(fixed)</span>' : ''}`
+    : '<span style="color:var(--c-text3)">ปิด</span>';
+  summEl.innerHTML = `${icon} <strong>${label}</strong> — สุ่ม ${count} ข้อ
+    | Timer: ${timerStr}
+    | Instant: ${instantOn ? '<span style="color:var(--c-green)">เปิด ⚡</span>' : 'ปิด'}`;
 }
 
 function startQuiz() {
@@ -3013,33 +3088,38 @@ function startQuiz() {
   APP_STATE.instantAnswer = document.getElementById('instant-answer-toggle')?.checked || false;
   APP_STATE.timerSeconds  = getTimerSeconds();
 
-  // Sample questions from QUESTION_BANK (questions.js)
-  // Falls back to built-in QUESTIONS array if questions.js not loaded
-  if (typeof sampleQuestions !== 'undefined') {
-    APP_STATE.activeQuestions = sampleQuestions(APP_STATE.selectedTopic, getActualCount());
+  // Sample questions using getPool (handles old/part filters)
+  const effTopic = getEffectiveTopic();
+  const count    = getActualCount();
+
+  if (typeof QUESTION_BANK !== 'undefined') {
+    const pool = getPool(effTopic);
+    APP_STATE.activeQuestions = [...pool]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, count);
   } else {
-    // Fallback: use built-in questions filtered by old topic map
-    const typeMap = { all: null, listening: 'listening', grammar: 'grammar', reading: 'reading' };
-    const t = typeMap[APP_STATE.selectedTopic];
-    const pool = t ? QUESTIONS.filter(q => q.type === t) : QUESTIONS;
-    APP_STATE.activeQuestions = [...pool].sort(() => Math.random() - .5)
-      .slice(0, getActualCount());
+    // Fallback to built-in QUESTIONS
+    APP_STATE.activeQuestions = [...QUESTIONS]
+      .sort(() => Math.random() - 0.5)
+      .slice(0, count);
   }
 
-  // Update header badge
+  // Badge label
+  const badgeLabels = {
+    all:'All Parts', '5':'Part 5', '6':'Part 6', '7':'Part 7',
+    old:'ข้อสอบเก่า', 'old-5':'เก่า·P5', 'old-6':'เก่า·P6', 'old-7':'เก่า·P7',
+  };
   const badge = document.getElementById('quiz-topic-badge');
-  const badgeLabels = { all:'All Parts', '5':'Part 5', '6':'Part 6', '7':'Part 7',
-    listening:'Listening', grammar:'Grammar', reading:'Reading' };
   if (badge) {
-    badge.textContent = badgeLabels[APP_STATE.selectedTopic] || APP_STATE.selectedTopic;
-    badge.className   = `quiz-topic-badge ${APP_STATE.selectedTopic}`;
+    badge.textContent = badgeLabels[effTopic] || effTopic;
+    badge.className = `quiz-topic-badge ${APP_STATE.selectedTopic === 'old' ? 'old' : effTopic}`;
   }
 
-  // Update mode label in reset bar
+  // Mode label in reset bar
   const modeLabel = document.getElementById('quiz-mode-label');
   if (modeLabel) {
-    const count = APP_STATE.activeQuestions.length;
-    modeLabel.textContent = `${badgeLabels[APP_STATE.selectedTopic]} | ${count} ข้อ | สุ่มแล้ว`;
+    const isOld = APP_STATE.selectedTopic === 'old';
+    modeLabel.innerHTML = `${badgeLabels[effTopic]} | ${APP_STATE.activeQuestions.length} ข้อ${isOld ? ' | ⏱ 75 นาที' : ''}`;
   }
 
   document.getElementById('quiz-start-screen').classList.add('hidden');
@@ -3305,7 +3385,7 @@ function buildStartScreen() {
         <p class="text-muted text-sm">เลือก Part และจำนวนข้อที่ต้องการ ระบบจะสุ่มข้อสอบใหม่ทุกครั้ง</p>
       </div>
       <div style="margin-bottom:6px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">เลือก Part</div>
-      <div class="quiz-mode-selector" id="topic-selector">
+      <div class="quiz-mode-selector" id="topic-selector" style="grid-template-columns:repeat(5,1fr);">
         <button class="mode-card selected" data-topic="all" onclick="selectTopic(this,'all')">
           <span class="mode-card__icon">📋</span>
           <span class="mode-card__label">All Parts</span>
@@ -3326,8 +3406,26 @@ function buildStartScreen() {
           <span class="mode-card__label">Part 7</span>
           <span class="mode-card__count">Reading Comprehension</span>
         </button>
+        <button class="mode-card mode-card--old" data-topic="old" onclick="selectTopic(this,'old')">
+          <span class="mode-card__icon">🏆</span>
+          <span class="mode-card__label">ข้อสอบเก่า</span>
+          <span class="mode-card__count">100 ข้อ · Set 1/2024</span>
+        </button>
       </div>
-      <div style="margin:20px 0 8px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">จำนวนข้อสอบ</div>
+
+      <div id="old-subpart-row" class="hidden" style="margin:10px 0 12px; padding:12px 16px; background:rgba(201,151,58,.08); border:1px solid rgba(201,151,58,.3); border-radius:var(--r-md);">
+        <div style="font-size:.72rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-gold-dark); margin-bottom:8px; font-weight:700;">
+          🏆 ข้อสอบเก่า Set 1/2024 &nbsp;·&nbsp; ⏱ Timer: <strong>75 นาที (fixed)</strong>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="count-chip selected" data-oldpart="old" onclick="selectOldPart(this,'old')">ทุก Part (100 ข้อ)</button>
+          <button class="count-chip" data-oldpart="old-5" onclick="selectOldPart(this,'old-5')">Part 5 (30 ข้อ)</button>
+          <button class="count-chip" data-oldpart="old-6" onclick="selectOldPart(this,'old-6')">Part 6 (16 ข้อ)</button>
+          <button class="count-chip" data-oldpart="old-7" onclick="selectOldPart(this,'old-7')">Part 7 (54 ข้อ)</button>
+        </div>
+      </div>
+
+      <div style="margin:16px 0 8px; font-size:.78rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-text3);">จำนวนข้อสอบ</div>
       <div class="count-selector" id="count-selector">
         <button class="count-chip" data-count="10" onclick="selectCount(this,10)">10 ข้อ</button>
         <button class="count-chip" data-count="20" onclick="selectCount(this,20)">20 ข้อ</button>
@@ -3362,7 +3460,7 @@ function buildStartScreen() {
         </div>
       </div>
       <div style="background:var(--c-surface2); border:1px solid var(--c-border); border-radius:var(--r-md); padding:14px 18px; margin-bottom:24px; font-size:.85rem; color:var(--c-text2);" id="quiz-summary">
-        📋 <strong>All Parts</strong> — สุ่ม 30 ข้อ | Timer: เปิด | Instant Answer: ปิด
+        📋 <strong>All Parts</strong> — สุ่ม 30 ข้อ | Timer: เปิด | Instant: ปิด
       </div>
       <button class="btn btn--gold btn--lg w-full" onclick="startQuiz()">🚀 เริ่มทดสอบเลย!</button>
     </div>`;
