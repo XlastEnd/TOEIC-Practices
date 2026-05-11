@@ -1696,7 +1696,7 @@
       .hero__actions, .quiz-nav, #feedback, .theme-toggle { display: none !important; }
       body { background: white; color: black; }
       .plan-display { border: 1px solid #ccc; }
-      .plan-header { background: #1B2B4B !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .plan-header { background: #1B2B4B !important; -webkit-print-color-adjust: exact; }
     }
 
     /* ================================================================
@@ -3007,21 +3007,31 @@ function getEffectiveTopic() {
 
 function getPool(topic) {
   if (typeof QUESTION_BANK === 'undefined') return [];
-  if (topic === 'all')   return QUESTION_BANK.filter(q => !q.set);
-  if (topic === 'old')   return QUESTION_BANK.filter(q => q.set === 'ข้อสอบเก่า');
+  // 'all' = practice bank เท่านั้น (ไม่รวม old set, ไม่รวม listening)
+  if (topic === 'all')
+    return QUESTION_BANK.filter(q => !q.set && q.type !== 'listening');
+  // old = ข้อสอบเก่าทุก Part
+  if (topic === 'old')
+    return QUESTION_BANK.filter(q => q.set === 'ข้อสอบเก่า');
+  // old-5 / old-6 / old-7
   if (topic.startsWith('old-')) {
     const p = topic.split('-')[1];
     return QUESTION_BANK.filter(q => q.set === 'ข้อสอบเก่า' && q.part === p);
   }
+  // practice part 5/6/7
   return QUESTION_BANK.filter(q => q.part === topic && !q.set);
 }
 
 function getTimerSeconds() {
-  const topic = APP_STATE.selectedTopic;
-  // ข้อสอบเก่า = fixed 75 นาที (จำลองสนามสอบจริง)
-  if (topic === 'old') return 75 * 60;
-  // อื่นๆ = ~1.25 นาที/ข้อ
-  return Math.max(5 * 60, getActualCount() * 75);
+  const effTopic = getEffectiveTopic();
+  const count    = getActualCount();
+  // ข้อสอบเก่า: timer แยกตาม sub-part
+  if (effTopic === 'old')   return 75 * 60;  // All Parts → 75 นาที (สนามสอบจริง)
+  if (effTopic === 'old-5') return 20 * 60;  // Part 5 → 20 นาที
+  if (effTopic === 'old-6') return 15 * 60;  // Part 6 → 15 นาที
+  if (effTopic === 'old-7') return 54 * 60;  // Part 7 → 54 นาที (~1 นาที/ข้อ)
+  // Practice: ~1.25 นาที/ข้อ
+  return Math.max(5 * 60, count * 75);
 }
 
 function getActualCount() {
@@ -3033,11 +3043,12 @@ function getActualCount() {
 }
 
 function updateTimerDesc() {
-  const topic = APP_STATE.selectedTopic;
+  const effTopic = getEffectiveTopic();
   const secs = getTimerSeconds();
   const mins = Math.round(secs / 60);
-  const on = document.getElementById('timer-toggle')?.checked;
-  const desc = topic === 'old'
+  const on   = document.getElementById('timer-toggle')?.checked;
+  const isFixedOld = effTopic === 'old';
+  const desc = isFixedOld
     ? `${mins} นาที (fixed — จำลองสนามสอบจริง)`
     : `${mins} นาที (~1.25 นาที/ข้อ)`;
   const el = document.getElementById('timer-toggle-desc');
@@ -3066,16 +3077,21 @@ function updateQuizSummary() {
   const label = labelMap[effTopic] || effTopic;
   const icon  = iconMap[effTopic] || '📋';
 
+  // "(fixed)" เฉพาะ All Parts ของข้อสอบเก่า เท่านั้น
+  const isFixedTimer = effTopic === 'old';
+
   const infoEl = document.getElementById('count-info');
   if (infoEl) {
-    const timerNote = topic === 'old' ? `⏱ <strong>${mins} นาที (fixed)</strong>` : `⏱ เวลา: ${mins} นาที`;
+    const timerNote = isFixedTimer
+      ? `⏱ <strong>${mins} นาที (fixed)</strong>`
+      : `⏱ เวลา: ${mins} นาที`;
     infoEl.innerHTML = `สุ่ม <strong>${count}</strong> ข้อ จากคลัง ${pool.length} ข้อ | ${timerNote}`;
   }
 
   const summEl = document.getElementById('quiz-summary');
   if (!summEl) return;
   const timerStr = timerOn
-    ? `${mins} นาที${topic === 'old' ? ' <span style="color:var(--c-gold);font-size:.75rem;">(fixed)</span>' : ''}`
+    ? `${mins} นาที${isFixedTimer ? ' <span style="color:var(--c-gold);font-size:.75rem;">(fixed)</span>' : ''}`
     : '<span style="color:var(--c-text3)">ปิด</span>';
   summEl.innerHTML = `${icon} <strong>${label}</strong> — สุ่ม ${count} ข้อ
     | Timer: ${timerStr}
@@ -3415,7 +3431,7 @@ function buildStartScreen() {
 
       <div id="old-subpart-row" class="hidden" style="margin:10px 0 12px; padding:12px 16px; background:rgba(201,151,58,.08); border:1px solid rgba(201,151,58,.3); border-radius:var(--r-md);">
         <div style="font-size:.72rem; font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--c-gold-dark); margin-bottom:8px; font-weight:700;">
-          🏆 ข้อสอบเก่า Set 1/2024 &nbsp;·&nbsp; ⏱ Timer: <strong>75 นาที (fixed)</strong>
+          🏆 ข้อสอบเก่า Set 1/2024 &nbsp;·&nbsp; ⏱ All: 75 นาที | P5: 20 นาที | P6: 15 นาที | P7: 54 นาที
         </div>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <button class="count-chip selected" data-oldpart="old" onclick="selectOldPart(this,'old')">ทุก Part (100 ข้อ)</button>
