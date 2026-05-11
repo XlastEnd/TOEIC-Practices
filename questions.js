@@ -1314,9 +1314,7 @@ const QUESTION_BANK = [
     text: 'The office supplies were ordered _____ the inventory reached a critically low level.',
     choices: ['once', 'despite', 'unless', 'whereas'],
     answer: 0,
-    explain: 'once = ทันทีที่/เมื่อ ใช้เชื่อมเหตุการณ์
-
-========================================================================================',
+    explain: 'once = ทันทีที่/เมื่อ ใช้เชื่อมเหตุการณ์',
     context: null,
     audio: null,
   },
@@ -3291,9 +3289,9 @@ The FlexNote Planner also has several useful ___[25D]___ for everyday use.`,
     text: 'Choose the best word/phrase for blank [25D]',
     choices: ['feature', 'features', 'featured', 'featuring'],
     answer: 1,
-    explain: 'ถ้าพูดถึงคุณสมบัติหลายอย่าง ใช้ features เป็นคำนามพหูพจน์
+    explain: `ถ้าพูดถึงคุณสมบัติหลายอย่าง ใช้ features เป็นคำนามพหูพจน์
 
-========================================================================================',
+========================================================================================`,
     context: `Advertisement: FlexNote Planner
 
 Introducing the FlexNote Planner, a product ___[25A]___ for project teams. It includes weekly planning pages and a compact design that fits easily into limited spaces. The item is now ___[25B]___ online for only $12.
