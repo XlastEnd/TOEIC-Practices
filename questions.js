@@ -4984,7 +4984,7 @@ Invoice #7782 is for 40 boxes of premium paper delivered to Kimura Legal Service
    ข้อสอบเก่า — TOEIC Reading Set 1 (2024)
    Source: tiwastudy.site | ข้อ 101–200 (100 ข้อ)
    Part 5: 30 ข้อ | Part 6: 16 ข้อ | Part 7: 54 ข้อ
-   Choices: ภาษาอังกฤษล้วน | Explanation: ภาษาไทย (แสดงเฉพาะเฉลย)
+   text/choices: English only | explain: Thai (แสดงเฉพาะหน้าเฉลย)
 ================================================================ */
 QUESTION_BANK.push({
   id: 'OLD-101',
@@ -5080,7 +5080,7 @@ QUESTION_BANK.push({
   text: 'Fill in the blank: Q.107 ----- a two-month delay, new carpeting was installed in the east conference room.',
   choices: ['Additionally', 'Although', 'After', 'Furthermore'],
   answer: 2,
-  explain: 'คำว่า "After" (หลังจาก) เป็นคำบุพบทที่ใช้เพื่อระบุลำดับเวลาว่าสิ่งหนึ่งเกิดขึ้นหลังจากอีกสิ่งหนึ่ง ในประโยคนี้ "After a two-month delay" (หลังจากล่าช้าไปสองเดือน) แสดงให้เห็นว่าการติดตั้งพรมใหม่เกิดขึ้นหลังจากช่วงเวลาของการล่าช้าสองเดือน ซึ่งสร้างลำดับเหตุการณ์ที่สมเหตุสมผล (A) Additionally (นอกจากนี้) – เป็นคำวิเศษณ์ที่ใช้เพิ่มข้อมูล ไม่ได้ใช้ระบุลำดับเวลา (B) Although (แม้ว่า) – เป็นคำสันธานที่ใช้แสดงความขัดแย้ง ต้องตามด้วยอนุประโยค ไม่ใช่กลุ่มคำนาม (D) Furthermore (นอกจากนี้) – เป็นคำวิเศษณ์',
+  explain: 'คำว่า "After" (หลังจาก) เป็นคำบุพบทที่ใช้เพื่อระบุลำดับเวลาว่าสิ่งหนึ่งเกิดขึ้นหลังจากอีกสิ่งหนึ่ง ในประโยคนี้ "After a two-month delay" (หลังจากล่าช้าไปสองเดือน) แสดงให้เห็นว่าการติดตั้งพรมใหม่เกิดขึ้นหลังจากช่วงเวลาของการล่าช้าสองเดือน ซึ่งสร้างลำดับเหตุการณ์ที่สมเหตุสมผล (A) Additionally (นอกจากนี้) – เป็นคำวิเศษณ์ที่ใช้เพิ่มข้อมูล ไม่ได้ใช้ระบุลำดับเวลา (B) Although (แม้ว่า) – เป็นคำสันธานที่ใช้แสดงความขัดแย้ง ต้องตามด้วยอนุประโยค ไม่ใช่กลุ่มคำนาม  (D) Furthermore (นอกจากนี้) – เป็นคำวิเศษณ์',
   context: null,
   audio: null,
 });
@@ -5122,7 +5122,7 @@ QUESTION_BANK.push({
   text: '. The computer technician was very ------- but was not able to solve my problem.',
   choices: ['friendly', 'neutral', 'possible', 'frequent'],
   answer: 0,
-  explain: 'ประโยคใช้คำเชื่อม "but" ซึ่งแสดงความขัดแย้งกันระหว่างประโยคหน้าและหลัง "very friendly" (เป็นมิตรมาก) เป็นคุณสมบัติเชิงบวกที่ขัดแย้งกับ "was not able to solve my problem" (ไม่สามารถแก้ปัญหาของฉันได้) ซึ่งเป็นผลลัพธ์เชิงลบ (B) neutral (เป็นกลาง) – ไม่ใช่คุณสมบัติที่เหมาะสมที่จะบรรยายช่างเทคนิคที่ให้บริการและไม่เข้ากับความขัดแย้งกับปัญหาที่แก้ไม่ได้ (C) possible (เป็นไปได้) – เป็นคำที่ใช้บรรยายความเป็นไปได้ ไม่ใช่คุณสมบัติส่วนตัวของบุคคล และไม่สามารถใช้ขยาย "very" ในลักษณะนี้ได้ (D) frequent (บ่อย',
+  explain: 'ประโยคใช้คำเชื่อม "but" ซึ่งแสดงความขัดแย้งกันระหว่างประโยคหน้าและหลัง "very friendly" (เป็นมิตรมาก) เป็นคุณสมบัติเชิงบวกที่ขัดแย้งกับ "was not able to solve my problem" (ไม่สามารถแก้ปัญหาของฉันได้) ซึ่งเป็นผลลัพธ์เชิงลบ  (B) neutral (เป็นกลาง) – ไม่ใช่คุณสมบัติที่เหมาะสมที่จะบรรยายช่างเทคนิคที่ให้บริการและไม่เข้ากับความขัดแย้งกับปัญหาที่แก้ไม่ได้ (C) possible (เป็นไปได้) – เป็นคำที่ใช้บรรยายความเป็นไปได้ ไม่ใช่คุณสมบัติส่วนตัวของบุคคล และไม่สามารถใช้ขยาย "very" ในลักษณะนี้ได้ (D) frequent (บ่อย',
   context: null,
   audio: null,
 });
@@ -5161,7 +5161,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Incomplete Sentences',
   set: 'ข้อสอบเก่า',
-  text: 'weather made that impossible.',
+  text: 'Ms. Phon wanted to attend the gallery opening; -------, the inclement weather made that impossible.',
   choices: ['therefore', 'following', 'however', 'for example'],
   answer: 2,
   explain: 'ประโยคแรก "Ms. Phon wanted to attend the gallery opening" (คุณ Phon ต้องการไปร่วมพิธีเปิดแกลเลอรี่) แสดงถึงความต้องการหรือความปรารถนา ประโยคหลัง "the inclement weather made that impossible" (สภาพอากาศที่ไม่เอื้ออำนวยทำให้เป็นไปไม่ได้) แสดงถึงข้อจำกัดหรือผลลัพธ์ที่ขัดแย้งกับความต้องการนั้น คำว่า "however" (อย่างไรก็ตาม) เป็นคำเชื่อมที่ใช้แสดงความขัดแย้งหรือตรงกันข้ามระหว่างสองประโยคได้อย่างเหมาะสมที่สุด (A) therefore (ดังนั้น) – ใช้แสดงผลลัพธ์หรือข้อสรุป ไม่เหมาะสมกับความสัมพันธ์แบบขัดแย้งนี้ (B)',
@@ -5204,7 +5204,7 @@ QUESTION_BANK.push({
   topic: 'Incomplete Sentences',
   set: 'ข้อสอบเก่า',
   text: '. Carly Logan plans -------, so Alan Zill has volunteered to be the stamp club\'s next treasurer.',
-  choices: ['resigning', 'to resign', 'resigns', 'to have resigned'],
+  choices: ['resigning', 'to resign', 'resigns (', 'to have resigned'],
   answer: 1,
   explain: 'กริยา "plan" (วางแผน) โดยทั่วไปจะตามด้วย infinitive (to + verb) เพื่อแสดงถึงการกระทำที่วางแผนไว้ว่าจะเกิดขึ้นในอนาคต โครงสร้าง "plan to do something" (วางแผนที่จะทำบางสิ่ง) เป็นรูปประโยคที่ถูกต้องตามหลักไวยากรณ์ (A) resigning (การลาออก) – กริยา "plan" ไม่นิยมตามด้วย gerund (-ing form) เมื่อพูดถึงการวางแผนทำสิ่งใดสิ่งหนึ่งในอนาคต (C) resigns (ลาออก - รูปกริยาช่อง 1 เติม s) – ไม่ถูกต้องตามหลักไวยากรณ์เมื่อตามหลัง "plans" (D) to have resigned (ได้ลาออกไปแล้ว) – Perfect infinitive (to have + V3) ใช้',
   context: null,
@@ -5217,7 +5217,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Incomplete Sentences',
   set: 'ข้อสอบเก่า',
-  text: '. Although the housing market slowed ------- the summer months, sales began to pick up again in the autumn. (แม้ว่าตลาดอสังหาริมทรัพย์จะชะลอตัวลง...ในช่วงฤดูร้อน ยอดขายก็เริ่มฟื้นตัวอีกครั้งในฤดูใบไม้ร่วง)',
+  text: '. Although the housing market slowed ------- the summer months, sales began',
   choices: ['apart', 'even', 'only', 'over'],
   answer: 3,
   explain: 'คำว่า "over" ในที่นี้ใช้เป็นบุพบท (preposition) เพื่อระบุช่วงเวลา หมายถึง "ตลอดช่วง" หรือ "ในระหว่าง" เมื่อใช้กับ "the summer months" จึงสื่อความหมายว่าตลาดชะลอตัวลงตลอดฤดูร้อน ซึ่งสอดคล้องกับบริบทที่ยอดขายฟื้นตัวในฤดูใบไม้ร่วง (A) apart – ไม่สามารถใช้เป็นบุพบทที่ระบุช่วงเวลาได้ หากเป็น "apart from" จะหมายถึง "ยกเว้น" ซึ่งไม่เข้ากับบริบท (B) even – เป็นคำวิเศษณ์ (adverb) หรือคำสันธาน (conjunction) ใช้สำหรับเน้นหรือแสดงความเท่าเทียม ไม่ใช่บุพบทที่ระบุช่วงเวลา (C) only – เป็นคำวิเศษณ์ (adverb) หมา',
@@ -5259,7 +5259,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Incomplete Sentences',
   set: 'ข้อสอบเก่า',
-  text: '. Atlantic Grocers must offer online shopping options or ------- losing customers to other supermarkets. (ร้านขายของชำแอตแลนติกต้องเสนอทางเลือกในการซื้อของออนไลน์ มิฉะนั้นจะ----- --เสียลูกค้าให้กับซูเปอร์มาร์เก็ตอื่น ๆ)',
+  text: '. Atlantic Grocers must offer online shopping options or ------- losing',
   choices: ['risk', 'protect', 'cancel', 'hold'],
   answer: 0,
   explain: 'โครงสร้างประโยค "or ------- losing customers" ต้องการคำกริยาที่แสดงถึงผลลัพธ์เชิงลบหรืออันตรายหากไม่ทำตามข้อเสนอแนะ "risk" (เสี่ยง) เมื่อใช้กับกริยาเติม -ing (gerund) จะมีความหมายว่า "เสี่ยงต่อการเกิดบางสิ่งบางอย่าง" ทำให้ "risk losing customers" (เสี่ยงต่อการเสียลูกค้า) เข้ากันได้ดีกับบริบทที่ร้านค้าอาจเสียลูกค้าหากไม่ปรับตัว (B) protect (ปกป้อง) – ปกป้องไม่ให้เสียลูกค้า แต่เมื่อตามด้วย "losing customers" จะกลายเป็น "ปกป้องการเสียลูกค้า" ซึ่งผิดความหมายและไวยากรณ์ในบริบทนี้ (ปกป้องไม่ให้สูญเสีย',
@@ -5318,7 +5318,7 @@ QUESTION_BANK.push({
   text: '-------- of Pondview Tower are required to make rent payments on or before the first day of every month.',
   choices: ['Owners', 'Buyers', 'Tourists', 'Tenants'],
   answer: 3,
-  explain: 'ประโยคระบุว่าต้อง "make rent payments" (ชำระค่าเช่า) ซึ่งเป็นหน้าที่ของผู้ที่เช่าอสังหาริมทรัพย์ สอดคล้องกับคำว่า "Tenants" (ผู้เช่า) ที่หมายถึงผู้ที่เช่าหรืออาศัยอยู่ในทรัพย์สินของผู้อื่นโดยจ่ายค่าเช่า (A) Owners (เจ้าของ) – เจ้าของไม่จ่ายค่าเช่าสำหรับทรัพย์สินของตนเอง (B) Buyers (ผู้ซื้อ) – ผู้ซื้อจ่ายราคาซื้อขาย ไม่ได้จ่ายค่าเช่ารายเดือน (C) Tourists (นักท่องเที่ยว) – นักท่องเที่ยวจ่ายค่าที่พักชั่วคราว ไม่ได้เรียกว่า "rent payments" ในบริบทของสัญญาเช่ารายเดือน',
+  explain: 'ประโยคระบุว่าต้อง "make rent payments" (ชำระค่าเช่า) ซึ่งเป็นหน้าที่ของผู้ที่เช่าอสังหาริมทรัพย์ สอดคล้องกับคำว่า "Tenants" (ผู้เช่า) ที่หมายถึงผู้ที่เช่าหรืออาศัยอยู่ในทรัพย์สินของผู้อื่นโดยจ่ายค่าเช่า (A) Owners (เจ้าของ) – เจ้าของไม่จ่ายค่าเช่าสำหรับทรัพย์สินของตนเอง (B) Buyers (ผู้ซื้อ) – ผู้ซื้อจ่ายราคาซื้อขาย ไม่ได้จ่ายค่าเช่ารายเดือน  (C) Tourists (นักท่องเที่ยว) – นักท่องเที่ยวจ่ายค่าที่พักชั่วคราว ไม่ได้เรียกว่า "rent payments" ในบริบทของสัญญาเช่ารายเดือน',
   context: null,
   audio: null,
 });
@@ -5357,7 +5357,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Incomplete Sentences',
   set: 'ข้อสอบเก่า',
-  text: 'New food regulations require all Dean\'s Burgers packaging to contain the notice that -------- undercooked meat can be harmful. เนื้อสัตว์ที่ปรุงไม่สุกอาจเป็นอันตรายได้)',
+  text: 'New food regulations require all Dean\'s Burgers packaging to contain the notice that -------- undercooked meat can be harmful.',
   choices: ['consumer', 'consumption', 'consumes', 'consuming'],
   answer: 3,
   explain: 'ช่องว่างต้องการคำที่ทำหน้าที่เป็นประธานของประโยคย่อย "-------- undercooked meat can be harmful" และสามารถรับคำว่า "undercooked meat" เป็นกรรมได้ (D) consuming เป็น Gerund (คำกริยาเติม -ing ที่ทำหน้าที่เป็นคำนาม) ทำหน้าที่เป็นประธานของประโยคย่อย "consuming undercooked meat can be harmful" และมีความหมายว่า "การบริโภคเนื้อสัตว์ที่ปรุงไม่สุก" ซึ่งสอดคล้องกับโครงสร้างและบริบทของประโยค (A) consumer (ผู้บริโภค) – เป็นคำนาม หมายถึงบุคคล ไม่ได้หมายถึงการกระทำและไม่สามารถรับกรรมได้โดยตรง (B) consumption (',
@@ -5427,7 +5427,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Text Completion',
   set: 'ข้อสอบเก่า',
-  text: 'With years of experience crafting playing techniques, ----- qualified instructors can tailor lessons to focus on the skills you want to fine-tune. ผู้สอนที่ผ่านการรับรองของเราสามารถปรับแต่งบทเรียนเพื่อเน้นทักษะที่คุณต้องการปรับปรุง)',
+  text: 'With years of experience crafting playing techniques, ----- qualified instructors can tailor lessons to focus on the skills you want to fine-tune.',
   choices: ['our', 'ourselves', 'ours', 'us'],
   answer: 0,
   explain: 'ข้อความต้องการคำขยาย \'qualified instructors\' (ผู้สอนที่ผ่านการรับรอง) เพื่อแสดงความเป็นเจ้าของ (A) \'our\' (ของเรา) เป็นคำคุณศัพท์แสดงความเป็นเจ้าของ (possessive adjective) ใช้ขยายคำนาม \'qualified instructors\' ได้อย่างถูกต้อง เพื่อสื่อถึง \'ผู้สอนของ Estella Guitar Lessons\' (B) \'ourselves\' (ตัวเราเอง) เป็นสรรพนามสะท้อน (reflexive pronoun) ไม่สามารถใช้ขยายคำนามได้ (C) \'ours\' (ของเรา) เป็นสรรพนามแสดงความเป็นเจ้าของ (possessive pronoun) ใช้แทนคำนามที่แสดงความเป็นเจ้าของ ไม่สามารถวางหน้าคำนามเพื่อขยายไ',
@@ -5441,7 +5441,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Text Completion',
   set: 'ข้อสอบเก่า',
-  text: 'Fill in the blank เฉลย: (C) The best resource for you as a learner is an expert to guide your progress.',
+  text: 'Fill in the blank',
   choices: ['Contact a technician about repairs.', 'A high-quality instrument will help you to perform at your best.', 'The best resource for you as a learner is an expert to guide your', 'It took them several years to master their instruments.'],
   answer: 2,
   explain: 'ประโยคก่อนหน้าช่องว่างกล่าวถึงการ "overcome the challenges that cause many players to get discouraged" (เอาชนะความท้าทายที่ทำให้ผู้เล่นหลายคนท้อแท้) และประโยคหลังช่องว่างระบุว่า "An Estella Guitar teacher will help boost your confidence" (ครูสอนกีตาร์ของ Estella จะช่วยเพิ่มความมั่นใจของคุณ) ตัวเลือก (C) "The best resource for you as a learner is an expert to guide your progress" (แหล่งข้อมูลที่ดีที่สุดสำหรับคุณในฐานะผู้เรียนคือผู้เชี่ยวชาญที่จะแนะนำความก้าวหน้าของคุณ) เป็นการเชื่อมโยงแนวคิดได้อย',
@@ -5497,7 +5497,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Text Completion',
   set: 'ข้อสอบเก่า',
-  text: 'Typical hours are Monday through Friday between 8 A.M. and 5 P.M., ------- evening appointments can often be arranged. (ชั่วโมงทำการปกติคือวันจันทร์ถึงศุกร์ระหว่าง 8 โมงเช้าถึง 5 โมงเย็น, -------- การนัดหมายตอนเย็นมักจะสามารถจัดได้)',
+  text: 'Typical hours are Monday through Friday between 8 A.M. and 5 P.M., ------- evening',
   choices: ['if so', 'when', 'though', 'in the meantime'],
   answer: 2,
   explain: 'ประโยคแรกระบุว่าชั่วโมงทำการปกติคือ 8 A.M. ถึง 5 P.M. ซึ่งเป็นเวลาทำการทั่วไปในเวลากลางวัน ส่วนประโยคที่สองระบุว่าสามารถนัดหมายในตอนเย็นได้ แสดงให้เห็นถึงการขัดแย้งหรือข้อแม้กับข้อมูลแรก (C) "though" (อย่างไรก็ตาม/ถึงแม้ว่า) ใช้เพื่อแสดงความขัดแย้งหรือการยอมรับในสิ่งที่ตรงกันข้ามกับข้อมูลที่กล่าวไปก่อนหน้า ซึ่งตรงกับบริบทที่ว่าแม้จะมีเวลาทำการปกติ แต่ก็สามารถนัดหมายนอกเวลานั้นได้ (A) "if so" (ถ้าเป็นเช่นนั้น) – เป็นการแสดงเงื่อนไข ไม่ใช่การขัดแย้ง (B) "when" (เมื่อ) – เป็นการระบุเวลา ไม่ได้แสดงค',
@@ -5581,10 +5581,10 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Text Completion',
   set: 'ข้อสอบเก่า',
-  text: 'Fill in the blank (เติมคำในช่องว่าง) (Q.143)',
+  text: 'Fill in the blank (Q.143)',
   choices: ['ranges', 'ranger', 'ranged', 'ranging'],
   answer: 0,
-  explain: 'ประโยคกล่าวถึง "a thermometer that ____ from 0°F (-18°C) to 220°F (104°C)" (เทอร์โมมิเตอร์ที่ ____ ตั้งแต่ 0°F ถึง 220°F) ซึ่งอธิบายถึงคุณสมบัติหรือช่วงการทำงานของเทอร์โมมิเตอร์ (A) ranges เป็นกริยาช่อง 1 ผันตามประธานเอกพจน์ (thermometer) หมายถึง "มีช่วงการวัด" หรือ "ครอบคลุมช่วงอุณหภูมิ" ซึ่งเหมาะสมกับบริบท (B) ranger เป็นคำนาม หมายถึง "เจ้าหน้าที่พิทักษ์ป่า" หรือ "ผู้ดูแล" ไม่เข้ากับโครงสร้างประโยค (C) ranged เป็นกริยาช่อง 2 (อดีตกาล) หรือช่อง 3 (past participle) ใช้ไม่ได้กับบริบทนี้ที่พูดถึง',
+  explain: 'ประโยคกล่าวถึง "a thermometer that ____ from 0°F (-18°C) to 220°F (104°C)" (เทอร์โมมิเตอร์ที่ ____ ตั้งแต่ 0°F ถึง 220°F) ซึ่งอธิบายถึงคุณสมบัติหรือช่วงการทำงานของเทอร์โมมิเตอร์ (A) ranges เป็นกริยาช่อง 1 ผันตามประธานเอกพจน์ (thermometer) หมายถึง "มีช่วงการวัด" หรือ "ครอบคลุมช่วงอุณหภูมิ" ซึ่งเหมาะสมกับบริบท  (B) ranger เป็นคำนาม หมายถึง "เจ้าหน้าที่พิทักษ์ป่า" หรือ "ผู้ดูแล" ไม่เข้ากับโครงสร้างประโยค (C) ranged เป็นกริยาช่อง 2 (อดีตกาล) หรือช่อง 3 (past participle) ใช้ไม่ได้กับบริบทนี้ที่พูดถึง',
   context: null,
   audio: null,
 });
@@ -5598,7 +5598,7 @@ QUESTION_BANK.push({
   text: 'Fill in the blank',
   choices: ['size', 'safety', 'reliability', 'placement'],
   answer: 3,
-  explain: 'ประโยค "Also important to consider is _______ 144. Thermometers should always be located in the warmest spot in the refrigerator." (สิ่งสำคัญที่ต้องพิจารณาคือ _______ 144. เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) ข้อความที่ตามมาว่า "Thermometers should always be located in the warmest spot in the refrigerator." (เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) อธิบายถึงตำแหน่งหรือการจัดวางเทอร์โมมิเตอร์โดยตรง (A) size (ขนาด) – ไม่เกี่ยวข้องกับตำแหน่งที่ควรวางเทอร์โมมิเตอร์ (B)',
+  explain: 'ประโยค "Also important to consider is _______ 144. Thermometers should always be located in the warmest spot in the refrigerator." (สิ่งสำคัญที่ต้องพิจารณาคือ _______ 144. เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) ข้อความที่ตามมาว่า "Thermometers should always be located in the warmest spot in the refrigerator." (เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) อธิบายถึงตำแหน่งหรือการจัดวางเทอร์โมมิเตอร์โดยตรง (A) size (ขนาด) – ไม่เกี่ยวข้องกับตำแหน่งที่ควรวางเทอร์โมมิเตอร์ (B) ',
   context: null,
   audio: null,
 });
@@ -5626,7 +5626,7 @@ QUESTION_BANK.push({
   text: 'Fill in the blank',
   choices: ['sold', 'seen', 'repaired', 'removed'],
   answer: 1,
-  explain: '- อ้างอิงจากประโยคที่ว่า "This location is also appropriate because it allows the thermometer to be easily ______ as soon as the door is opened." (ตำแหน่งนี้เหมาะสมเพราะช่วยให้สามารถ...เทอร์โมมิเตอร์ได้อย่างง่ายดายทันทีที่เปิดประตู) และข้อความก่อนหน้าว่า "The head chef is responsible for checking these thermometers throughout the day" (หัวหน้าเชฟมีหน้าที่ตรวจสอบเทอร์โมมิเตอร์เหล่านี้ตลอดทั้งวัน) - การตรวจสอบ (checking) เทอร์โมมิเตอร์ในตู้เย็นหมายถึงการอ่านค่าอุณหภูมิ ซึ่งต้องสามารถมองเห็น (seen',
+  explain: '- อ้างอิงจากประโยคที่ว่า "This location is also appropriate because it allows the thermometer to be easily ______ as soon as the door is opened."  (ตำแหน่งนี้เหมาะสมเพราะช่วยให้สามารถ...เทอร์โมมิเตอร์ได้อย่างง่ายดายทันทีที่เปิดประตู) และข้อความก่อนหน้าว่า "The head chef is responsible for checking these thermometers throughout the day" (หัวหน้าเชฟมีหน้าที่ตรวจสอบเทอร์โมมิเตอร์เหล่านี้ตลอดทั้งวัน) - การตรวจสอบ (checking) เทอร์โมมิเตอร์ในตู้เย็นหมายถึงการอ่านค่าอุณหภูมิ ซึ่งต้องสามารถมองเห็น (seen',
   context: null,
   audio: null,
 });
@@ -5654,7 +5654,7 @@ QUESTION_BANK.push({
   text: 'What is indicated about Rapido Net?',
   choices: ['It provides faster Internet speeds than its competitors.', 'It offers extra security through two-step verification.', 'It automatically generates complex passwords for customers.', 'It has increased its monthly user fee.'],
   answer: 1,
-  explain: 'ในเนื้อหาอีเมลระบุว่า "Make the process even more secure by setting up two-step verification." (ทำให้กระบวนการปลอดภัยยิ่งขึ้นด้วยการตั้งค่าการยืนยันตัวตนสองขั้นตอน) ซึ่งบ่งชี้ว่า Rapido Net มีบริการนี้ (A) It provides faster Internet speeds than its competitors. (ให้บริการอินเทอร์เน็ตที่เร็วกว่าคู่แข่ง) – ไม่มีข้อมูลใดในอีเมลที่กล่าวถึงความเร็วอินเทอร์เน็ตหรือการเปรียบเทียบกับคู่แข่ง (C) It automatically generates complex passwords for customers. (สร้างรหัสผ่านที่ซับซ้อนให้ลูกค้าโดยอัตโนมัติ) –',
+  explain: 'ในเนื้อหาอีเมลระบุว่า "Make the process even more secure by setting up two-step verification." (ทำให้กระบวนการปลอดภัยยิ่งขึ้นด้วยการตั้งค่าการยืนยันตัวตนสองขั้นตอน) ซึ่งบ่งชี้ว่า Rapido Net มีบริการนี้ (A) It provides faster Internet speeds than its competitors. (ให้บริการอินเทอร์เน็ตที่เร็วกว่าคู่แข่ง) – ไม่มีข้อมูลใดในอีเมลที่กล่าวถึงความเร็วอินเทอร์เน็ตหรือการเปรียบเทียบกับคู่แข่ง (C) It automatically generates complex passwords for customers. (สร้างรหัสผ่านที่ซับซ้อนให้ลูกค้าโดยอัตโนมัติ) – ',
   context: null,
   audio: null,
 });
@@ -5665,7 +5665,7 @@ QUESTION_BANK.push({
   type: 'reading',
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
-  text: 'What kind of service has Ms. Duberville most likely contracted? (Ms. Duberville น่าจะทำสัญญาบริการประเภทใด)',
+  text: 'What kind of service has Ms. Duberville most likely contracted? (Ms. Duberville',
   choices: ['Window installation', 'House cleanup', 'Wall-to-wall carpeting', 'Internet access'],
   answer: 3,
   explain: 'อีเมลระบุว่า Global Tech จะ "install a Global Tech modem at your home" (ติดตั้งโมเด็ม Global Tech ที่บ้านของคุณ) และหลังจากติดตั้งแล้ว "you will be able to enjoy our service" (คุณจะสามารถเพลิดเพลินกับบริการของเราได้) โมเด็มเป็นอุปกรณ์หลักที่ใช้ในการเชื่อมต่ออินเทอร์เน็ต ดังนั้นบริการที่ทำสัญญาไว้น่าจะเป็นบริการอินเทอร์เน็ต (A) Window installation (การติดตั้งหน้าต่าง) – ไม่มีข้อมูลใด ๆ ในอีเมลที่กล่าวถึงการติดตั้งหน้าต่าง (B) House cleanup (การทำความสะอาดบ้าน) – ไม่มีข้อมูลใด ๆ ในอีเมลที่กล่าวถึง',
@@ -5680,7 +5680,7 @@ QUESTION_BANK.push({
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
   text: 'What will happen at the time selected by Ms. Duberville?',
-  choices: ['She will pick up some equipment at an office.', 'She will receive a new Global Tech mobile phone', 'She will be visited by a Global Tech representative', 'She will be e-mailed a customer satisfaction survey.'],
+  choices: ['She will pick up some equipment at an office.', 'She will receive a new Global Tech mobile phone. (', 'She will be visited by a Global Tech representative. (', 'She will be e-mailed a customer satisfaction survey.'],
   answer: 2,
   explain: 'อีเมลระบุว่าลูกค้าต้อง "set up an appointment for one of our representatives to install a Global Tech modem at your home" (นัดหมายเพื่อให้ตัวแทนของเรามาติดตั้งโมเด็ม Global Tech ที่บ้านของคุณ) และ "In preparation for our visit" (ในการเตรียมการสำหรับการมาเยือนของเรา) ซึ่งหมายความว่าตัวแทนของ Global Tech จะมาเยี่ยมและติดตั้งโมเด็มในเวลาที่เลือกว่างไว้ (A) She will pick up some equipment at an office. (เธอจะไปรับอุปกรณ์บางอย่างที่สำนักงาน) – ไม่ถูกต้อง เพราะอีเมลระบุว่าตัวแทนจะมาติดตั้ง "at your ho',
   context: null,
@@ -5696,7 +5696,7 @@ QUESTION_BANK.push({
   text: 'At 1:49 P.M., what does Ms. Finton most likely mean when she writes, "I tried that"?',
   choices: ['She signed a rental agreement.', 'She submitted proof of income.', 'She contacted Ms. Seltzer.', 'She filled out a form.'],
   answer: 2,
-  explain: 'ที่เวลา 1:48 P.M. Steven Khen แนะนำว่า "Double-check with Ariana Seltzer first. The human resources department usually has a form they can provide for you." (ลองตรวจสอบกับ Ariana Seltzer ก่อน แผนกทรัพยากรบุคคลมักจะมีแบบฟอร์มให้คุณได้) เมื่อ Katrina Finton ตอบว่า "I tried that." (ฉันลองทำแบบนั้นแล้ว) มันอ้างอิงถึงสิ่งที่ Steven เพิ่งแนะนำ ซึ่งคือการติดต่อ Ariana Seltzer หลังจากนั้น Katrina ยังเสริมว่า "They don\'t have a set form." (พวกเขาไม่มีแบบฟอร์มสำเร็จรูป) ซึ่งเป็นการยืนยันผลลัพธ์จากการติดต',
+  explain: 'ที่เวลา 1:48 P.M. Steven Khen แนะนำว่า "Double-check with Ariana Seltzer first. The human resources department usually has a form they can provide for you." (ลองตรวจสอบกับ Ariana Seltzer ก่อน แผนกทรัพยากรบุคคลมักจะมีแบบฟอร์มให้คุณได้)  เมื่อ Katrina Finton ตอบว่า "I tried that." (ฉันลองทำแบบนั้นแล้ว) มันอ้างอิงถึงสิ่งที่ Steven เพิ่งแนะนำ ซึ่งคือการติดต่อ Ariana Seltzer หลังจากนั้น Katrina ยังเสริมว่า "They don\'t have a set form." (พวกเขาไม่มีแบบฟอร์มสำเร็จรูป) ซึ่งเป็นการยืนยันผลลัพธ์จากการติดต',
   context: null,
   audio: null,
 });
@@ -5735,7 +5735,7 @@ QUESTION_BANK.push({
   type: 'reading',
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
-  text: 'According to the Web page, what will happen on January 17 ? (ตามหน้าเว็บเพจนี้ วันที่ 17 มกราคมจะเกิดอะไรขึ้น)',
+  text: 'Choose the sentence that best fits blank [154] in the passage.',
   choices: ['Companies will post job opportunities.', 'Employers will make hiring decisions.', 'Job candidates will attend a group interview.', 'Participants will practice responding to interviewers.'],
   answer: 3,
   explain: 'รายละเอียดของกิจกรรมวันที่ 17 มกราคม (January 17 at 4:30 P.M.—Interview Strategies) ระบุว่า "This session will be interactive, featuring mock interviews with attendees." (การประชุมนี้จะเป็นแบบโต้ตอบ โดยมีการสัมภาษณ์จำลองกับผู้เข้าร่วม) "Mock interviews" (การสัมภาษณ์จำลอง) คือการฝึกซ้อมการสัมภาษณ์ ซึ่งตรงกับการฝึกตอบคำถามของผู้สัมภาษณ์ (A) Companies will post job opportunities. (บริษัทจะประกาศตำแหน่งงานว่าง) – ข้อมูลนี้เกี่ยวข้องกับวันที่ 15 มกราคม ("Job Search Support" และ "job announcements") ไ',
@@ -5752,7 +5752,7 @@ QUESTION_BANK.push({
   text: 'What is indicated about the events?',
   choices: ['They occur each month.', 'They take place online.', 'They are for senior professionals.', 'They are free of charge.'],
   answer: 1,
-  explain: 'ข้อมูลจากภาพระบุชัดเจนในประโยคสุดท้ายว่า "Note that all January events are virtual." (โปรดทราบว่ากิจกรรมเดือนมกราคมทั้งหมดเป็นแบบเสมือนจริง/ออนไลน์) (A) They occur each month. (เกิดขึ้นทุกเดือน) – ข้อมูลระบุเพียง "January Events" (กิจกรรมเดือนมกราคม) ไม่ได้ระบุว่ามีขึ้นทุกเดือน (C) They are for senior professionals. (สำหรับผู้เชี่ยวชาญระดับสูง) – กิจกรรม "Job Search Support" (การสนับสนุนการหางาน) มีการกล่าวถึง "entry-level job" (งานระดับเริ่มต้น) ซึ่งไม่จำกัดแค่ผู้เชี่ยวชาญระดับสูง (D) They are',
+  explain: 'ข้อมูลจากภาพระบุชัดเจนในประโยคสุดท้ายว่า "Note that all January events are virtual." (โปรดทราบว่ากิจกรรมเดือนมกราคมทั้งหมดเป็นแบบเสมือนจริง/ออนไลน์) (A) They occur each month. (เกิดขึ้นทุกเดือน) – ข้อมูลระบุเพียง "January Events" (กิจกรรมเดือนมกราคม) ไม่ได้ระบุว่ามีขึ้นทุกเดือน (C) They are for senior professionals. (สำหรับผู้เชี่ยวชาญระดับสูง) – กิจกรรม "Job Search Support" (การสนับสนุนการหางาน) มีการกล่าวถึง "entry-level job" (งานระดับเริ่มต้น) ซึ่งไม่จำกัดแค่ผู้เชี่ยวชาญระดับสูง (D) They are ',
   context: null,
   audio: null,
 });
@@ -5794,7 +5794,7 @@ QUESTION_BANK.push({
   text: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong? "Homestead, however, is more than just a pretty place." more than just a pretty place.")',
   choices: ['[1]', '[2]', '[3]', '[4]'],
   answer: 2,
-  explain: 'ประโยค "Homestead, however, is more than just a pretty place." มีคำว่า "however" ซึ่งบ่งชี้ถึงความขัดแย้งหรือการเปลี่ยนประเด็นจากสิ่งที่กล่าวมาก่อนหน้า โดยเน้นว่า "Homestead" มีคุณสมบัติอื่น ๆ ที่นอกเหนือไปจากความสวยงาม ตำแหน่ง [3] อยู่หลังประโยคที่กล่าวว่า "the Homestead planners deserve praise for creating a very attractive place to live." (ผู้วางแผนโครงการ Homestead สมควรได้รับคำชมเชยที่สร้างสถานที่น่าอยู่และสวยงามมาก) ซึ่งประโยคนี้สอดคล้องกับแนวคิดของ "pretty place" หลังจากประโยคที่ต้องการแ',
+  explain: 'ประโยค "Homestead, however, is more than just a pretty place." มีคำว่า "however" ซึ่งบ่งชี้ถึงความขัดแย้งหรือการเปลี่ยนประเด็นจากสิ่งที่กล่าวมาก่อนหน้า โดยเน้นว่า "Homestead" มีคุณสมบัติอื่น ๆ ที่นอกเหนือไปจากความสวยงาม  ตำแหน่ง [3] อยู่หลังประโยคที่กล่าวว่า "the Homestead planners deserve praise for creating a very attractive place to live." (ผู้วางแผนโครงการ Homestead สมควรได้รับคำชมเชยที่สร้างสถานที่น่าอยู่และสวยงามมาก) ซึ่งประโยคนี้สอดคล้องกับแนวคิดของ "pretty place" หลังจากประโยคที่ต้องการแ',
   context: null,
   audio: null,
 });
@@ -5906,7 +5906,7 @@ QUESTION_BANK.push({
   text: 'What should a customer do to cancel VIS?',
   choices: ['Visit a local bank branch', 'Make a telephone call', 'Complete an online form', 'Send an e-mail to customer service'],
   answer: 1,
-  explain: 'ในย่อหน้าสุดท้ายของอีเมลระบุว่า "If in the future you no longer wish to use VIS to access your account, simply **call** to have one of our customer-service representatives delete your identification file." (หากในอนาคตคุณไม่ประสงค์จะใช้ VIS เพื่อเข้าถึงบัญชีของคุณ เพียงแค่โทรศัพท์เพื่อให้ตัวแทนฝ่ายบริการลูกค้าของเราลบไฟล์ระบุตัวตนของคุณ) ข้อมูลนี้ระบุชัดเจนว่าต้อง "call" (โทรศัพท์) เพื่อยกเลิก (A) Visit a local bank branch (ไปที่สาขาธนาคารในพื้นที่) – อีเมลระบุให้โทรศัพท์ ไม่ใช่ให้ไปที่สาขา (C)',
+  explain: 'ในย่อหน้าสุดท้ายของอีเมลระบุว่า "If in the future you no longer wish to use VIS to access your account, simply **call** to have one of our customer-service representatives delete your identification file." (หากในอนาคตคุณไม่ประสงค์จะใช้ VIS เพื่อเข้าถึงบัญชีของคุณ เพียงแค่โทรศัพท์เพื่อให้ตัวแทนฝ่ายบริการลูกค้าของเราลบไฟล์ระบุตัวตนของคุณ) ข้อมูลนี้ระบุชัดเจนว่าต้อง "call" (โทรศัพท์) เพื่อยกเลิก  (A) Visit a local bank branch (ไปที่สาขาธนาคารในพื้นที่) – อีเมลระบุให้โทรศัพท์ ไม่ใช่ให้ไปที่สาขา (C) ',
   context: null,
   audio: null,
 });
@@ -5917,7 +5917,7 @@ QUESTION_BANK.push({
   type: 'reading',
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
-  text: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong? "You can perform numerous specific tasks." (ในตำแหน่งใดในตำแหน่งที่ทำเครื่องหมาย [1], [2], [3] และ [4] ที่ประโยคต่อไปนี้เหมาะสมที่สุด? "คุณสามารถทำภารกิจเฉพาะเจาะจงได้มากมาย")',
+  text: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence',
   choices: ['[1]', '[2]', '[3]', '[4]'],
   answer: 0,
   explain: 'ประโยค "You can perform numerous specific tasks." (คุณสามารถทำภารกิจเฉพาะเจาะจงได้มากมาย) เป็นประโยคสรุปความสามารถทั่วไปที่นำไปสู่การยกตัวอย่างเฉพาะเจาะจง ตำแหน่ง [1] อยู่ก่อนหน้าประโยคที่ยกตัวอย่างเช่น "For example, you can make a payment on a Front Street Bank loan by saying “loan payment.” You can check your credit-card transactions by saying “recent transactions.” You can even transfer money between accounts by saying “transfer.”" ซึ่งเป็นการระบุ "ภารกิจเฉพาะเจาะจง" ต่างๆ ที่สามารถทำได้ การว',
@@ -5976,7 +5976,7 @@ QUESTION_BANK.push({
   text: 'What book includes historic images?',
   choices: ['Maestro', 'Working Under Moonbeams', 'The Connections Unseen (The Connections Unseen)', 'Flashback'],
   answer: 2,
-  explain: 'หนังสือ "The Connections Unseen" มีคำอธิบายว่า "A collection of transcribed lectures and archival photos" (ชุดรวมของบทบรรยายที่ถอดความและภาพถ่ายจากเอกสารเก่า) คำว่า "archival photos" (ภาพถ่ายจากเอกสารเก่า/หอจดหมายเหตุ) สื่อความหมายถึงภาพที่มีลักษณะทางประวัติศาสตร์หรือถูกเก็บรักษาไว้ ซึ่งสอดคล้องกับ "historic images" (ภาพประวัติศาสตร์) (A) Maestro – ไม่มีข้อมูลกล่าวถึงภาพ (B) Working Under Moonbeams – ไม่มีข้อมูลกล่าวถึงภาพ (D) Flashback – ไม่มีข้อมูลกล่าวถึงภาพ',
+  explain: 'หนังสือ "The Connections Unseen" มีคำอธิบายว่า "A collection of transcribed lectures and archival photos" (ชุดรวมของบทบรรยายที่ถอดความและภาพถ่ายจากเอกสารเก่า)  คำว่า "archival photos" (ภาพถ่ายจากเอกสารเก่า/หอจดหมายเหตุ) สื่อความหมายถึงภาพที่มีลักษณะทางประวัติศาสตร์หรือถูกเก็บรักษาไว้ ซึ่งสอดคล้องกับ "historic images" (ภาพประวัติศาสตร์) (A) Maestro – ไม่มีข้อมูลกล่าวถึงภาพ (B) Working Under Moonbeams – ไม่มีข้อมูลกล่าวถึงภาพ (D) Flashback – ไม่มีข้อมูลกล่าวถึงภาพ',
   context: null,
   audio: null,
 });
@@ -6001,7 +6001,7 @@ QUESTION_BANK.push({
   type: 'reading',
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
-  text: '. At 9:41 A.M., what does Ms. Kapoor most likely mean when she writes, "Where do we stand?" (เวลา 9:41 น. นางสาวคาปูร์น่าจะหมายถึงอะไรมากที่สุดเมื่อเธอเขียนว่า "Where do we stand?")',
+  text: '. At 9:41 A.M., what does Ms. Kapoor most likely mean when she writes, stand?")',
   choices: ['She is requesting an update on preparations for a trip.', 'She wants to assess her colleagues\' interest in attending an event.', 'She is inquiring about her colleagues\' weekend activities.', 'She is checking staff readiness to host a conference.'],
   answer: 0,
   explain: 'ที่เวลา 9:41 น. Priyanka Kapoor เขียนว่า "We need to talk about the upcoming family physicians conference in London. Where do we stand?" (เราต้องคุยกันเกี่ยวกับการประชุมแพทย์ประจำครอบครัวที่จะมีขึ้นที่ลอนดอน เราอยู่ตรงไหนแล้ว?) วลี "Where do we stand?" ในบริบทนี้เป็นสำนวนที่หมายถึงการสอบถามสถานะปัจจุบันหรือความคืบหน้าของการดำเนินการบางอย่าง ข้อมูลที่ตามมาในบทสนทนา เช่น การซื้อตั๋วเครื่องบิน (airline tickets), การจัดหารถรับส่ง (shuttle), และการใช้งานโทรศัพท์มือถือ (mobile phones) ล้วนเกี่ยวข้องกั',
@@ -6116,7 +6116,7 @@ QUESTION_BANK.push({
   text: 'What motivated Ms. Dixon to contact Pink Fern Gardens?',
   choices: ['A positive review from a customer', 'An online post from Pink Fern Gardens', 'An article about Pink Fern Gardens', 'A phone message from Mr. Yoneda'],
   answer: 1,
-  explain: 'ในช่อง Comment (ความคิดเห็น) คุณ Mia Dixon ระบุว่า "I saw the callout to local growers on your social media feed." (ฉันเห็นการประกาศเชิญชวนผู้ปลูกในท้องถิ่นในฟีดโซเชียลมีเดียของคุณ) คำว่า "social media feed" (ฟีดโซเชียลมีเดีย) บ่งชี้อย่างชัดเจนว่าเป็นโพสต์ออนไลน์ (A) A positive review from a customer (รีวิวเชิงบวกจากลูกค้า) – ไม่มีข้อมูลในภาพที่ระบุถึงรีวิว (C) An article about Pink Fern Gardens (บทความเกี่ยวกับ Pink Fern Gardens) – คุณดิ๊กซันระบุ "social media feed" ไม่ใช่บทความทั่วไป (D) A ph',
+  explain: 'ในช่อง Comment (ความคิดเห็น) คุณ Mia Dixon ระบุว่า "I saw the callout to local growers on your social media feed." (ฉันเห็นการประกาศเชิญชวนผู้ปลูกในท้องถิ่นในฟีดโซเชียลมีเดียของคุณ) คำว่า "social media feed" (ฟีดโซเชียลมีเดีย) บ่งชี้อย่างชัดเจนว่าเป็นโพสต์ออนไลน์  (A) A positive review from a customer (รีวิวเชิงบวกจากลูกค้า) – ไม่มีข้อมูลในภาพที่ระบุถึงรีวิว (C) An article about Pink Fern Gardens (บทความเกี่ยวกับ Pink Fern Gardens) – คุณดิ๊กซันระบุ "social media feed" ไม่ใช่บทความทั่วไป (D) A ph',
   context: null,
   audio: null,
 });
@@ -6128,7 +6128,7 @@ QUESTION_BANK.push({
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
   text: 'What is indicated about Ms. Dixon?',
-  choices: ['She wants to turn her hobby into a full-time business.', 'She would like a part-time job at Pink Fern Gardens', 'She founded a community garden with her neighbors.', 'She is president of a gardening club in Helensville.'],
+  choices: ['She wants to turn her hobby into a full-time business.', 'She would like a part-time job at Pink Fern Gardens. (', 'She founded a community garden with her neighbors.', 'She is president of a gardening club in Helensville.'],
   answer: 2,
   explain: 'ในข้อความของ Mia Dixon ระบุไว้อย่างชัดเจนว่า "A few years ago, I started a large community food garden with my neighbours here in Helensville for us to tend in our free time." (เมื่อไม่กี่ปีที่แล้ว ฉันได้เริ่มสวนอาหารชุมชนขนาดใหญ่กับเพื่อนบ้านของฉันที่เฮเลนสวิลล์ เพื่อให้พวกเราช่วยกันดูแลในเวลาว่าง) ซึ่งสอดคล้องโดยตรงกับตัวเลือก (C) (A) She wants to turn her hobby into a full-time business. (เธอต้องการเปลี่ยนงานอดิเรกของเธอให้เป็นธุรกิจเต็มเวลา) – ไม่ได้ระบุว่าเธอต้องการทำเป็นธุรกิจเต็มเวลา เพีย',
   context: null,
@@ -6141,7 +6141,7 @@ QUESTION_BANK.push({
   type: 'reading',
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
-  text: 'According to Mr. Yoneda, what happened last year? (ตามที่ Mr. Yoneda กล่าวไว้ ปีที่แล้วเกิดอะไรขึ้น?)',
+  text: 'Choose the sentence that best fits blank [183] in the passage.',
   choices: ['Some of his employees resigned.', 'Some trees his company purchased were unhealthy.', 'His company obtained a license to export citrus trees.', 'His company ran out of fruit trees to sell.'],
   answer: 1,
   explain: 'ในอีเมลของ Ken Yoneda ระบุว่า “There is a disease affecting certain varieties, so we must be cautious. We learned our lesson regarding this last autumn!” (มีโรคที่กระทบต่อพืชบางสายพันธุ์ เราจึงต้องระมัดระวัง เราได้บทเรียนเกี่ยวกับเรื่องนี้เมื่อฤดูใบไม้ร่วงที่แล้ว!) ซึ่งหมายความว่าต้นไม้ที่บริษัทเคยซื้อมาบางส่วนมีปัญหาเรื่องสุขภาพจากโรคระบาด (A) Some of his employees resigned. (พนักงานบางคนของเขาลาออก) – ไม่มีข้อมูลกล่าวถึงพนักงานลาออก (C) His company obtained a license to export citrus trees. (บ',
@@ -6228,7 +6228,7 @@ QUESTION_BANK.push({
   text: 'According to the review, what was Ms. Nelson\'s main concern about her laptop?',
   choices: ['That the parts inside it might be damaged', 'That it was too old to be repaired', 'That it was responding too slowly', 'That its operating system had a virus'],
   answer: 0,
-  explain: 'รีวิวของ Jessica Nelson ระบุว่า "I was afraid the internal components might have been ruined." (ฉันกลัวว่าส่วนประกอบภายในอาจจะเสียหาย) ซึ่งแสดงถึงความกังวลหลักเกี่ยวกับความเสียหายที่อาจเกิดขึ้นกับชิ้นส่วนภายใน (B) That it was too old to be repaired (ว่ามันเก่าเกินกว่าจะซ่อมได้) – รีวิวกล่าวถึง "faithful old laptop" (แล็ปท็อปเก่าที่ซื่อสัตย์) แต่ไม่ได้ระบุว่ากังวลเรื่องอายุที่ทำให้ซ่อมไม่ได้ (C) That it was responding too slowly (ว่ามันตอบสนองช้าเกินไป) – ไม่มีข้อมูลในรีวิวที่ระบุว่าแล็ปท็อปทำงา',
+  explain: 'รีวิวของ Jessica Nelson ระบุว่า "I was afraid the internal components might have been ruined." (ฉันกลัวว่าส่วนประกอบภายในอาจจะเสียหาย) ซึ่งแสดงถึงความกังวลหลักเกี่ยวกับความเสียหายที่อาจเกิดขึ้นกับชิ้นส่วนภายใน  (B) That it was too old to be repaired (ว่ามันเก่าเกินกว่าจะซ่อมได้) – รีวิวกล่าวถึง "faithful old laptop" (แล็ปท็อปเก่าที่ซื่อสัตย์) แต่ไม่ได้ระบุว่ากังวลเรื่องอายุที่ทำให้ซ่อมไม่ได้ (C) That it was responding too slowly (ว่ามันตอบสนองช้าเกินไป) – ไม่มีข้อมูลในรีวิวที่ระบุว่าแล็ปท็อปทำงา',
   context: null,
   audio: null,
 });
@@ -6282,7 +6282,7 @@ QUESTION_BANK.push({
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
   text: 'What does the e-mail indicate about the guitar?',
-  choices: ['It is in need of repairs.', 'It has been on a shelf at the store in Chico.', 'It was previously owned by an Alexis Instruments customer', 'It is the only one of its model currently available.'],
+  choices: ['It is in need of repairs.', 'It has been on a shelf at the store in Chico.', 'It was previously owned by an Alexis Instruments customer. (', 'It is the only one of its model currently available.'],
   answer: 3,
   explain: 'อีเมลระบุว่า "We have only one guitar of the model you want in stock." (เรามีกีตาร์รุ่นที่คุณต้องการในสต็อกแค่ตัวเดียว) ซึ่งแสดงว่ามีกีตาร์รุ่นนี้พร้อมจำหน่ายเพียงตัวเดียวเท่านั้น (A) It is in need of repairs. (จำเป็นต้องได้รับการซ่อมแซม) – อีเมลระบุว่า "it is still in excellent condition. There are no scratches, scuffs, or dents on it whatsoever." (ยังอยู่ในสภาพดีเยี่ยม ไม่มีรอยขีดข่วน รอยถลอก หรือรอยบุบใดๆ เลย) ซึ่งตรงกันข้ามกับตัวเลือกนี้ (B) It has been on a shelf at the store in Chico. (เคย',
   context: null,
@@ -6309,10 +6309,10 @@ QUESTION_BANK.push({
   type: 'reading',
   topic: 'Reading Comprehension',
   set: 'ข้อสอบเก่า',
-  text: 'According to the receipt, what is true about Alexis Instruments? (ตามใบเสร็จ อะไรเป็นความจริงเกี่ยวกับ Alexis Instruments?)',
+  text: 'Choose the sentence that best fits blank [195] in the passage.',
   choices: ['It repairs instruments in its stores.', 'It has two stores in Santa Barbara.', 'It is holding an annual sale.', 'It was founded by a professional musician.'],
   answer: 0,
-  explain: 'จากอีเมลระบุว่า "Our in-house luthier has thoroughly inspected the guitar" (ช่างทำเครื่องดนตรีประจำของเราได้ตรวจสอบกีตาร์อย่างละเอียดแล้ว) ซึ่ง luthier คือช่างผู้เชี่ยวชาญด้านการผลิตหรือซ่อมแซมเครื่องดนตรีประเภทเครื่องสาย และจากใบเสร็จ (Receipt) ในส่วน Description มีรายการ "Three-year repair and maintenance plan, good at any Alexis Instruments location" (แผนซ่อมแซมและบำรุงรักษา 3 ปี ใช้ได้ที่ Alexis Instruments ทุกสาขา) ซึ่งยืนยันว่ามีบริการซ่อมแซมและบำรุงรักษาเครื่องดนตรี (B) It has two stores',
+  explain: 'จากอีเมลระบุว่า "Our in-house luthier has thoroughly inspected the guitar" (ช่างทำเครื่องดนตรีประจำของเราได้ตรวจสอบกีตาร์อย่างละเอียดแล้ว) ซึ่ง luthier คือช่างผู้เชี่ยวชาญด้านการผลิตหรือซ่อมแซมเครื่องดนตรีประเภทเครื่องสาย และจากใบเสร็จ (Receipt) ในส่วน Description มีรายการ "Three-year repair and maintenance plan, good at any Alexis Instruments location" (แผนซ่อมแซมและบำรุงรักษา 3 ปี ใช้ได้ที่ Alexis Instruments ทุกสาขา) ซึ่งยืนยันว่ามีบริการซ่อมแซมและบำรุงรักษาเครื่องดนตรี (B) It has two stores ',
   context: null,
   audio: null,
 });
@@ -6326,7 +6326,7 @@ QUESTION_BANK.push({
   text: 'What is suggested in the first e-mail about the Mirabel Museum of Art?',
   choices: ['It hires art teachers to lead tours.', 'It offers private tours to museum members.', 'Its art classes are free to the public.', 'Its next staff training will take place in ten days.'],
   answer: 0,
-  explain: 'อีเมลฉบับแรกมีผู้รับคือ "All Instructors" (ผู้สอนทุกคน) และผู้ส่งคือ "Jee-Young Choi, Education Coordinator" (ผู้ประสานงานการศึกษา) ซึ่งกล่าวถึง "artists and educators" (ศิลปินและนักการศึกษา) ที่ช่วยงานพิพิธภัณฑ์ ตารางค่าธรรมเนียมมีรายการ "Category: Tour, Description: Lead group tour" (นำทัวร์กลุ่ม) ซึ่งมีค่าธรรมเนียมระบุไว้ สิ่งนี้ชี้ให้เห็นว่าพิพิธภัณฑ์จ้างผู้สอน ซึ่งเป็นครูสอนศิลปะหรือนักการศึกษา ให้นำทัวร์ (B) It offers private tours to museum members. (มีทัวร์ส่วนตัวสำหรับสมาชิกพิพิธภัณฑ์)',
+  explain: 'อีเมลฉบับแรกมีผู้รับคือ "All Instructors" (ผู้สอนทุกคน) และผู้ส่งคือ "Jee-Young Choi, Education Coordinator" (ผู้ประสานงานการศึกษา) ซึ่งกล่าวถึง "artists and educators" (ศิลปินและนักการศึกษา) ที่ช่วยงานพิพิธภัณฑ์ ตารางค่าธรรมเนียมมีรายการ "Category: Tour, Description: Lead group tour" (นำทัวร์กลุ่ม) ซึ่งมีค่าธรรมเนียมระบุไว้ สิ่งนี้ชี้ให้เห็นว่าพิพิธภัณฑ์จ้างผู้สอน ซึ่งเป็นครูสอนศิลปะหรือนักการศึกษา ให้นำทัวร์  (B) It offers private tours to museum members. (มีทัวร์ส่วนตัวสำหรับสมาชิกพิพิธภัณฑ์)',
   context: null,
   audio: null,
 });
@@ -6387,7 +6387,7 @@ QUESTION_BANK.push({
   audio: null,
 });
 
-/* ── BANK_COUNTS declaration + update ── */
 const BANK_COUNTS = {};
+/* ── อัปเดต BANK_COUNTS ── */
 BANK_COUNTS['old'] = QUESTION_BANK.filter(q => q.set === 'ข้อสอบเก่า').length;
 BANK_COUNTS['all'] = QUESTION_BANK.length;
