@@ -1314,9 +1314,7 @@ const QUESTION_BANK = [
     text: 'The office supplies were ordered _____ the inventory reached a critically low level.',
     choices: ['once', 'despite', 'unless', 'whereas'],
     answer: 0,
-    explain: 'once = ทันทีที่/เมื่อ ใช้เชื่อมเหตุการณ์
-
-========================================================================================',
+    explain: 'once = ทันทีที่/เมื่อ ใช้เชื่อมเหตุการณ์ ========================================================================================',
     context: null,
     audio: null,
   },
@@ -3291,9 +3289,7 @@ The FlexNote Planner also has several useful ___[25D]___ for everyday use.`,
     text: 'Choose the best word/phrase for blank [25D]',
     choices: ['feature', 'features', 'featured', 'featuring'],
     answer: 1,
-    explain: 'ถ้าพูดถึงคุณสมบัติหลายอย่าง ใช้ features เป็นคำนามพหูพจน์
-
-========================================================================================',
+    explain: 'ถ้าพูดถึงคุณสมบัติหลายอย่าง ใช้ features เป็นคำนามพหูพจน์ ========================================================================================',
     context: `Advertisement: FlexNote Planner
 
 Introducing the FlexNote Planner, a product ___[25A]___ for project teams. It includes weekly planning pages and a compact design that fits easily into limited spaces. The item is now ___[25B]___ online for only $12.
@@ -5084,7 +5080,7 @@ QUESTION_BANK.push({
   text: 'Fill in the blank: Q.107 ----- a two-month delay, new carpeting was installed in the east conference room.',
   choices: ['Additionally', 'Although', 'After', 'Furthermore'],
   answer: 2,
-  explain: 'คำว่า "After" (หลังจาก) เป็นคำบุพบทที่ใช้เพื่อระบุลำดับเวลาว่าสิ่งหนึ่งเกิดขึ้นหลังจากอีกสิ่งหนึ่ง ในประโยคนี้ "After a two-month delay" (หลังจากล่าช้าไปสองเดือน) แสดงให้เห็นว่าการติดตั้งพรมใหม่เกิดขึ้นหลังจากช่วงเวลาของการล่าช้าสองเดือน ซึ่งสร้างลำดับเหตุการณ์ที่สมเหตุสมผล (A) Additionally (นอกจากนี้) – เป็นคำวิเศษณ์ที่ใช้เพิ่มข้อมูล ไม่ได้ใช้ระบุลำดับเวลา (B) Although (แม้ว่า) – เป็นคำสันธานที่ใช้แสดงความขัดแย้ง ต้องตามด้วยอนุประโยค ไม่ใช่กลุ่มคำนาม  (D) Furthermore (นอกจากนี้) – เป็นคำวิเศษณ์',
+  explain: 'คำว่า "After" (หลังจาก) เป็นคำบุพบทที่ใช้เพื่อระบุลำดับเวลาว่าสิ่งหนึ่งเกิดขึ้นหลังจากอีกสิ่งหนึ่ง ในประโยคนี้ "After a two-month delay" (หลังจากล่าช้าไปสองเดือน) แสดงให้เห็นว่าการติดตั้งพรมใหม่เกิดขึ้นหลังจากช่วงเวลาของการล่าช้าสองเดือน ซึ่งสร้างลำดับเหตุการณ์ที่สมเหตุสมผล (A) Additionally (นอกจากนี้) – เป็นคำวิเศษณ์ที่ใช้เพิ่มข้อมูล ไม่ได้ใช้ระบุลำดับเวลา (B) Although (แม้ว่า) – เป็นคำสันธานที่ใช้แสดงความขัดแย้ง ต้องตามด้วยอนุประโยค ไม่ใช่กลุ่มคำนาม (D) Furthermore (นอกจากนี้) – เป็นคำวิเศษณ์',
   context: null,
   audio: null,
 });
@@ -5126,7 +5122,7 @@ QUESTION_BANK.push({
   text: '. The computer technician was very ------- but was not able to solve my problem.',
   choices: ['friendly', 'neutral', 'possible', 'frequent'],
   answer: 0,
-  explain: 'ประโยคใช้คำเชื่อม "but" ซึ่งแสดงความขัดแย้งกันระหว่างประโยคหน้าและหลัง "very friendly" (เป็นมิตรมาก) เป็นคุณสมบัติเชิงบวกที่ขัดแย้งกับ "was not able to solve my problem" (ไม่สามารถแก้ปัญหาของฉันได้) ซึ่งเป็นผลลัพธ์เชิงลบ  (B) neutral (เป็นกลาง) – ไม่ใช่คุณสมบัติที่เหมาะสมที่จะบรรยายช่างเทคนิคที่ให้บริการและไม่เข้ากับความขัดแย้งกับปัญหาที่แก้ไม่ได้ (C) possible (เป็นไปได้) – เป็นคำที่ใช้บรรยายความเป็นไปได้ ไม่ใช่คุณสมบัติส่วนตัวของบุคคล และไม่สามารถใช้ขยาย "very" ในลักษณะนี้ได้ (D) frequent (บ่อย',
+  explain: 'ประโยคใช้คำเชื่อม "but" ซึ่งแสดงความขัดแย้งกันระหว่างประโยคหน้าและหลัง "very friendly" (เป็นมิตรมาก) เป็นคุณสมบัติเชิงบวกที่ขัดแย้งกับ "was not able to solve my problem" (ไม่สามารถแก้ปัญหาของฉันได้) ซึ่งเป็นผลลัพธ์เชิงลบ (B) neutral (เป็นกลาง) – ไม่ใช่คุณสมบัติที่เหมาะสมที่จะบรรยายช่างเทคนิคที่ให้บริการและไม่เข้ากับความขัดแย้งกับปัญหาที่แก้ไม่ได้ (C) possible (เป็นไปได้) – เป็นคำที่ใช้บรรยายความเป็นไปได้ ไม่ใช่คุณสมบัติส่วนตัวของบุคคล และไม่สามารถใช้ขยาย "very" ในลักษณะนี้ได้ (D) frequent (บ่อย',
   context: null,
   audio: null,
 });
@@ -5322,7 +5318,7 @@ QUESTION_BANK.push({
   text: '-------- of Pondview Tower are required to make rent payments on or before the first day of every month.',
   choices: ['Owners', 'Buyers', 'Tourists', 'Tenants'],
   answer: 3,
-  explain: 'ประโยคระบุว่าต้อง "make rent payments" (ชำระค่าเช่า) ซึ่งเป็นหน้าที่ของผู้ที่เช่าอสังหาริมทรัพย์ สอดคล้องกับคำว่า "Tenants" (ผู้เช่า) ที่หมายถึงผู้ที่เช่าหรืออาศัยอยู่ในทรัพย์สินของผู้อื่นโดยจ่ายค่าเช่า (A) Owners (เจ้าของ) – เจ้าของไม่จ่ายค่าเช่าสำหรับทรัพย์สินของตนเอง (B) Buyers (ผู้ซื้อ) – ผู้ซื้อจ่ายราคาซื้อขาย ไม่ได้จ่ายค่าเช่ารายเดือน  (C) Tourists (นักท่องเที่ยว) – นักท่องเที่ยวจ่ายค่าที่พักชั่วคราว ไม่ได้เรียกว่า "rent payments" ในบริบทของสัญญาเช่ารายเดือน',
+  explain: 'ประโยคระบุว่าต้อง "make rent payments" (ชำระค่าเช่า) ซึ่งเป็นหน้าที่ของผู้ที่เช่าอสังหาริมทรัพย์ สอดคล้องกับคำว่า "Tenants" (ผู้เช่า) ที่หมายถึงผู้ที่เช่าหรืออาศัยอยู่ในทรัพย์สินของผู้อื่นโดยจ่ายค่าเช่า (A) Owners (เจ้าของ) – เจ้าของไม่จ่ายค่าเช่าสำหรับทรัพย์สินของตนเอง (B) Buyers (ผู้ซื้อ) – ผู้ซื้อจ่ายราคาซื้อขาย ไม่ได้จ่ายค่าเช่ารายเดือน (C) Tourists (นักท่องเที่ยว) – นักท่องเที่ยวจ่ายค่าที่พักชั่วคราว ไม่ได้เรียกว่า "rent payments" ในบริบทของสัญญาเช่ารายเดือน',
   context: null,
   audio: null,
 });
@@ -5459,7 +5455,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Text Completion',
   set: 'ข้อสอบเก่า',
-  text: '',
+  text: 'Choose the sentence that best fits blank [134] in the passage.',
   choices: ['So far', 'With that in mind', 'On a different note', 'At that point'],
   answer: 1,
   explain: 'ประโยคแรกกล่าวว่า "At Estella Guitar, we believe that playing music is a way of expressing yourself." (ที่ Estella Guitar เราเชื่อว่าการเล่นดนตรีเป็นวิธีการแสดงออกถึงตัวตนของคุณ) ประโยคที่สองกล่าวว่า "we will help you go beyond the familiar chords and riffs to develop your own identity as a musician." (เราจะช่วยให้คุณก้าวข้ามคอร์ดและริฟฟ์ที่คุ้นเคยเพื่อพัฒนาเอกลักษณ์เฉพาะตัวของคุณในฐานะนักดนตรี) "With that in mind" (ด้วยเหตุนี้/โดยคำนึงถึงสิ่งนั้น) เป็นวลีที่เชื่อมโยงแนวคิดแรก (ดนตรีคือการแสดงออ',
@@ -5529,7 +5525,7 @@ QUESTION_BANK.push({
   type: 'grammar',
   topic: 'Text Completion',
   set: 'ข้อสอบเก่า',
-  text: '',
+  text: 'Choose the sentence that best fits blank [139] in the passage.',
   choices: ['Thank you for your timely order.', 'We have processed your request.', 'This is a payment reminder.', 'Please contact us to update your information.'],
   answer: 1,
   explain: 'ประโยคถัดจากช่องว่าง 139 คือ "Your subscription to Medical Innovations Quarterly has been canceled." (การสมัครสมาชิก Medical Innovations Quarterly ของคุณถูกยกเลิกแล้ว) ซึ่งเป็นการยืนยันว่าการขอยกเลิกได้ถูกดำเนินการแล้ว ดังนั้น "We have processed your request." (เราได้ดำเนินการตามคำขอของคุณแล้ว) เป็นการเปิดประโยคที่เหมาะสมที่สุด (A) Thank you for your timely order. (ขอบคุณสำหรับการสั่งซื้อที่ตรงเวลา) – ไม่สอดคล้องกับเนื้อหาที่เกี่ยวกับการยกเลิก (C) This is a payment reminder. (นี่คือการแจ้งเตือนก',
@@ -5588,7 +5584,7 @@ QUESTION_BANK.push({
   text: 'Fill in the blank (เติมคำในช่องว่าง) (Q.143)',
   choices: ['ranges', 'ranger', 'ranged', 'ranging'],
   answer: 0,
-  explain: 'ประโยคกล่าวถึง "a thermometer that ____ from 0°F (-18°C) to 220°F (104°C)" (เทอร์โมมิเตอร์ที่ ____ ตั้งแต่ 0°F ถึง 220°F) ซึ่งอธิบายถึงคุณสมบัติหรือช่วงการทำงานของเทอร์โมมิเตอร์ (A) ranges เป็นกริยาช่อง 1 ผันตามประธานเอกพจน์ (thermometer) หมายถึง "มีช่วงการวัด" หรือ "ครอบคลุมช่วงอุณหภูมิ" ซึ่งเหมาะสมกับบริบท  (B) ranger เป็นคำนาม หมายถึง "เจ้าหน้าที่พิทักษ์ป่า" หรือ "ผู้ดูแล" ไม่เข้ากับโครงสร้างประโยค (C) ranged เป็นกริยาช่อง 2 (อดีตกาล) หรือช่อง 3 (past participle) ใช้ไม่ได้กับบริบทนี้ที่พูดถึง',
+  explain: 'ประโยคกล่าวถึง "a thermometer that ____ from 0°F (-18°C) to 220°F (104°C)" (เทอร์โมมิเตอร์ที่ ____ ตั้งแต่ 0°F ถึง 220°F) ซึ่งอธิบายถึงคุณสมบัติหรือช่วงการทำงานของเทอร์โมมิเตอร์ (A) ranges เป็นกริยาช่อง 1 ผันตามประธานเอกพจน์ (thermometer) หมายถึง "มีช่วงการวัด" หรือ "ครอบคลุมช่วงอุณหภูมิ" ซึ่งเหมาะสมกับบริบท (B) ranger เป็นคำนาม หมายถึง "เจ้าหน้าที่พิทักษ์ป่า" หรือ "ผู้ดูแล" ไม่เข้ากับโครงสร้างประโยค (C) ranged เป็นกริยาช่อง 2 (อดีตกาล) หรือช่อง 3 (past participle) ใช้ไม่ได้กับบริบทนี้ที่พูดถึง',
   context: null,
   audio: null,
 });
@@ -5602,7 +5598,7 @@ QUESTION_BANK.push({
   text: 'Fill in the blank',
   choices: ['size', 'safety', 'reliability', 'placement'],
   answer: 3,
-  explain: 'ประโยค "Also important to consider is _______ 144. Thermometers should always be located in the warmest spot in the refrigerator." (สิ่งสำคัญที่ต้องพิจารณาคือ _______ 144. เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) ข้อความที่ตามมาว่า "Thermometers should always be located in the warmest spot in the refrigerator." (เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) อธิบายถึงตำแหน่งหรือการจัดวางเทอร์โมมิเตอร์โดยตรง (A) size (ขนาด) – ไม่เกี่ยวข้องกับตำแหน่งที่ควรวางเทอร์โมมิเตอร์ (B) ',
+  explain: 'ประโยค "Also important to consider is _______ 144. Thermometers should always be located in the warmest spot in the refrigerator." (สิ่งสำคัญที่ต้องพิจารณาคือ _______ 144. เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) ข้อความที่ตามมาว่า "Thermometers should always be located in the warmest spot in the refrigerator." (เทอร์โมมิเตอร์ควรอยู่ในจุดที่อุ่นที่สุดในตู้เย็นเสมอ) อธิบายถึงตำแหน่งหรือการจัดวางเทอร์โมมิเตอร์โดยตรง (A) size (ขนาด) – ไม่เกี่ยวข้องกับตำแหน่งที่ควรวางเทอร์โมมิเตอร์ (B)',
   context: null,
   audio: null,
 });
@@ -5630,7 +5626,7 @@ QUESTION_BANK.push({
   text: 'Fill in the blank',
   choices: ['sold', 'seen', 'repaired', 'removed'],
   answer: 1,
-  explain: '- อ้างอิงจากประโยคที่ว่า "This location is also appropriate because it allows the thermometer to be easily ______ as soon as the door is opened."  (ตำแหน่งนี้เหมาะสมเพราะช่วยให้สามารถ...เทอร์โมมิเตอร์ได้อย่างง่ายดายทันทีที่เปิดประตู) และข้อความก่อนหน้าว่า "The head chef is responsible for checking these thermometers throughout the day" (หัวหน้าเชฟมีหน้าที่ตรวจสอบเทอร์โมมิเตอร์เหล่านี้ตลอดทั้งวัน) - การตรวจสอบ (checking) เทอร์โมมิเตอร์ในตู้เย็นหมายถึงการอ่านค่าอุณหภูมิ ซึ่งต้องสามารถมองเห็น (seen',
+  explain: '- อ้างอิงจากประโยคที่ว่า "This location is also appropriate because it allows the thermometer to be easily ______ as soon as the door is opened." (ตำแหน่งนี้เหมาะสมเพราะช่วยให้สามารถ...เทอร์โมมิเตอร์ได้อย่างง่ายดายทันทีที่เปิดประตู) และข้อความก่อนหน้าว่า "The head chef is responsible for checking these thermometers throughout the day" (หัวหน้าเชฟมีหน้าที่ตรวจสอบเทอร์โมมิเตอร์เหล่านี้ตลอดทั้งวัน) - การตรวจสอบ (checking) เทอร์โมมิเตอร์ในตู้เย็นหมายถึงการอ่านค่าอุณหภูมิ ซึ่งต้องสามารถมองเห็น (seen',
   context: null,
   audio: null,
 });
@@ -5658,7 +5654,7 @@ QUESTION_BANK.push({
   text: 'What is indicated about Rapido Net?',
   choices: ['It provides faster Internet speeds than its competitors.', 'It offers extra security through two-step verification.', 'It automatically generates complex passwords for customers.', 'It has increased its monthly user fee.'],
   answer: 1,
-  explain: 'ในเนื้อหาอีเมลระบุว่า "Make the process even more secure by setting up two-step verification." (ทำให้กระบวนการปลอดภัยยิ่งขึ้นด้วยการตั้งค่าการยืนยันตัวตนสองขั้นตอน) ซึ่งบ่งชี้ว่า Rapido Net มีบริการนี้ (A) It provides faster Internet speeds than its competitors. (ให้บริการอินเทอร์เน็ตที่เร็วกว่าคู่แข่ง) – ไม่มีข้อมูลใดในอีเมลที่กล่าวถึงความเร็วอินเทอร์เน็ตหรือการเปรียบเทียบกับคู่แข่ง (C) It automatically generates complex passwords for customers. (สร้างรหัสผ่านที่ซับซ้อนให้ลูกค้าโดยอัตโนมัติ) – ',
+  explain: 'ในเนื้อหาอีเมลระบุว่า "Make the process even more secure by setting up two-step verification." (ทำให้กระบวนการปลอดภัยยิ่งขึ้นด้วยการตั้งค่าการยืนยันตัวตนสองขั้นตอน) ซึ่งบ่งชี้ว่า Rapido Net มีบริการนี้ (A) It provides faster Internet speeds than its competitors. (ให้บริการอินเทอร์เน็ตที่เร็วกว่าคู่แข่ง) – ไม่มีข้อมูลใดในอีเมลที่กล่าวถึงความเร็วอินเทอร์เน็ตหรือการเปรียบเทียบกับคู่แข่ง (C) It automatically generates complex passwords for customers. (สร้างรหัสผ่านที่ซับซ้อนให้ลูกค้าโดยอัตโนมัติ) –',
   context: null,
   audio: null,
 });
@@ -5700,7 +5696,7 @@ QUESTION_BANK.push({
   text: 'At 1:49 P.M., what does Ms. Finton most likely mean when she writes, "I tried that"?',
   choices: ['She signed a rental agreement.', 'She submitted proof of income.', 'She contacted Ms. Seltzer.', 'She filled out a form.'],
   answer: 2,
-  explain: 'ที่เวลา 1:48 P.M. Steven Khen แนะนำว่า "Double-check with Ariana Seltzer first. The human resources department usually has a form they can provide for you." (ลองตรวจสอบกับ Ariana Seltzer ก่อน แผนกทรัพยากรบุคคลมักจะมีแบบฟอร์มให้คุณได้)  เมื่อ Katrina Finton ตอบว่า "I tried that." (ฉันลองทำแบบนั้นแล้ว) มันอ้างอิงถึงสิ่งที่ Steven เพิ่งแนะนำ ซึ่งคือการติดต่อ Ariana Seltzer หลังจากนั้น Katrina ยังเสริมว่า "They don\'t have a set form." (พวกเขาไม่มีแบบฟอร์มสำเร็จรูป) ซึ่งเป็นการยืนยันผลลัพธ์จากการติดต',
+  explain: 'ที่เวลา 1:48 P.M. Steven Khen แนะนำว่า "Double-check with Ariana Seltzer first. The human resources department usually has a form they can provide for you." (ลองตรวจสอบกับ Ariana Seltzer ก่อน แผนกทรัพยากรบุคคลมักจะมีแบบฟอร์มให้คุณได้) เมื่อ Katrina Finton ตอบว่า "I tried that." (ฉันลองทำแบบนั้นแล้ว) มันอ้างอิงถึงสิ่งที่ Steven เพิ่งแนะนำ ซึ่งคือการติดต่อ Ariana Seltzer หลังจากนั้น Katrina ยังเสริมว่า "They don\'t have a set form." (พวกเขาไม่มีแบบฟอร์มสำเร็จรูป) ซึ่งเป็นการยืนยันผลลัพธ์จากการติดต',
   context: null,
   audio: null,
 });
@@ -5756,7 +5752,7 @@ QUESTION_BANK.push({
   text: 'What is indicated about the events?',
   choices: ['They occur each month.', 'They take place online.', 'They are for senior professionals.', 'They are free of charge.'],
   answer: 1,
-  explain: 'ข้อมูลจากภาพระบุชัดเจนในประโยคสุดท้ายว่า "Note that all January events are virtual." (โปรดทราบว่ากิจกรรมเดือนมกราคมทั้งหมดเป็นแบบเสมือนจริง/ออนไลน์) (A) They occur each month. (เกิดขึ้นทุกเดือน) – ข้อมูลระบุเพียง "January Events" (กิจกรรมเดือนมกราคม) ไม่ได้ระบุว่ามีขึ้นทุกเดือน (C) They are for senior professionals. (สำหรับผู้เชี่ยวชาญระดับสูง) – กิจกรรม "Job Search Support" (การสนับสนุนการหางาน) มีการกล่าวถึง "entry-level job" (งานระดับเริ่มต้น) ซึ่งไม่จำกัดแค่ผู้เชี่ยวชาญระดับสูง (D) They are ',
+  explain: 'ข้อมูลจากภาพระบุชัดเจนในประโยคสุดท้ายว่า "Note that all January events are virtual." (โปรดทราบว่ากิจกรรมเดือนมกราคมทั้งหมดเป็นแบบเสมือนจริง/ออนไลน์) (A) They occur each month. (เกิดขึ้นทุกเดือน) – ข้อมูลระบุเพียง "January Events" (กิจกรรมเดือนมกราคม) ไม่ได้ระบุว่ามีขึ้นทุกเดือน (C) They are for senior professionals. (สำหรับผู้เชี่ยวชาญระดับสูง) – กิจกรรม "Job Search Support" (การสนับสนุนการหางาน) มีการกล่าวถึง "entry-level job" (งานระดับเริ่มต้น) ซึ่งไม่จำกัดแค่ผู้เชี่ยวชาญระดับสูง (D) They are',
   context: null,
   audio: null,
 });
@@ -5798,7 +5794,7 @@ QUESTION_BANK.push({
   text: 'In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong? "Homestead, however, is more than just a pretty place." more than just a pretty place.")',
   choices: ['[1]', '[2]', '[3]', '[4]'],
   answer: 2,
-  explain: 'ประโยค "Homestead, however, is more than just a pretty place." มีคำว่า "however" ซึ่งบ่งชี้ถึงความขัดแย้งหรือการเปลี่ยนประเด็นจากสิ่งที่กล่าวมาก่อนหน้า โดยเน้นว่า "Homestead" มีคุณสมบัติอื่น ๆ ที่นอกเหนือไปจากความสวยงาม  ตำแหน่ง [3] อยู่หลังประโยคที่กล่าวว่า "the Homestead planners deserve praise for creating a very attractive place to live." (ผู้วางแผนโครงการ Homestead สมควรได้รับคำชมเชยที่สร้างสถานที่น่าอยู่และสวยงามมาก) ซึ่งประโยคนี้สอดคล้องกับแนวคิดของ "pretty place" หลังจากประโยคที่ต้องการแ',
+  explain: 'ประโยค "Homestead, however, is more than just a pretty place." มีคำว่า "however" ซึ่งบ่งชี้ถึงความขัดแย้งหรือการเปลี่ยนประเด็นจากสิ่งที่กล่าวมาก่อนหน้า โดยเน้นว่า "Homestead" มีคุณสมบัติอื่น ๆ ที่นอกเหนือไปจากความสวยงาม ตำแหน่ง [3] อยู่หลังประโยคที่กล่าวว่า "the Homestead planners deserve praise for creating a very attractive place to live." (ผู้วางแผนโครงการ Homestead สมควรได้รับคำชมเชยที่สร้างสถานที่น่าอยู่และสวยงามมาก) ซึ่งประโยคนี้สอดคล้องกับแนวคิดของ "pretty place" หลังจากประโยคที่ต้องการแ',
   context: null,
   audio: null,
 });
@@ -5910,7 +5906,7 @@ QUESTION_BANK.push({
   text: 'What should a customer do to cancel VIS?',
   choices: ['Visit a local bank branch', 'Make a telephone call', 'Complete an online form', 'Send an e-mail to customer service'],
   answer: 1,
-  explain: 'ในย่อหน้าสุดท้ายของอีเมลระบุว่า "If in the future you no longer wish to use VIS to access your account, simply **call** to have one of our customer-service representatives delete your identification file." (หากในอนาคตคุณไม่ประสงค์จะใช้ VIS เพื่อเข้าถึงบัญชีของคุณ เพียงแค่โทรศัพท์เพื่อให้ตัวแทนฝ่ายบริการลูกค้าของเราลบไฟล์ระบุตัวตนของคุณ) ข้อมูลนี้ระบุชัดเจนว่าต้อง "call" (โทรศัพท์) เพื่อยกเลิก  (A) Visit a local bank branch (ไปที่สาขาธนาคารในพื้นที่) – อีเมลระบุให้โทรศัพท์ ไม่ใช่ให้ไปที่สาขา (C) ',
+  explain: 'ในย่อหน้าสุดท้ายของอีเมลระบุว่า "If in the future you no longer wish to use VIS to access your account, simply **call** to have one of our customer-service representatives delete your identification file." (หากในอนาคตคุณไม่ประสงค์จะใช้ VIS เพื่อเข้าถึงบัญชีของคุณ เพียงแค่โทรศัพท์เพื่อให้ตัวแทนฝ่ายบริการลูกค้าของเราลบไฟล์ระบุตัวตนของคุณ) ข้อมูลนี้ระบุชัดเจนว่าต้อง "call" (โทรศัพท์) เพื่อยกเลิก (A) Visit a local bank branch (ไปที่สาขาธนาคารในพื้นที่) – อีเมลระบุให้โทรศัพท์ ไม่ใช่ให้ไปที่สาขา (C)',
   context: null,
   audio: null,
 });
@@ -5980,7 +5976,7 @@ QUESTION_BANK.push({
   text: 'What book includes historic images?',
   choices: ['Maestro', 'Working Under Moonbeams', 'The Connections Unseen (The Connections Unseen)', 'Flashback'],
   answer: 2,
-  explain: 'หนังสือ "The Connections Unseen" มีคำอธิบายว่า "A collection of transcribed lectures and archival photos" (ชุดรวมของบทบรรยายที่ถอดความและภาพถ่ายจากเอกสารเก่า)  คำว่า "archival photos" (ภาพถ่ายจากเอกสารเก่า/หอจดหมายเหตุ) สื่อความหมายถึงภาพที่มีลักษณะทางประวัติศาสตร์หรือถูกเก็บรักษาไว้ ซึ่งสอดคล้องกับ "historic images" (ภาพประวัติศาสตร์) (A) Maestro – ไม่มีข้อมูลกล่าวถึงภาพ (B) Working Under Moonbeams – ไม่มีข้อมูลกล่าวถึงภาพ (D) Flashback – ไม่มีข้อมูลกล่าวถึงภาพ',
+  explain: 'หนังสือ "The Connections Unseen" มีคำอธิบายว่า "A collection of transcribed lectures and archival photos" (ชุดรวมของบทบรรยายที่ถอดความและภาพถ่ายจากเอกสารเก่า) คำว่า "archival photos" (ภาพถ่ายจากเอกสารเก่า/หอจดหมายเหตุ) สื่อความหมายถึงภาพที่มีลักษณะทางประวัติศาสตร์หรือถูกเก็บรักษาไว้ ซึ่งสอดคล้องกับ "historic images" (ภาพประวัติศาสตร์) (A) Maestro – ไม่มีข้อมูลกล่าวถึงภาพ (B) Working Under Moonbeams – ไม่มีข้อมูลกล่าวถึงภาพ (D) Flashback – ไม่มีข้อมูลกล่าวถึงภาพ',
   context: null,
   audio: null,
 });
@@ -6120,7 +6116,7 @@ QUESTION_BANK.push({
   text: 'What motivated Ms. Dixon to contact Pink Fern Gardens?',
   choices: ['A positive review from a customer', 'An online post from Pink Fern Gardens', 'An article about Pink Fern Gardens', 'A phone message from Mr. Yoneda'],
   answer: 1,
-  explain: 'ในช่อง Comment (ความคิดเห็น) คุณ Mia Dixon ระบุว่า "I saw the callout to local growers on your social media feed." (ฉันเห็นการประกาศเชิญชวนผู้ปลูกในท้องถิ่นในฟีดโซเชียลมีเดียของคุณ) คำว่า "social media feed" (ฟีดโซเชียลมีเดีย) บ่งชี้อย่างชัดเจนว่าเป็นโพสต์ออนไลน์  (A) A positive review from a customer (รีวิวเชิงบวกจากลูกค้า) – ไม่มีข้อมูลในภาพที่ระบุถึงรีวิว (C) An article about Pink Fern Gardens (บทความเกี่ยวกับ Pink Fern Gardens) – คุณดิ๊กซันระบุ "social media feed" ไม่ใช่บทความทั่วไป (D) A ph',
+  explain: 'ในช่อง Comment (ความคิดเห็น) คุณ Mia Dixon ระบุว่า "I saw the callout to local growers on your social media feed." (ฉันเห็นการประกาศเชิญชวนผู้ปลูกในท้องถิ่นในฟีดโซเชียลมีเดียของคุณ) คำว่า "social media feed" (ฟีดโซเชียลมีเดีย) บ่งชี้อย่างชัดเจนว่าเป็นโพสต์ออนไลน์ (A) A positive review from a customer (รีวิวเชิงบวกจากลูกค้า) – ไม่มีข้อมูลในภาพที่ระบุถึงรีวิว (C) An article about Pink Fern Gardens (บทความเกี่ยวกับ Pink Fern Gardens) – คุณดิ๊กซันระบุ "social media feed" ไม่ใช่บทความทั่วไป (D) A ph',
   context: null,
   audio: null,
 });
@@ -6232,7 +6228,7 @@ QUESTION_BANK.push({
   text: 'According to the review, what was Ms. Nelson\'s main concern about her laptop?',
   choices: ['That the parts inside it might be damaged', 'That it was too old to be repaired', 'That it was responding too slowly', 'That its operating system had a virus'],
   answer: 0,
-  explain: 'รีวิวของ Jessica Nelson ระบุว่า "I was afraid the internal components might have been ruined." (ฉันกลัวว่าส่วนประกอบภายในอาจจะเสียหาย) ซึ่งแสดงถึงความกังวลหลักเกี่ยวกับความเสียหายที่อาจเกิดขึ้นกับชิ้นส่วนภายใน  (B) That it was too old to be repaired (ว่ามันเก่าเกินกว่าจะซ่อมได้) – รีวิวกล่าวถึง "faithful old laptop" (แล็ปท็อปเก่าที่ซื่อสัตย์) แต่ไม่ได้ระบุว่ากังวลเรื่องอายุที่ทำให้ซ่อมไม่ได้ (C) That it was responding too slowly (ว่ามันตอบสนองช้าเกินไป) – ไม่มีข้อมูลในรีวิวที่ระบุว่าแล็ปท็อปทำงา',
+  explain: 'รีวิวของ Jessica Nelson ระบุว่า "I was afraid the internal components might have been ruined." (ฉันกลัวว่าส่วนประกอบภายในอาจจะเสียหาย) ซึ่งแสดงถึงความกังวลหลักเกี่ยวกับความเสียหายที่อาจเกิดขึ้นกับชิ้นส่วนภายใน (B) That it was too old to be repaired (ว่ามันเก่าเกินกว่าจะซ่อมได้) – รีวิวกล่าวถึง "faithful old laptop" (แล็ปท็อปเก่าที่ซื่อสัตย์) แต่ไม่ได้ระบุว่ากังวลเรื่องอายุที่ทำให้ซ่อมไม่ได้ (C) That it was responding too slowly (ว่ามันตอบสนองช้าเกินไป) – ไม่มีข้อมูลในรีวิวที่ระบุว่าแล็ปท็อปทำงา',
   context: null,
   audio: null,
 });
@@ -6316,7 +6312,7 @@ QUESTION_BANK.push({
   text: 'According to the receipt, what is true about Alexis Instruments? (ตามใบเสร็จ อะไรเป็นความจริงเกี่ยวกับ Alexis Instruments?)',
   choices: ['It repairs instruments in its stores.', 'It has two stores in Santa Barbara.', 'It is holding an annual sale.', 'It was founded by a professional musician.'],
   answer: 0,
-  explain: 'จากอีเมลระบุว่า "Our in-house luthier has thoroughly inspected the guitar" (ช่างทำเครื่องดนตรีประจำของเราได้ตรวจสอบกีตาร์อย่างละเอียดแล้ว) ซึ่ง luthier คือช่างผู้เชี่ยวชาญด้านการผลิตหรือซ่อมแซมเครื่องดนตรีประเภทเครื่องสาย และจากใบเสร็จ (Receipt) ในส่วน Description มีรายการ "Three-year repair and maintenance plan, good at any Alexis Instruments location" (แผนซ่อมแซมและบำรุงรักษา 3 ปี ใช้ได้ที่ Alexis Instruments ทุกสาขา) ซึ่งยืนยันว่ามีบริการซ่อมแซมและบำรุงรักษาเครื่องดนตรี (B) It has two stores ',
+  explain: 'จากอีเมลระบุว่า "Our in-house luthier has thoroughly inspected the guitar" (ช่างทำเครื่องดนตรีประจำของเราได้ตรวจสอบกีตาร์อย่างละเอียดแล้ว) ซึ่ง luthier คือช่างผู้เชี่ยวชาญด้านการผลิตหรือซ่อมแซมเครื่องดนตรีประเภทเครื่องสาย และจากใบเสร็จ (Receipt) ในส่วน Description มีรายการ "Three-year repair and maintenance plan, good at any Alexis Instruments location" (แผนซ่อมแซมและบำรุงรักษา 3 ปี ใช้ได้ที่ Alexis Instruments ทุกสาขา) ซึ่งยืนยันว่ามีบริการซ่อมแซมและบำรุงรักษาเครื่องดนตรี (B) It has two stores',
   context: null,
   audio: null,
 });
@@ -6330,7 +6326,7 @@ QUESTION_BANK.push({
   text: 'What is suggested in the first e-mail about the Mirabel Museum of Art?',
   choices: ['It hires art teachers to lead tours.', 'It offers private tours to museum members.', 'Its art classes are free to the public.', 'Its next staff training will take place in ten days.'],
   answer: 0,
-  explain: 'อีเมลฉบับแรกมีผู้รับคือ "All Instructors" (ผู้สอนทุกคน) และผู้ส่งคือ "Jee-Young Choi, Education Coordinator" (ผู้ประสานงานการศึกษา) ซึ่งกล่าวถึง "artists and educators" (ศิลปินและนักการศึกษา) ที่ช่วยงานพิพิธภัณฑ์ ตารางค่าธรรมเนียมมีรายการ "Category: Tour, Description: Lead group tour" (นำทัวร์กลุ่ม) ซึ่งมีค่าธรรมเนียมระบุไว้ สิ่งนี้ชี้ให้เห็นว่าพิพิธภัณฑ์จ้างผู้สอน ซึ่งเป็นครูสอนศิลปะหรือนักการศึกษา ให้นำทัวร์  (B) It offers private tours to museum members. (มีทัวร์ส่วนตัวสำหรับสมาชิกพิพิธภัณฑ์)',
+  explain: 'อีเมลฉบับแรกมีผู้รับคือ "All Instructors" (ผู้สอนทุกคน) และผู้ส่งคือ "Jee-Young Choi, Education Coordinator" (ผู้ประสานงานการศึกษา) ซึ่งกล่าวถึง "artists and educators" (ศิลปินและนักการศึกษา) ที่ช่วยงานพิพิธภัณฑ์ ตารางค่าธรรมเนียมมีรายการ "Category: Tour, Description: Lead group tour" (นำทัวร์กลุ่ม) ซึ่งมีค่าธรรมเนียมระบุไว้ สิ่งนี้ชี้ให้เห็นว่าพิพิธภัณฑ์จ้างผู้สอน ซึ่งเป็นครูสอนศิลปะหรือนักการศึกษา ให้นำทัวร์ (B) It offers private tours to museum members. (มีทัวร์ส่วนตัวสำหรับสมาชิกพิพิธภัณฑ์)',
   context: null,
   audio: null,
 });
@@ -6391,6 +6387,7 @@ QUESTION_BANK.push({
   audio: null,
 });
 
-/* ── อัปเดต BANK_COUNTS ── */
+/* ── BANK_COUNTS declaration + update ── */
+const BANK_COUNTS = {};
 BANK_COUNTS['old'] = QUESTION_BANK.filter(q => q.set === 'ข้อสอบเก่า').length;
 BANK_COUNTS['all'] = QUESTION_BANK.length;
